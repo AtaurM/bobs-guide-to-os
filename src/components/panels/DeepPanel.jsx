@@ -74,7 +74,11 @@ function DeepSection({ section }) {
 export default function DeepPanel() {
     return (
         <div className={styles.panel}>
-            <h2 className={styles.panelTitle}>In-Depth Explanations</h2>
+            <div className={styles.panelHeader}>
+                <p className={styles.panelTop}>Deep Dive · Full Concept Explanations</p>
+                <h2 className={styles.panelTitle}>In-Depth Explanations</h2>
+                <p className={styles.panelSub}>Click any section to expand it.</p>
+            </div>
 
             {deepDiveData.map((section) => (
                 <DeepSection key={section.title} section={section} />

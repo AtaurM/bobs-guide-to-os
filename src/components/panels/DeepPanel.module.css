@@ -9,7 +9,28 @@
     font-size: 3.5rem;
     color: var(--text);
     line-height: 1;
+    margin-bottom: 8px;
+}
+
+.panelHeader {
     margin-bottom: 40px;
+}
+
+.panelTop {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.panelSub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-top: 8px;
 }
 
 .section {
@@ -26,10 +47,11 @@
 
 .sectionTitle {
     font-family: var(--font-display);
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     color: var(--text);
     font-weight: 400;
     line-height: 1.1;
+    letter-spacing: 0.02em;
 }
 
 .header {
@@ -54,7 +76,7 @@
 
 .arrow {
     font-size: 1.4rem;
-    color: var(--text-dim);
+    color: var(--accent);
     flex-shrink: 0;
     transition: transform 0.25s ease;
 }
@@ -99,16 +121,18 @@
 
 .term {
     padding: 12px 16px;
-    border-left: 3px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid var(--accent2);
+    background: rgba(var(--accent2-rgb), 0.05);
+    border-radius: 0 6px 6px 0;
 }
 
 .termName {
     display: block;
     font-family: var(--font-body);
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text);
+    color: var(--accent2);
     margin-bottom: 3px;
     font-weight: 600;
 }
