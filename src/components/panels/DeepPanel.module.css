@@ -13,7 +13,6 @@
 }
 
 .section {
-    padding: 20px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -31,4 +30,50 @@
     color: var(--text);
     font-weight: 400;
     line-height: 1.1;
+}
+
+.header {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 20px 0;
+    display: block;
+    :hover {
+        opacity: 0.75;
+    }
+}
+
+.headerInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.arrow {
+    font-size: 1.4rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.arrowOpen {
+    transform: rotate(90deg);
+}
+
+.content {
+    padding-bottom: 28px;
+}
+
+.bodyPara {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.78;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    :last-child {
+        margin-bottom: 0;
+    }
 }
