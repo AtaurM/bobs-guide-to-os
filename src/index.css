@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap");
+
+/* override to avoid fighting invisible browser default styles!*/
+*, *::before, *::after {
+  box-sizing: border-box; /* padding included within width */
+  margin: 0;
+  padding: 0;
+}
+
+/* dark theme variables (default) */
+:root {
+  --bg: #06060f;
+  --text: #eaeaf4;
+  --text-muted: rgba(234, 234, 244, 0.80);
+  --text-dim: #6666a0;
+  --font-display: "Bebas Neue", sans-serif;
+  --font-body: "Crimson Pro", Georgia, serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+}
