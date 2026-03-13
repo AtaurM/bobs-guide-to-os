@@ -77,3 +77,76 @@
         margin-bottom: 0;
     }
 }
+
+.terms {
+    margin-top: 24px;
+}
+
+.termsLabel {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+}
+
+.termList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.term {
+    padding: 12px 16px;
+    border-left: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.termName {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+
+.termDef {
+ font-family: var(--font-body);
+ font-size: 0.93rem;
+ color: var(--text-muted);
+ line-height: 1.5;
+}
+
+.exam {
+    margin-top: 20px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    background: rgba(255, 214, 10, 0.06);
+    border: 1px solid rgba(255, 214, 10, 0.14);
+}
+
+.examLabel {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 215, 10, 0.8);
+    margin-bottom: 10px;
+}
+
+.examList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-left: 14px;
+}
+.examItem {
+    font-family: var(--font-body);
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}

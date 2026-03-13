@@ -39,6 +39,32 @@ function DeepSection({ section }) {
                     {section.body.map((para, i) => (
                         <BodyParagraph key={i} paragraph={para} />
                     ))}
+
+                    {/* terms and tips are optional */}
+                    {section.terms && (
+                        <div className={styles.terms}>
+                            <p className={styles.termsLabel}>Key Terms</p>
+                            <div className={styles.termList}>
+                                {section.terms.map((term, i) => (
+                                    <div key={i} className={styles.term}>
+                                        <strong className={styles.termName}>{term.t}</strong>
+                                        <span className={styles.termDef}>{term.d}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {section.exam && (
+                        <div className={styles.exam}>
+                            <p className={styles.examLabel}>⚡ Exam Tips</p>
+                            <ul className={styles.examList}>
+                                {section.exam.map((tip, i) => (
+                                    <li key={i} className={styles.examItem}>{tip}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
