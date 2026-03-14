@@ -144,6 +144,15 @@
  line-height: 1.5;
 }
 
+.termsLabel {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.14rem;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 10px;
+}
+
 .exam {
     margin-top: 20px;
     padding: 14px 18px;

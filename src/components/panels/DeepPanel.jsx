@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import deepDiveData from '../../data/deepDiveData'
 import styles from './DeepPanel.module.css'
+import Collapse from '../common/Collapse'
 
 // parse type of paragraph
 function BodyParagraph({ paragraph }) {
@@ -34,7 +35,7 @@ function DeepSection({ section }) {
                 </div>
             </button>
 
-            {isOpen && (
+            <Collapse isOpen={isOpen}>
                 <div className={styles.content}>
                     {section.body.map((para, i) => (
                         <BodyParagraph key={i} paragraph={para} />
@@ -66,7 +67,7 @@ function DeepSection({ section }) {
                         </div>
                     )}
                 </div>
-            )}
+            </Collapse>
         </div>
     )
 }
