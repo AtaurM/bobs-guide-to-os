@@ -14,8 +14,14 @@
   --text: #eaeaf4;
   --text-muted: rgba(234, 234, 244, 0.80);
   --text-dim: #6666a0;
+  
   --font-display: "Bebas Neue", sans-serif;
   --font-body: "Crimson Pro", Georgia, serif;
+
+  --accent: #ff3d9a;
+  --accent-rgb: 255, 61, 154;
+  --accent2: #00e0ff;
+  --accent2-rgb: 0, 224, 255;
 }
 
 body {
