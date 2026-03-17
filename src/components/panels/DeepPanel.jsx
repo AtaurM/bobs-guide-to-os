@@ -2,6 +2,8 @@ import { useState } from 'react'
 import deepDiveData from '../../data/deepDiveData'
 import styles from './DeepPanel.module.css'
 import Collapse from '../common/Collapse'
+import { useSearch } from '../../context/SearchContext'
+import { deepMatchesQuery } from '../../utils/searchUtils'
 
 // parse type of paragraph
 function BodyParagraph({ paragraph }) {
@@ -73,6 +75,12 @@ function DeepSection({ section }) {
 }
 
 export default function DeepPanel() {
+    const query = useSearch()
+    const hasQuery = query.trim().length > 0;
+
+    const matchingSections = deepDiveData.filter(s => deepMatchesQuery(s. query));
+    const otherSections = deepDiveData.filter(s => !deepMatchesQuery(s, query));
+
     return (
         <div className={styles.panel}>
             <div className={styles.panelHeader}>
@@ -81,9 +89,18 @@ export default function DeepPanel() {
                 <p className={styles.panelSub}>Click any section to expand it.</p>
             </div>
 
-            {deepDiveData.map((section) => (
+            {matchingSections.map((section) => (
                 <DeepSection key={section.title} section={section} />
             ))}
+
+            {hasQuery && otherSections.length > 0 && (
+                <div className={styles.others}>
+                    <p className={styles.othersLabel}>
+                        {otherSections.length} other section{otherSections.length !== 1 ? 's' : ''} hidden
+                    </p>
+                </div>
+            )}
+
         </div>
     )
 }
