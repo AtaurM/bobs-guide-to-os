@@ -77,6 +77,7 @@ function DeepSection({ section }) {
 export default function DeepPanel() {
     const query = useSearch()
     const hasQuery = query.trim().length > 0;
+    const [othersOpen, setOthersOpen] = useState(false)
 
     const matchingSections = deepDiveData.filter(s => deepMatchesQuery(s, query));
     const otherSections = deepDiveData.filter(s => !deepMatchesQuery(s, query));
@@ -95,9 +96,23 @@ export default function DeepPanel() {
 
             {hasQuery && otherSections.length > 0 && (
                 <div className={styles.others}>
-                    <p className={styles.othersLabel}>
-                        {otherSections.length} other section{otherSections.length !== 1 ? 's' : ''} hidden
-                    </p>
+                    <button
+                        className={styles.othersToggle}
+                        onClick={() => setOthersOpen(v => !v)}
+                    >
+                        <span>{othersOpen ? '▾' : '▸'}</span>
+                        <span>Other sections ({otherSections.length})</span>
+                    </button>
+
+                    <Collapse isOpen={othersOpen}>
+                        <div>
+                            {otherSections.map((section) => (
+                                <div key={section.title} className={styles.othersItem}>
+                                    <DeepSection section={section} forceOpen={false} />
+                                </div>
+                            ))}
+                        </div>
+                    </Collapse>
                 </div>
             )}
 
