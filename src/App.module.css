@@ -24,3 +24,12 @@
   }
 
 }
+
+.searchArea {
+  position: fixed;
+  top: 12px;
+  left: 16px;
+  right: 16px;
+  max-width: 360px;
+  z-index: 700;
+}
