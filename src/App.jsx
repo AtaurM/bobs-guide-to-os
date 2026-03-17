@@ -12,7 +12,7 @@ export default function App() {
     <div className={styles.root}>
       <ProgressBar progress={progress} />
 
-      <main ref={mainRef} className={styles.main}>
+      <main ref={mainRef} className={styles.main} style={{ paddingTop: 54 }}>
         <DeepPanel />
       </main>
     </div>
