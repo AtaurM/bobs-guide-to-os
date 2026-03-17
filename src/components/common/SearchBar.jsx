@@ -11,6 +11,15 @@ export default function SearchBar({ value, onChange }) {
                 placeholder="Search..."
                 aria-label="Search"
             />
+            {value && (
+                <button
+                    className={styles.clear}
+                    onClick={() => onChange('')}
+                    aria-label="Clear search"
+                >
+                    ×
+                </button>
+            )}
         </div>
     )
 }
