@@ -78,7 +78,7 @@ export default function DeepPanel() {
     const query = useSearch()
     const hasQuery = query.trim().length > 0;
 
-    const matchingSections = deepDiveData.filter(s => deepMatchesQuery(s. query));
+    const matchingSections = deepDiveData.filter(s => deepMatchesQuery(s, query));
     const otherSections = deepDiveData.filter(s => !deepMatchesQuery(s, query));
 
     return (
