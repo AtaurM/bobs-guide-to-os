@@ -38,11 +38,12 @@
 }
 
 .sectionSub {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--text-dim);
     margin-bottom: 4px;
-    font-style: italic;
 }
 
 .sectionTitle {
@@ -105,11 +106,11 @@
 }
 
 .termsLabel {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--accent2);
     margin-bottom: 10px;
 }
 
@@ -144,15 +145,6 @@
  line-height: 1.5;
 }
 
-.termsLabel {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
-    letter-spacing: 0.14rem;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 10px;
-}
-
 .exam {
     margin-top: 20px;
     padding: 14px 18px;
@@ -162,8 +154,8 @@
 }
 
 .examLabel {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: rgba(255, 215, 10, 0.8);
@@ -194,4 +186,26 @@
     font-size: 0.8rem;
     color: var(--tex-dim);
     font-style: italic;
+}
+
+.othersToggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    padding: 8px 0;
+    transition: color 0.2s;
+}
+
+.othersToggle:hover {
+    color: var(--text);
+}
+
+.othersItem {
+    opacity: 0.5;
 }

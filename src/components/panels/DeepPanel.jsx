@@ -1,37 +1,43 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import deepDiveData from '../../data/deepDiveData'
 import styles from './DeepPanel.module.css'
 import Collapse from '../common/Collapse'
+import Highlight from '../common/Highlight'
 import { useSearch } from '../../context/SearchContext'
 import { deepMatchesQuery } from '../../utils/searchUtils'
 
 // parse type of paragraph
 function BodyParagraph({ paragraph }) {
     if (typeof paragraph === 'string') {
-        return <p className={styles.bodyPara}>{paragraph}</p>
+        return <p className={styles.bodyPara}><Highlight text={paragraph} /></p>
     }
 
     return (
         <p className={styles.bodyPara}>
             {paragraph.map((seg, i) =>
                 seg.bold
-                    ? <strong key={i}>{seg.text}</strong>
-                    : <span key={i}>{seg.text}</span>
+                    ? <strong key={i}><Highlight text={seg.text} /></strong>
+                    : <Highlight key={i} text={seg.text} />
             )}
         </p>
     )
 }
 
-function DeepSection({ section }) {
-    const [isOpen, setIsOpen] = useState(false)
+function DeepSection({ section, forceOpen }) {
+    const [isOpen, setIsOpen] = useState(false);
+    
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        if (forceOpen) setIsOpen(true);
+    }, [forceOpen])
 
     return (
         <div className={styles.section}>
             <button className={styles.header} onClick={() => setIsOpen(!isOpen)}>
                 <div className={styles.headerInner}>
                     <div>
-                        <p className={styles.sectionSub}>{section.sub}</p>
-                        <h3 className={styles.sectionTitle}>{section.title}</h3>
+                        <p className={styles.sectionSub}><Highlight text={section.sub} /></p>
+                        <h3 className={styles.sectionTitle}><Highlight text={section.title} /></h3>
                     </div>
                     <span className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ''}`}>›</span>
                 </div>
@@ -50,8 +56,8 @@ function DeepSection({ section }) {
                             <div className={styles.termList}>
                                 {section.terms.map((term, i) => (
                                     <div key={i} className={styles.term}>
-                                        <strong className={styles.termName}>{term.t}</strong>
-                                        <span className={styles.termDef}>{term.d}</span>
+                                        <strong className={styles.termName}><Highlight text={term.t} /></strong>
+                                        <span className={styles.termDef}><Highlight text={term.d} /></span>
                                     </div>
                                 ))}
                             </div>
@@ -63,7 +69,7 @@ function DeepSection({ section }) {
                             <p className={styles.examLabel}>⚡ Exam Tips</p>
                             <ul className={styles.examList}>
                                 {section.exam.map((tip, i) => (
-                                    <li key={i} className={styles.examItem}>{tip}</li>
+                                    <li key={i} className={styles.examItem}><Highlight text={tip} /></li>
                                 ))}
                             </ul>
                         </div>
@@ -91,7 +97,7 @@ export default function DeepPanel() {
             </div>
 
             {matchingSections.map((section) => (
-                <DeepSection key={section.title} section={section} />
+                <DeepSection key={section.title} section={section} forceOpen={hasQuery} />
             ))}
 
             {hasQuery && otherSections.length > 0 && (
