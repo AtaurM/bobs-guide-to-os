@@ -1,3 +1,7 @@
+export function deepSectionId(title) {
+    return `deep-${title.replace(/\s+/g, '-').toLowerCase()}`
+}
+
 export function deepMatchesQuery(section, query) {
     if (!query || !query.trim()) return true;
 

@@ -4,7 +4,7 @@ import styles from './DeepPanel.module.css'
 import Collapse from '../common/Collapse'
 import Highlight from '../common/Highlight'
 import { useSearch } from '../../context/SearchContext'
-import { deepMatchesQuery } from '../../utils/searchUtils'
+import { deepSectionId, deepMatchesQuery } from '../../utils/searchUtils'
 
 // parse type of paragraph
 function BodyParagraph({ paragraph }) {
@@ -32,7 +32,7 @@ function DeepSection({ section, forceOpen }) {
     }, [forceOpen])
 
     return (
-        <div className={styles.section}>
+        <div className={styles.section} id={deepSectionId(section.title)}>
             <button className={styles.header} onClick={() => setIsOpen(!isOpen)}>
                 <div className={styles.headerInner}>
                     <div>
