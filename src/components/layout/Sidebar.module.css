@@ -30,12 +30,26 @@
     text-align: left;
 }
 
+.navItem:hover {
+ background: rgba(255, 255, 255, 0.04);
+}
+
+.navItem:hover .dot {
+ background: rgba(var(--accent-rgb), 0.5);
+}
+
+.navItem:hover .label {
+ color: var(--text-muted);
+}
+
+
 .dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.2);
     flex-shrink: 0;
+    transition: background 0.22s, width 0.22s, height 0.22s, box-shadow 0.22s;
 }
 
 .label {
@@ -47,4 +61,19 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.navItemActive {
+    background: rbga(var(--accent-rgb), 0.08)
+}
+
+.dotActive {
+    background: var(--accent);
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 6px rgba(var(--accent-rgb), 0.5);
+}
+
+.labelActive {
+    color: var(--accent);
 }
