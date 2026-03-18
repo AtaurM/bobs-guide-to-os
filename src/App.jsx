@@ -21,19 +21,45 @@ export default function App() {
   const mainRef = useRef(null);
   const progress = useScrollProgress(mainRef);
   const activeIndex = useActiveSection(DEEP_SECTION_IDS, mainRef, 'deep');
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState('');
+  const [openSections, setOpenSections] = useState(new Set());
+  const [allOpen, setAllOpen] = useState(false);
+
+  function toggleSection(id) {
+    setOpenSections(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
+
+  function handleToggleAll() {
+    const allIds = DEEP_NAV_ITEMS.map(s => s.id)
+    if (allOpen) {
+      setOpenSections(new Set());
+      setAllOpen(false);
+    } else {
+      setOpenSections(new Set(allIds));
+      setAllOpen(true);
+    }
+  }
 
   function scrollToId(index, id) {
-    const el = document.getElementById(id);
-    const container = mainRef.current;
+    const el = document.getElementById(id)
+    const container = mainRef.current
 
-    if (!el || !container) return;
+    const elTop = el?.getBoundingClientRect().top
+    const containerTop = container?.getBoundingClientRect().top
+    const distance = elTop - containerTop - 70
 
-    const elTop = el.getBoundingClientRect().top;
-    const containerTop = container.getBoundingClientRect().top;
-    const target = container.scrollTop + elTop - containerTop - 70;
-    container.scrollTo({ top: target, behavior: 'smooth' });
+    const isCurrentlyOpen = openSections.has(id)
+    if (!isCurrentlyOpen || Math.abs(distance) < 5) {
+      toggleSection(id)
+    }
 
+    if (!el || !container) return
+    const target = container.scrollTop + distance
+    container.scrollTo({ top: target, behavior: 'smooth' })
   }
 
   return (
@@ -45,6 +71,8 @@ export default function App() {
           sections={DEEP_NAV_ITEMS}
           activeIndex={activeIndex}
           onSectionClick={scrollToId}
+          allOpen={allOpen}
+          onToggleAll={handleToggleAll}
         />
 
         <div className={styles.searchArea} >
@@ -56,7 +84,7 @@ export default function App() {
           className={styles.main}
           style={{ marginLeft: 230, paddingTop: 54 }}
         >
-          <DeepPanel />
+          <DeepPanel openSections={openSections} onToggleSection={toggleSection} />
         </main>
       </div>
     </SearchContext.Provider>

@@ -1,6 +1,6 @@
 import styles from './Sidebar.module.css'
 
-export default function Sidebar({ sections, activeIndex, onSectionClick }) {
+export default function Sidebar({ sections, activeIndex, onSectionClick, allOpen, onToggleAll }) {
     return (
         <aside className={styles.sidebar}>
             <nav className={styles.nav}>
@@ -18,6 +18,10 @@ export default function Sidebar({ sections, activeIndex, onSectionClick }) {
                     </button>
                 ))}
             </nav>
+
+            <button className={styles.toggleAll} onClick={onToggleAll}>
+                {allOpen ? 'Close all' : 'Open all'}
+            </button>
         </aside>
     )
 }
