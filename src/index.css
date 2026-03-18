@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap");
 
 /* override to avoid fighting invisible browser default styles!*/
 *, *::before, *::after {
@@ -17,6 +16,7 @@
   
   --font-display: "Bebas Neue", sans-serif;
   --font-body: "Crimson Pro", Georgia, serif;
+  --font-mono: "JetBrains Mono", monospace;
 
   --accent: #ff3d9a;
   --accent-rgb: 255, 61, 154;
