@@ -1,0 +1,102 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 230px;
+    background: rgba(255, 255, 255, 0.02);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 20px 12px;
+    overflow-y: auto;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 48px;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+}
+
+.navItem:hover {
+ background: rgba(255, 255, 255, 0.04);
+}
+
+.navItem:hover .dot {
+ background: rgba(var(--accent-rgb), 0.5);
+}
+
+.navItem:hover .label {
+ color: var(--text-muted);
+}
+
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+    transition: background 0.22s, width 0.22s, height 0.22s, box-shadow 0.22s;
+}
+
+.label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.navItemActive {
+    background: rbga(var(--accent-rgb), 0.08)
+}
+
+.dotActive {
+    background: var(--accent);
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 6px rgba(var(--accent-rgb), 0.5);
+}
+
+.labelActive {
+    color: var(--accent);
+}
+
+.toggleAll {
+    position: fixed;
+    width: 198px;
+    bottom: 20px;
+    left: 16px;
+    padding: 6px;
+    border-radius: 8px;
+    border: 2px solid;
+    background: transparent;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.toggleAll:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}

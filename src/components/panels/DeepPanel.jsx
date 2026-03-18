@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import deepDiveData from '../../data/deepDiveData'
 import styles from './DeepPanel.module.css'
 import Collapse from '../common/Collapse'
 import Highlight from '../common/Highlight'
 import { useSearch } from '../../context/SearchContext'
-import { deepMatchesQuery } from '../../utils/searchUtils'
+import { deepSectionId, deepMatchesQuery } from '../../utils/searchUtils'
 
 // parse type of paragraph
 function BodyParagraph({ paragraph }) {
@@ -23,17 +23,10 @@ function BodyParagraph({ paragraph }) {
     )
 }
 
-function DeepSection({ section, forceOpen }) {
-    const [isOpen, setIsOpen] = useState(false);
-    
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        if (forceOpen) setIsOpen(true);
-    }, [forceOpen])
-
+function DeepSection({ section, isOpen, onToggle }) {
     return (
-        <div className={styles.section}>
-            <button className={styles.header} onClick={() => setIsOpen(!isOpen)}>
+        <div className={styles.section} id={deepSectionId(section.title)}>
+            <button className={styles.header} onClick={onToggle}>
                 <div className={styles.headerInner}>
                     <div>
                         <p className={styles.sectionSub}><Highlight text={section.sub} /></p>
@@ -80,7 +73,7 @@ function DeepSection({ section, forceOpen }) {
     )
 }
 
-export default function DeepPanel() {
+export default function DeepPanel({ openSections, onToggleSection }) {
     const query = useSearch()
     const hasQuery = query.trim().length > 0;
     const [othersOpen, setOthersOpen] = useState(false)
@@ -96,9 +89,17 @@ export default function DeepPanel() {
                 <p className={styles.panelSub}>Click any section to expand it.</p>
             </div>
 
-            {matchingSections.map((section) => (
-                <DeepSection key={section.title} section={section} forceOpen={hasQuery} />
-            ))}
+            {matchingSections.map((section) => {
+                const id = deepSectionId(section.title);
+                return (
+                    <DeepSection
+                        key={section.title}
+                        section={section}
+                        isOpen={openSections.has(id) || hasQuery}
+                        onToggle={() => onToggleSection(id)}
+                    />
+                )
+            })}
 
             {hasQuery && otherSections.length > 0 && (
                 <div className={styles.others}>
@@ -114,7 +115,7 @@ export default function DeepPanel() {
                         <div>
                             {otherSections.map((section) => (
                                 <div key={section.title} className={styles.othersItem}>
-                                    <DeepSection section={section} forceOpen={false} />
+                                    <DeepSection section={section} />
                                 </div>
                             ))}
                         </div>
