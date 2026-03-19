@@ -130,7 +130,36 @@ const deepDiveData = [
     {
         title: "Dual Mode & System Calls",
         sub: "User & Kernel Mode + Context Switch",
-        body: []
+        body: [
+            [
+                { text: "The CPU can execute instructions in different " },
+                { text: "modes", bold: true },
+                { text: ". In a " },
+                { text: "dual mode", bold: true },
+                { text: " architecture, the CPU can run in " },
+                { text: "user mode", bold: true },
+                { text: " and " },
+                { text: "kernel mode", bold: true },
+                { text: ". In user mode, the CPU will refuse any attempt to execute a privileged instruction and alert the OS. In kernel mode, the CPU will execute all instructions."},
+            ],
+            "A system call is a request for a service from the operating system. When the CPU executes a system call, it automatically (hardwired behavior) switches to kernel mode and executes the OS’ syscall handler. The application must load the system call number into a specific register before the request. The OS checks this, executes the request service if the application has permission, and then switches back.",
+            [
+                { text: "This switching is known as " },
+                { text: "context switching", bold: true },
+                { text: ". It requires updating the process' PCB (" },
+                { text: "saving context", bold: true },
+                { text: "), meaning the CPU has to spend more time doing this for every system call instead of executing processes. System calls require one switch to the OS and one back. Well-optimized code minimizes syscalls to reduce this overhead." }
+            ],
+            "In 2024, security software from Crowdstrike was granted kernel-mode execution rights by Microsoft certification. One update contained a null pointer dereference. Running in kernel mode, on 8.5 million Windows machines globally, it crashed the entire OS instead of just the application 💀💀💀",
+        ],
+        terms: [
+            { t: "System call", d: "A request for a service from an application to the operating system." },
+            { t: "Mode bit", d: "The CPU register that indicates the current execution mode (user or kernel in dual mode)." },
+        ],
+        exam: [
+            "Syscall = ‘OS do it for me,’ NOT a request for extra privileges.",
+            "Performance overhead = two mode switches (process → OS, OS → process)"
+        ]
     },
 
     {
