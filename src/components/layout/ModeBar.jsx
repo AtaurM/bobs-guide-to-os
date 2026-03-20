@@ -1,8 +1,10 @@
 import styles from './ModeBar.module.css'
 
 const MODES = [
-    { id: 'deep', label: 'Deep Dive' },
-    { id: 'qr', label: 'Quick Ref' },
+    { id: 'guide', label: 'Guide' },
+    { id: 'deep', label: 'Concepts' },
+    { id: 'qr', label: 'Terms' },
+    { id: 'study', label: 'Study' },
 ]
 
 export default function ModeBar({ mode, onModeChange }) {
