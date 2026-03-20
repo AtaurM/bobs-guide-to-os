@@ -91,7 +91,7 @@ function DeepSection({ section, isOpen, onToggle }) {
     )
 }
 
-export default function DeepPanel({ openSections, onToggleSection, sidebarOpen }) {
+export default function DeepPanel({ openSections, onToggleSection, sidebarOpen, isMobile }) {
     const query = useSearch()
     const hasQuery = query.trim().length > 0;
     const [othersOpen, setOthersOpen] = useState(false)
@@ -103,15 +103,15 @@ export default function DeepPanel({ openSections, onToggleSection, sidebarOpen }
         <div
             className={styles.panel}
             style={{
-                paddingTop: sidebarOpen ? '40px' : '70px',
+                paddingTop: isMobile ? '28px' : sidebarOpen ? '40px' : '70px',
                 transition: 'padding-top 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
         >
             <div className={styles.panelHeader}>
                 <p className={styles.panelTop}>Deep Dive · Concept Explanations</p>
                 <h2 className={styles.panelTitle}>Bob's Guide to OS</h2>
-                <p className={styles.panelSub2}>FORMAL TERM LIST + QUESTION EXPLANATIONS COMING OUT LATER TODAY!</p>
-                <p className={styles.panelSub}>Click any section to expand it.</p>
+                <p className={styles.panelSub2}>QUESTION EXPLANATIONS COMING OUT LATER TODAY!</p>
+                <p className={styles.panelSub}>Click any section to expand it. This is JUST for understanding. Use terms tab for definitions.</p>
             </div>
 
             {matchingSections.map((section) => {
