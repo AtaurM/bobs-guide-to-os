@@ -1,0 +1,68 @@
+.btn {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    color: var(--text-dim);
+    background: transparent;
+    border-radius: 30px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.btn:hover {
+    color: var(--text);
+}
+
+.active {
+    color: #fff;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.35);
+}
+
+.labelShort { display: none; }
+.labelFull  { display: inline; }
+
+.desktop {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 40px;
+    padding: 4px 6px;
+}
+
+.desktop .btn { padding: 6px 13px; }
+
+.mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    background: var(--bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 8px 12px 12px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.mobile .btn {
+    flex: 1;
+    max-width: 100px;
+    padding: 8px 4px;
+    text-align: center;
+}
+
+/* switch to short labels when screen is narrow */
+@media (max-width: 240px) {
+    .mobile .labelFull  { display: none; }
+    .mobile .labelShort { display: inline; }
+}

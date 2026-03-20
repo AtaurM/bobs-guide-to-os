@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/osguide/(.*)", "destination": "/osguide/$1" },
+    { "source": "/osguide", "destination": "/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

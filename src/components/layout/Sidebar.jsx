@@ -1,8 +1,8 @@
 import styles from './Sidebar.module.css'
 
-export default function Sidebar({ sections, activeIndex, onSectionClick, allOpen, onToggleAll }) {
+export default function Sidebar({ sections, activeIndex, onSectionClick, allOpen, onToggleAll, isOpen }) {
     return (
-        <aside className={styles.sidebar}>
+        <aside className={`${styles.sidebar} ${isOpen ? styles.open : styles.closed}`}>
             <nav className={styles.nav}>
                 {sections.map((section, i) => (
                     <button

@@ -447,7 +447,7 @@ const deepDiveData = [
         { text: "IP address", bold: true },
         { text: ". In the classic IPv4 form, it looks like four unsigned byte values between 0 and 255 separated by dots (e.g., 56.32.123.99). When you type a URL instead of an IP address, your computer contacts a " },
         { text: "DNS server", bold: true },
-        { text: " (Domain Name System) to look up the corresponding IP address. Your DNS server's own address comes from your network settings, often assigned automatically when you first connect to the network." },
+        { text: " (Domain Name System) to look up the corresponding IP address. Your DNS server's own address comes from your network settings, often assigned automatically when you connect to the network." },
         ],
         [
         { text: "Knowing the destination IP is still not enough, however. Multiple processes can be running on the same machine. When a message arrives at a server, the OS needs to know which process should receive it. This is handled by " },
@@ -621,7 +621,7 @@ const deepDiveData = [
         { text: "exec(\"filename\")", bold: true },
         { text: " erases the " },
         { text: "ENTIRE", bold: true },
-        { text: " content of the calling process and loads a new program from the specified executable file. The PID stays the same, but the program running is completely different. exec() does not return anything on success. It is typically called in the child immediately after a fork(). As an optimization, the OS often delays actually copying the parent's memory until exec() is not called. If it sees you are about to replace the content anyway, it skips the copy." },
+        { text: " content of the calling process and loads a new program from the specified executable file. The PID stays the same, but the program running is completely different. exec() does not return anything on success (only on failure). It is typically called in the child immediately after a fork(). As an optimization, the OS often delays actually copying the parent's memory until exec() is not called. If it sees you are about to replace the content anyway, it skips the copy." },
         ],
         [
         { text: "exit(status)", bold: true },
@@ -643,7 +643,7 @@ const deepDiveData = [
             { text: "orphan process", bold: true },
             { text: " is a process whose parent has exited without calling wait(). The child will eventually exit and become a zombie with no parent to clean it up, and these can accumulate. The OS handles this either through " },
             { text: "cascading termination", bold: true },
-            { text: " (killing all descendants when a process exits… 💀) or by having a designated process adopt orphans and call wait() for them. Aww." },
+            { text: " (killing all descendants when a process exits… 💀) or by having a designated process adopt orphans and call wait() for them. Aww. Oh wait the adopting process is called the reaper 💀💀" },
         ],
         ]},
     ],
@@ -653,7 +653,7 @@ const deepDiveData = [
         { t: "exit(status)", d: "Stops the process and releases resources. 0 = success; non-zero = error. PCB remains until parent calls wait()." },
         { t: "wait()", d: "Called by parent to pause until a child exits. Collects exit status and destroys the PCB." },
         { t: "Zombie Process", d: "Called exit() but parent hasn't called wait() yet. No resources, but PCB still exists. Fine until they accumulate in RAM." },
-        { t: "Orphan Process", d: "Parent exited without calling wait(). Must be resolved by OS via cascading termination or adoption." },
+        { t: "Orphan Process", d: "Parent exited without calling wait(). Must be resolved by OS via cascading termination or adoption by reaper process." },
         { t: "Cascading Termination", d: "A mechanism where when a process exits, all children and descendants are also terminated." },
     ],
     exam: [
@@ -661,7 +661,7 @@ const deepDiveData = [
         "Both continue from the INSTRUCTION, NOT LINE—INSTRUCTION—RIGHT after the fork. Think 260. Scary I know but think of the VERY next OPERATION that occurs after the fork.",
         "exec() replaces the ENTIRE process. Same PID, completely new program.",
         "Zombie = exited but parent hasn't called wait() yet. Fine. Not a problem unless they accumulate.",
-        "Orphan = parent exited without calling wait(). Not fine. Must be resolved by OS (cascading termination or adoption).",
+        "Orphan = parent exited without calling wait(). Not fine. Must be resolved by OS (cascading termination or adoption by reaper process).",
     ],
     },
 

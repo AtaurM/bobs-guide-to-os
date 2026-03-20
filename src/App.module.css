@@ -4,31 +4,182 @@
 }
 
 .main {
-  height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent) var(--bg);
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--bg);
+    transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  ::-webkit-scrollbar {
+.main::-webkit-scrollbar {
     width: 4px;
-  }
+}
 
-  ::-webkit-scrollbar-track {
+.main::-webkit-scrollbar-track {
     background: var(--bg);
-  }
+}
 
-  ::-webkit-scrollbar-thumb {
+.main::-webkit-scrollbar-thumb {
     background: var(--accent);
     border-radius: 2px;
-  }
-
 }
 
 .searchArea {
-  position: fixed;
-  top: 20px;
-  left: 16px;
-  width: 198;
-  z-index: 700;
+    position: fixed;
+    top: 20px;
+    z-index: 801;
+}
+
+.sidebarTab {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 800;
+    width: 16px;
+    height: 48px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s, background 0.2s, top 0.2s, transform 0.2s;
+}
+
+.sidebarTab:hover {
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.08);
+}
+
+.sidebarTabMobile {
+    top: 20px;
+    transform: none;
+    height: 36px;
+    width: 20px;
+    border-radius: 0 6px 6px 0;
+}
+
+.sidebarTabMobileClosed {
+    top: 20px;
+    transform: none;
+    height: 36px;
+    width: 36px;
+    left: 16px !important;
+    border-left: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.searchBlur {
+    position: fixed;
+    top: 0;
+    right: 8px;
+    height: 120px;
+    z-index: 699;
+    background: linear-gradient(to bottom, var(--bg) 25%, transparent 100%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    mask-image: linear-gradient(to bottom, black 35%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 35%, transparent 100%);
+    pointer-events: none;
+}
+
+.topRight {
+    position: fixed;
+    top: 12px;
+    right: 22px;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comingSoon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    letter-spacing: var(--display-ls);
+    color: var(--text-dim);
+}
+
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideOutToLeft {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-40px); }
+}
+
+@keyframes slideOutToRight {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(40px); }
+}
+
+.slideOutLeft {
+    animation: slideOutToLeft 0.15s ease forwards;
+    pointer-events: none;
+}
+
+.slideOutRight {
+    animation: slideOutToRight 0.15s ease forwards;
+    pointer-events: none;
+}
+
+.slideInLeft {
+    animation: slideInFromLeft 0.2s ease forwards;
+}
+
+.slideInRight {
+    animation: slideInFromRight 0.2s ease forwards;
+}
+
+/* .fadeOut {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fadeIn {
+  animation: slideUpFadeIn 0.2s ease forwards;
+} */
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 799;
+    opacity: 0;
+    animation: fadeInBackdrop 0.25s ease forwards;
+}
+
+@keyframes fadeInBackdrop {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
