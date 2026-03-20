@@ -22,6 +22,9 @@
   --accent-rgb: 255, 61, 154;
   --accent2: #00e0ff;
   --accent2-rgb: 0, 224, 255;
+  --accent-muted: rgba(255, 61, 155, 0.80);
+  --accent2-muted: rgba(0, 224, 255, 0.80);
+
 }
 
 body {
