@@ -427,27 +427,333 @@ const deepDiveData = [
     },
 
     {
-        title: "Networking & IPC",
-        sub: "Communication within and across machines",
-        body: []
+    title: "Networking",
+    sub: "Communication across machines",
+    body: [
+        [
+        { text: "Processes can't just talk with other processes or computers directly. All networking goes through the OS. The " },
+        { text: "networking adapter", bold: true },
+        { text: " is the hardware that physically sends and receives data on the network. It requires messages in a specific format (protocol). The OS takes application data, cuts it into pieces, wraps each piece in the appropriate protocol layers, and hands them off to the adapter." },
+        ],
+        [
+        { text: "How two parties understand each other's data is governed by " },
+        { text: "protocols", bold: true },
+        { text: ". They are kind of like languages for processes: sets of rules describing how to send, receive, and interpret data. Every stage of a network transmission has its own protocol. When you hear " },
+        { text: "TCP/IP", bold: true },
+        { text: ", that refers to a whole family of protocols for data transmission, not a single one. You don't have to memorize specific protocols for exams, just understand that data transmission happens in layers, and each layer has its own rules." },
+        ],
+        [
+        { text: "Each device on a network has a unique numeric identifier known as an " },
+        { text: "IP address", bold: true },
+        { text: ". In the classic IPv4 form, it looks like four unsigned byte values between 0 and 255 separated by dots (e.g., 56.32.123.99). When you type a URL instead of an IP address, your computer contacts a " },
+        { text: "DNS server", bold: true },
+        { text: " (Domain Name System) to look up the corresponding IP address. Your DNS server's own address comes from your network settings, often assigned automatically when you first connect to the network." },
+        ],
+        [
+        { text: "Knowing the destination IP is still not enough, however. Multiple processes can be running on the same machine. When a message arrives at a server, the OS needs to know which process should receive it. This is handled by " },
+        { text: "networking ports", bold: true },
+        { text: ": a unique numeric identifier assigned to every process in the system that wants to use the network. Think of it like the IP address being like a home address, and the port is like the name of the person at that address." },
+        ],
+        [
+        { text: "You need both!!! A " },
+        { text: "networking socket", bold: true },
+        { text: " is the combination of an IP address and a port number. For example: 55.220.0.51:81. It uniquely identifies a specific process on a specific machine on the network and serves as the endpoint for communication." },
+        ],
+        [
+        { text: "Some ports have predefined, reserved purposes. These are called " },
+        { text: "well-known ports", bold: true },
+        { text: " and occupy the range 0–1023. For example, web servers typically listen on port 80. Nobody should use these ports for random purposes. When a client contacts a server via a well-known port, the client also includes a return address (its own IP and port) so the server knows where to reply." },
+        ],
+    ],
+    terms: [
+        { t: "Networking Adapter", d: "A hardware device that physically sends and receives data on the network. Requires OS as a translator to use." },
+        { t: "Protocol", d: "A set of rules describing how to send, receive, and understand data. Each layer of a network transmission has its own protocol." },
+        { t: "IP Address", d: "A unique numeric identifier for a device on a network (e.g., 56.32.123.99 in IPv4). Each number is one unsigned byte (0–255)." },
+        { t: "DNS Server", d: "A server that translates URLs into IP addresses. DNS stands for \"Domain Name System.\"" },
+        { t: "Networking Port", d: "A unique numeric identifier assigned to every process in the system that wants to use the network. Identifies WHICH PROCESS on a machine a message is meant for." },
+        { t: "Well-Known Ports", d: "Ports with predefined purposes. Range: 0–1023." },
+        { t: "Networking Socket", d: "The combination of an IP address and a networking port (e.g., 55.220.0.51:81). Uniquely identifies a communication endpoint (specific process on a specific machine in the network)." },
+    ],
+    exam: [
+        "DNS translates URLs to IP addresses. Your computer gets the DNS server address from its network settings.",
+        "IP address alone is NOT ENOUGH: you NEED a port to identify WHICH PROCESS on the machine should receive the message.",
+        "Networking socket = IP address AND port number.",
+        "Well-known ports = Do NOT just say \"ports 0–1023.\" You MUST explain that they have predefined purposes.",
+    ],
     },
 
     {
-        title: "PCB, States & Context Switch",
-        sub: "Process Lifecycle Management",
-        body: []
+    title: "Inter-Process Communication (IPC)",
+    sub: "How processes share data",
+    body: [
+        [
+        { text: "By default, processes are isolated in separate areas of RAM with no knowledge of each other. " },
+        { text: "IPC (Inter-Process Communication)", bold: true },
+        { text: " refers to a set of OS-provided mechanisms that allow processes to exchange data. There is no way for two processes to pass data to each other without the OS's involvement in some form." },
+        ],
+        "There are two general approaches:",
+        { list: [
+        [
+            { text: "Message passing", bold: true },
+            { text: " has every communication request go through the OS: Every time process A wants to send data to process B, it goes through the OS. This adds performance overhead from system calls, but it is easier to program correctly and works across different machines on a network." },
+        ],
+        [
+            { text: "Shared memory", bold: true },
+            { text: " has the OS set up a shared region of RAM once; after that, both processes access it directly using regular load/store instructions with no OS involvement per access, making it faster. However, it only works on the same machine, and race conditions become the programmer's problem. Processes MUST request the OS to create this shared region if they want it." },
+        ],
+        ]},
+    ],
+    terms: [
+        { t: "IPC", d: "Inter-Process Communication. OS-provided mechanisms for processes to exchange data." },
+        { t: "Message Passing", d: "IPC where the OS moderates every exchange. Slower due to system call overhead, easier to program correctly, works across different machines." },
+        { t: "Shared Memory", d: "IPC where the OS creates a shared RAM region once; processes access it directly. Fast, same machine only, race conditions are the programmer's responsibility. Process must ask OS to create region if it wants it." },
+    ],
+    exam: [
+        "Message passing: ALL messages go through the OS. Safer/easier to program, works across network.",
+        "Shared memory: OS sets it up once, then hands it off to processes. Processes MUST request it first if they want it. Fast, same machine only, race conditions are your responsibility.",
+        "Shared memory cannot be used between two processes on different computers.",
+    ],
     },
 
     {
-        title: "Fork, Exec, Exit, Wait",
-        sub: "POSIX Process Operations",
-        body: []
+    title: "PCB, States & Context Switch",
+    sub: "Process lifecycle management",
+    body: [
+        [
+        { text: "Every process in the system is tracked by the OS using a " },
+        { text: "Process Control Block (PCB)", bold: true },
+        { text: ". The PCB typically contains the process's " },
+        { text: "PID", bold: true },
+        { text: " (unique numeric ID), the PID of its parent, CPU scheduling information, memory management info (the address of its RAM chunk), a list of open files (the list only — " },
+        { text: "NOT", bold: true },
+        { text: " the file contents), a list of requested I/O devices, a saved copy of the CPU register values, the program counter (so the CPU knows where execution should resume after a context switch), and more. All PCBs together form the " },
+        { text: "process table", bold: true },
+        { text: "." },
+        ],
+        [
+        { text: "A " },
+        { text: "context switch", bold: true },
+        { text: " is the sequence of steps the OS takes to move the CPU from running one process to running another. It is necessary because both processes share the same physical CPU registers, so you cannot start running a new process without first saving the current one's state." },
+        ],
+        "The steps are:",
+        { list: [
+        "pause process P1,",
+        "save all CPU registers and the PC of P1 into P1's PCB,",
+        "load all CPU registers and the PC of P2 from P2's PCB, and then",
+        "resume process P2.",
+        ]},
+        "Every process passes through a defined set of states during its lifetime.",
+        { list: [
+        [
+            { text: "In the " },
+            { text: "New", bold: true },
+            { text: " state, the PCB is being created and the process is being prepared. The process is not yet competing for the CPU." },
+        ],
+        [
+            { text: "In the " },
+            { text: "Ready", bold: true },
+            { text: " state, the process is fully prepared and waiting in the ready queue, competing for CPU time." },
+        ],
+        [
+            { text: "In the " },
+            { text: "Running", bold: true },
+            { text: " state, the process is actively using the CPU. Only ONE process per core can be here at a time (except in the case of simultaneous multi-threading)." },
+        ],
+        [
+            { text: "In the " },
+            { text: "Waiting", bold: true },
+            { text: " state, the process is blocked waiting for something (typically I/O) and gives up the CPU because it cannot do anything useful until that event completes." },
+        ],
+        [
+            { text: "In the " },
+            { text: "Terminated", bold: true },
+            { text: " state, the process has finished and will never need anything again. Resources are freed, except for the process' PCB, which stays until its parent collects its exit status." },
+        ],
+        ]},
+        [
+        { text: "Processes that mostly want CPU time are called " },
+        { text: "CPU-bound", bold: true },
+        { text: ". Processes that mostly wait for I/O are called " },
+        { text: "I/O-bound", bold: true },
+        { text: "." },
+        ],
+    ],
+    terms: [
+        { t: "PCB", d: "Process Control Block. A record maintained by the OS for every process, containing its PID, state, register values, memory info, open files, and more." },
+        { t: "Process Table", d: "The collection of all PCBs in the system, stored together." },
+        { t: "Context Switch", d: "Save the current process's registers and PC into its PCB, then load the next process's registers and PC from its PCB." },
+        { t: "Ready Queue", d: "The collection of processes that are ready and willing to use the CPU. The scheduler picks from here." },
+        { t: "PC (Program Counter)", d: "In this course, PC = Program Counter. Stores the address of the next instruction to execute." },
+    ],
+    exam: [
+        "Know the context switch steps in order: pause → save registers/PC into PCB → load next PCB → resume.",
+        "Know all five states and what triggers each transition.",
+        "A process in the Waiting state does not want the CPU; it is blocked on an event.",
+        "Should a process terminate after completing an I/O request, it must FIRST return to the ready-queue (and ready state).",
+        "The PCB stores a LIST of open files, not the file contents.",
+    ],
     },
 
     {
-        title: "Threads",
-        sub: "Lightweight Concurrency",
-        body: []
+    title: "fork, exec, exit, wait, zombies, and orphans!",
+    sub: "POSIX process operations",
+    body: [
+        [
+        { text: "Note: SEE EXAM TIPS BELOW! Forking practice & solution explanations coming soon!", bold: true },
+        ],
+        [
+        { text: "POSIX", bold: true },
+        { text: " is a standard followed by Unix-like operating systems (notably Linux). It defines a set of operations available on compliant systems. Windows does not have these! It has its own functions with equivalent or similar functionality but different names. For example, because of how common it is to follow a fork with exec, Windows has " },
+        { text: "CreateProcess", bold: true },
+        { text: " to avoid unnecessary and expensive copying." },
+        ],
+        [
+        { text: "fork()", bold: true },
+        { text: " creates an almost exact copy of the calling process AND returns an integer. The original is the " },
+        { text: "parent", bold: true },
+        { text: "; the copy is the " },
+        { text: "child", bold: true },
+        { text: ". Both processes continue execution from the instruction immediately after the fork() call. The next " },
+        { text: "INSTRUCTION", bold: true },
+        { text: ". NOT the next LINE. The child does not start from the top of the program. fork() returns 0 to the child and a positive value (the child's PID) to the parent. A negative return value means the fork failed (e.g., not enough memory). Because the child gets its own full copy of the parent's memory, forking is not memory-efficient. It roughly doubles memory usage." },
+        ],
+        [
+        { text: "exec(\"filename\")", bold: true },
+        { text: " erases the " },
+        { text: "ENTIRE", bold: true },
+        { text: " content of the calling process and loads a new program from the specified executable file. The PID stays the same, but the program running is completely different. exec() does not return anything on success. It is typically called in the child immediately after a fork(). As an optimization, the OS often delays actually copying the parent's memory until exec() is not called. If it sees you are about to replace the content anyway, it skips the copy." },
+        ],
+        [
+        { text: "exit(status)", bold: true },
+        { text: " stops the process and releases its resources. The status parameter describes success (0) or the type of error (non-zero). The PCB is kept until the parent collects the exit status by calling wait()." },
+        ],
+        [
+        { text: "wait()", bold: true },
+        { text: " causes the parent to pause until one of its children calls exit(). It collects the child's exit status and cleans up the PCB completely. Calling wait() with no children will return an error code." },
+        ],
+        "Two types of processes can occur if exit() and wait() are not called properly:",
+        { list: [
+        [
+            { text: "A " },
+            { text: "zombie process", bold: true },
+            { text: " is a (child) process that has called exit() but whose parent has not yet called wait(). It holds no resources but still has a PCB. This is normal and expected. Zombies exist briefly while the parent processes the exit. The problem only arises if they accumulate for too long." },
+        ],
+        [
+            { text: "An " },
+            { text: "orphan process", bold: true },
+            { text: " is a process whose parent has exited without calling wait(). The child will eventually exit and become a zombie with no parent to clean it up, and these can accumulate. The OS handles this either through " },
+            { text: "cascading termination", bold: true },
+            { text: " (killing all descendants when a process exits… 💀) or by having a designated process adopt orphans and call wait() for them. Aww." },
+        ],
+        ]},
+    ],
+    terms: [
+        { t: "fork()", d: "Creates an almost exact copy of the calling process AND returns: 0 to child, positive PID to parent. Both continue from the instruction after the fork." },
+        { t: "exec()", d: "ENTIRELY replaces the calling process's content with a new program. Same PID, completely different program. Does not return anything on success." },
+        { t: "exit(status)", d: "Stops the process and releases resources. 0 = success; non-zero = error. PCB remains until parent calls wait()." },
+        { t: "wait()", d: "Called by parent to pause until a child exits. Collects exit status and destroys the PCB." },
+        { t: "Zombie Process", d: "Called exit() but parent hasn't called wait() yet. No resources, but PCB still exists. Fine until they accumulate in RAM." },
+        { t: "Orphan Process", d: "Parent exited without calling wait(). Must be resolved by OS via cascading termination or adoption." },
+        { t: "Cascading Termination", d: "A mechanism where when a process exits, all children and descendants are also terminated." },
+    ],
+    exam: [
+        "fork() return values: PARENT receives POSITIVE (child's PID); 0 to child; negative on failure.",
+        "Both continue from the INSTRUCTION, NOT LINE—INSTRUCTION—RIGHT after the fork. Think 260. Scary I know but think of the VERY next OPERATION that occurs after the fork.",
+        "exec() replaces the ENTIRE process. Same PID, completely new program.",
+        "Zombie = exited but parent hasn't called wait() yet. Fine. Not a problem unless they accumulate.",
+        "Orphan = parent exited without calling wait(). Not fine. Must be resolved by OS (cascading termination or adoption).",
+    ],
+    },
+
+    {
+    title: "Threads",
+    sub: "Lightweight independent execution unit",
+    body: [
+        [
+        { text: "A " },
+        { text: "thread of execution", bold: true },
+        { text: " is an independent unit of execution within a process with its own program counter and stack. Multiple threads within the same process can run different parts of the code simultaneously (or appear to via multitasking), while sharing most of the process's memory." },
+        ],
+        [
+        { text: "What threads " },
+        { text: "share", bold: true },
+        { text: " across the whole process: the text section (code), data section (global and static variables), and heap. What each thread keeps " },
+        { text: "private", bold: true },
+        { text: ": its own stack, program counter, and register values. Changes to global variables in one thread are immediately visible to all other threads of the same process. This is both a feature and a primary source of bugs. If one thread calls exec(), the entire process will be replaced, and all threads will be gone." },
+        ],
+        "Compared to processes, threads (OF THE SAME PROCESS) offer several advantages:",
+        { list: [
+        [
+            { text: "They are " },
+            { text: "memory efficient", bold: true },
+            { text: ": creating a thread does not duplicate the entire memory space, and the stack starts nearly empty." },
+        ],
+        [
+            { text: "They are " },
+            { text: "fast to create and delete", bold: true },
+            { text: " (because they don't copy like a process. Just allocate space for a new stack)." },
+        ],
+        [
+            { text: "Context switching between threads of the same process is " },
+            { text: "fast", bold: true },
+            { text: " because they share the same memory space, so the MMU does not need to be updated." },
+        ],
+        [
+            { text: "And they have " },
+            { text: "shared memory by default", bold: true },
+            { text: " because they already share the heap, text, and data sections." },
+        ],
+        ]},
+        [
+        { text: "When people say \"threads are faster than processes,\" they mean faster to " },
+        { text: "create, delete, and context switch", bold: true },
+        { text: ", NOT faster to execute. The CPU runs instructions at the same speed regardless." },
+        ],
+        [
+        { text: "The key tradeoff: threads are " },
+        { text: "not fault-independent", bold: true },
+        { text: ". If one thread crashes (division by zero, illegal memory access, etc.), it brings down the entire process and all other threads with it. A misbehaving process only crashes itself. This is exactly why browsers use separate processes for tabs. If one tab crashes, the others keep running." },
+        ],
+        "There are three types of threads:",
+        { list: [
+        [
+            { text: "Kernel threads", bold: true },
+            { text: " are created and managed with OS involvement. The OS knows about them and can schedule them across multiple cores. They are slower to manage due to system call overhead." },
+        ],
+        [
+            { text: "User threads", bold: true },
+            { text: " are managed entirely in user space without OS involvement. They are fast to manage, but the OS sees only one thread, so it can only schedule the process on one core. If any user thread waits on I/O, all threads in the process have to wait with it because the OS thinks the entire process is waiting." },
+        ],
+        [
+            { text: "Hardware threads", bold: true },
+            { text: " refer to how many instruction streams a CPU can truly run simultaneously. One physical core can run two hardware threads via Hyper-Threading (Intel) or Simultaneous Multi-Threading (AMD) by keeping two sets of register state, switching between them when one stalls, and utilizing CPU components with one thread that aren't used by the other." },
+        ],
+        ]},
+        [
+        { text: "Thread Local Storage (TLS)", bold: true },
+        { text: " is a tool (library) for managing variables that look global but are private to each thread." },
+        ],
+        [
+        { text: "A " },
+        { text: "thread pool", bold: true },
+        { text: " is a set of threads created when the process first starts running. The process will create as many threads as possible, and then put them to sleep. Instead of creating and destroying a thread for each task, threads are woken up, given work, returned to the pool when done, and reused for incoming work. This avoids creation/deletion overhead and caps the total thread count from the start. Servers often receive many client requests per second and like to create a new thread for each. Imagine the overhead without the thread pool." },
+        ],
+    ],
+    terms: [
+        { t: "Thread of Execution", d: "An independent unit of execution within a process, with its own PC and stack, sharing code, data, and heap with other threads of the same process." },
+        { t: "Kernel Thread", d: "Created and managed with OS help. Can be scheduled across multiple cores. Slower to manage." },
+        { t: "User Thread", d: "Managed without OS involvement. Fast to manage but limited to one core; one thread waiting for something forces others to wait if they need it as well." },
+        { t: "Hardware Thread", d: "The number of instruction streams a CPU can truly run simultaneously. One core can support two via Hyper-Threading (Intel) or Simultaneous Multi-Threading (AMD)." },
+        { t: "Thread Local Storage (TLS)", d: "A tool to manage per-thread variables that appear global but are private to each thread." },
+        { t: "Thread Pool", d: "A fixed set of (the maximum possible number of) threads. Created at start of process and kept sleeping and reused for tasks to avoid repeated creation and deletion overhead." },
+    ],
+    exam: [
+        "\"Threads are faster than processes\" = faster to CREATE, DELETE, and CONTEXT SWITCH. NOT faster to execute.",
+        "Threads are NOT fault-independent. One thread crashing kills the whole process.",
+        "User threads cannot use multiple cores. If one waits on I/O, all have to wait.",
+        "Kernel threads can use multiple cores but require system calls to manage.",
+        "If one thread calls exec(), it replaces the entire process. All threads will be gone.",
+    ],
     },
 
 ]
