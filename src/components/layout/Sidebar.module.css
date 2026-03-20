@@ -3,7 +3,7 @@
     left: 0;
     top: 0;
     bottom: 0;
-    background: #08081a;
+    background: rgba(255, 255, 255, 0.02);
     border-right: 1px solid rgba(255, 255, 255, 0.06);
     overflow: hidden;
     z-index: 800;
@@ -98,7 +98,7 @@
     background: transparent;
     color: var(--text-dim);
     font-family: var(--font-mono);
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     cursor: pointer;
