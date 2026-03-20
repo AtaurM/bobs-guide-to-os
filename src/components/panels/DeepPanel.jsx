@@ -80,7 +80,7 @@ function DeepSection({ section, isOpen, onToggle }) {
                             <p className={styles.examLabel}>⚡ Exam Tips</p>
                             <ul className={styles.examList}>
                                 {section.exam.map((tip, i) => (
-                                    <li key={i} className={styles.examItem}><Highlight text={tip} /></li>
+                                    <li key={i} className={styles.examItem}><Highlight text={`➥ ${tip}`} /></li>
                                 ))}
                             </ul>
                         </div>

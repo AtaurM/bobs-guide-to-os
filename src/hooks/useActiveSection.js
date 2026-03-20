@@ -12,7 +12,7 @@ export default function useActiveSection(sectionIds, scrollRef, resetKey) {
 
         function findActive() {
             const containerTop = container.getBoundingClientRect().top;
-            const TRIGGER_OFFSET = 80; // gap from container top; "reading line"
+            const TRIGGER_OFFSET = 280; // gap from container top; "reading line"
             
             let bestIndex = 0;
             let bestDistance = Infinity;
