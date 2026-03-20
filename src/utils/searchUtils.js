@@ -2,6 +2,10 @@ export function deepSectionId(title) {
     return `deep-${title.replace(/\s+/g, '-').toLowerCase()}`
 }
 
+export function qrTagId(tag) {
+    return `qr-${tag.replace(/\s+/g, '-').toLowerCase()}`
+}
+
 export function deepMatchesQuery(section, query) {
     if (!query || !query.trim()) return true;
 

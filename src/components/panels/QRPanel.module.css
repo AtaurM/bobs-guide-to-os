@@ -1,7 +1,9 @@
 .panel {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 45px 40px 120px;
+    /* padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 120px; */
 }
 
 .panelHeader {
@@ -104,3 +106,57 @@
     flex-shrink: 0;
 }
 
+.group {
+    border-top: 1px solid var(--border-subtle);
+    margin-bottom: 4px;
+}
+
+.groupHeader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: opacity 0.2s;
+}
+
+.groupHeader:hover {
+    opacity: 0.75;
+}
+
+.groupName {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    letter-spacing: var(--display-ls);
+    color: var(--text);
+    font-weight: 400;
+}
+
+.groupCount {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+}
+
+.groupChevron {
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-left: auto;
+    transition: transform 0.22s ease;
+}
+
+.groupChevronOpen {
+    transform: rotate(90deg);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    padding-bottom: 20px;
+}

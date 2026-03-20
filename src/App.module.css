@@ -80,3 +80,14 @@
  align-items: center;
  gap: 8px;
 }
+
+.comingSoon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    letter-spacing: var(--display-ls);
+    color: var(--text-dim);
+}

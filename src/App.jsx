@@ -10,16 +10,24 @@ import SearchBar from './components/common/SearchBar'
 import useScrollProgress from './hooks/useScrollProgress'
 import useActiveSection from './hooks/useActiveSection'
 import deepDiveData from './data/deepDiveData'
+import qrData from './data/qrData'
 import { deepSectionId } from './utils/searchUtils'
+import { qrTagId } from './utils/searchUtils'
+
+const SIDEBAR_WIDTH = 230
+
+const QR_TAGS = [...new Set(qrData.map(c => c.tag))]
+const QR_SECTION_IDS = QR_TAGS.map(tag => qrTagId(tag))
+const QR_NAV_ITEMS = QR_TAGS.map(tag => ({
+  id: qrTagId(tag),
+  label: tag,
+}))
 
 const DEEP_NAV_ITEMS = deepDiveData.map(s => ({
   id: deepSectionId(s.title),
   label: s.title,
 }))
-
 const DEEP_SECTION_IDS = DEEP_NAV_ITEMS.map(s => s.id)
-
-const SIDEBAR_WIDTH = 230
 
 export default function App() {
   const mainRef = useRef(null)
@@ -30,15 +38,11 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   
   const [mode, setMode] = useState('deep')
+  const sidebarItems = mode === 'deep' ? DEEP_NAV_ITEMS : QR_NAV_ITEMS
+  const currentSectionIds = mode === 'deep' ? DEEP_SECTION_IDS : QR_SECTION_IDS
 
-  const activeIndex = useActiveSection(
-    mode === 'deep' ? DEEP_SECTION_IDS : [],
-    mainRef,
-    mode
-  )
-
-  const sidebarItems = mode === 'deep' ? DEEP_NAV_ITEMS : []
-
+  const activeIndex = useActiveSection(currentSectionIds, mainRef, mode)
+  
   function handleModeChange(newMode) {
     setMode(newMode)
     setSearchQuery('')
@@ -149,7 +153,13 @@ export default function App() {
             paddingTop: 54,
           }}
         >
-          
+
+          {mode === 'guide' && (
+            <div class={styles.comingSoon}>
+              Coming later
+            </div>
+          )}
+
           {mode === 'deep' &&
             <DeepPanel
               openSections={openSections}
@@ -157,7 +167,13 @@ export default function App() {
               sidebarOpen={sidebarOpen}
             /> }
           
-          {mode === 'qr' && <QRPanel /> }
+          {mode === 'qr' && <QRPanel sidebarOpen={sidebarOpen} /> }
+
+          {mode === 'study' && (
+            <div class={styles.comingSoon}>
+              Coming soon by tonight!
+            </div>
+          )}
           
         </main>
 
