@@ -3,7 +3,7 @@
     left: 0;
     top: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.02);
+    background: #0b0b14;
     border-right: 1px solid rgba(255, 255, 255, 0.06);
     overflow: hidden;
     z-index: 800;
@@ -95,6 +95,7 @@
     padding: 6px;
     border-radius: 8px;
     border: 2px solid;
+    border-color: rgba(255, 255, 255, 0.08);
     background: transparent;
     color: var(--text-dim);
     font-family: var(--font-mono);
@@ -109,4 +110,10 @@
 .toggleAll:hover {
     color: var(--accent);
     border-color: var(--accent);
+}
+
+@media (max-width: 900px) {
+    .toggleAll {
+        bottom: 70px;
+    }
 }

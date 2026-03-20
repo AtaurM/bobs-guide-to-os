@@ -2,4 +2,5 @@
 
 page: [www.csbob.dev/osguide](www.csbob.dev/osguide)
 
-includes concept explanations and term definitions, with learning and study guides coming very soon!
+navigatable & searchable concept explanations and term definitions, all in one place.
+learning and study guides coming very soon!
