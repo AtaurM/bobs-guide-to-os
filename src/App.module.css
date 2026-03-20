@@ -70,3 +70,13 @@
     -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
     pointer-events: none;
 }
+
+.topRight {
+ position: fixed;
+ top: 12px;
+ right: 16px;
+ z-index: 900;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+}

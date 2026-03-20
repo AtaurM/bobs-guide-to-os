@@ -2,8 +2,10 @@ import { useRef, useState } from 'react'
 import { SearchContext } from './context/SearchContext'
 import styles from './App.module.css'
 import DeepPanel from './components/panels/DeepPanel'
+import QRPanel from './components/panels/QRPanel'
 import ProgressBar from './components/layout/ProgressBar'
 import Sidebar from './components/layout/Sidebar'
+import ModeBar from './components/layout/ModeBar'
 import SearchBar from './components/common/SearchBar'
 import useScrollProgress from './hooks/useScrollProgress'
 import useActiveSection from './hooks/useActiveSection'
@@ -22,11 +24,27 @@ const SIDEBAR_WIDTH = 230
 export default function App() {
   const mainRef = useRef(null)
   const progress = useScrollProgress(mainRef)
-  const activeIndex = useActiveSection(DEEP_SECTION_IDS, mainRef, 'deep')
   const [searchQuery, setSearchQuery] = useState('')
   const [openSections, setOpenSections] = useState(new Set())
   const [allOpen, setAllOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  
+  const [mode, setMode] = useState('deep')
+
+  const activeIndex = useActiveSection(
+    mode === 'deep' ? DEEP_SECTION_IDS : [],
+    mainRef,
+    mode
+  )
+
+  const sidebarItems = mode === 'deep' ? DEEP_NAV_ITEMS : []
+
+  function handleModeChange(newMode) {
+    setMode(newMode)
+    setSearchQuery('')
+    if (mainRef.current) mainRef.current.scrollTop = 0
+  }
+
 
   function toggleSection(id) {
     setOpenSections(prev => {
@@ -86,7 +104,7 @@ export default function App() {
         <ProgressBar progress={progress} />
 
         <Sidebar
-          sections={DEEP_NAV_ITEMS}
+          sections={sidebarItems}
           activeIndex={activeIndex}
           onSectionClick={scrollToId}
           allOpen={allOpen}
@@ -131,12 +149,22 @@ export default function App() {
             paddingTop: 54,
           }}
         >
-          <DeepPanel
-            openSections={openSections}
-            onToggleSection={toggleSection}
-            sidebarOpen={sidebarOpen}
-          />
+          
+          {mode === 'deep' &&
+            <DeepPanel
+              openSections={openSections}
+              onToggleSection={toggleSection}
+              sidebarOpen={sidebarOpen}
+            /> }
+          
+          {mode === 'qr' && <QRPanel /> }
+          
         </main>
+
+        <div className={styles.topRight}>
+          <ModeBar mode={mode} onModeChange={handleModeChange} />
+        </div>
+
       </div>
     </SearchContext.Provider>
   )
