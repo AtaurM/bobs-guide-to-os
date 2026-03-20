@@ -1,15 +1,15 @@
 import styles from './ModeBar.module.css'
 
 const MODES = [
-    { id: 'guide', label: 'Guide' },
-    { id: 'deep', label: 'Concepts' },
-    { id: 'qr', label: 'Terms' },
-    { id: 'study', label: 'Study' },
+  { id: 'guide', label: 'Guide',    short: 'G' },
+  { id: 'deep',  label: 'Concepts', short: 'C' },
+  { id: 'qr',    label: 'Terms',    short: 'T' },
+  { id: 'study', label: 'Study',    short: 'S' },
 ]
 
-export default function ModeBar({ mode, onModeChange }) {
+export default function ModeBar({ mode, onModeChange, isMobile }) {
     return (
-        <div className={styles.bar}>
+        <nav className={`${styles.bar} ${isMobile ? styles.mobile : styles.desktop}`}>
             {MODES.map(m => (
                 <button
                     key={m.id}
@@ -17,9 +17,10 @@ export default function ModeBar({ mode, onModeChange }) {
                     onClick={() => onModeChange(m.id)}
                     aria-pressed={mode === m.id}
                 >
-                    {m.label}
+                    <span className={styles.labelFull}>{m.label}</span>
+                    <span className={styles.labelShort}>{m.short}</span>
                 </button>
             ))}
-        </div>
+        </nav>
     )
 }

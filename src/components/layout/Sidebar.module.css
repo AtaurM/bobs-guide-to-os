@@ -3,9 +3,10 @@
     left: 0;
     top: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.02);
+    background: #08081a;
     border-right: 1px solid rgba(255, 255, 255, 0.06);
     overflow: hidden;
+    z-index: 800;
     transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -40,7 +41,7 @@
 }
 
 .navItem:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--surface-hover);
 }
 
 .navItem:hover .dot {

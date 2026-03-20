@@ -2,9 +2,6 @@ export function deepSectionId(title) {
     return `deep-${title.replace(/\s+/g, '-').toLowerCase()}`
 }
 
-export function qrTagId(tag) {
-    return `qr-${tag.replace(/\s+/g, '-').toLowerCase()}`
-}
 
 export function deepMatchesQuery(section, query) {
     if (!query || !query.trim()) return true;
@@ -31,4 +28,20 @@ export function deepMatchesQuery(section, query) {
 
     return false
     
+}
+
+export function qrTagId(tag) {
+    return `qr-${tag.replace(/\s+/g, '-').toLowerCase()}`
+}
+
+export function qrMatchesQuery(card, query) {
+    if (!query || !query.trim()) return true
+    
+    const q = query.toLowerCase();
+    return (
+        card.tag?.toLowerCase().includes(q) ||
+        card.term?.toLowerCase().includes(q) ||
+        card.def?.toLowerCase().includes(q) ||
+        card.points?.some(p => p.toLowerCase().includes(q))
+    )
 }
