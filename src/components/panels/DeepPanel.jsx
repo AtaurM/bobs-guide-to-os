@@ -102,8 +102,9 @@ export default function DeepPanel({ openSections, onToggleSection }) {
     return (
         <div className={styles.panel}>
             <div className={styles.panelHeader}>
-                <p className={styles.panelTop}>Deep Dive · Full Concept Explanations</p>
-                <h2 className={styles.panelTitle}>In-Depth Explanations</h2>
+                <p className={styles.panelTop}>Deep Dive · Concept Explanations</p>
+                <h2 className={styles.panelTitle}>Bob's Guide to OS</h2>
+                <p className={styles.panelSub2}>FORMAL TERM LIST + QUESTION EXPLANATIONS COMING OUT LATER TODAY!</p>
                 <p className={styles.panelSub}>Click any section to expand it.</p>
             </div>
 

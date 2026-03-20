@@ -64,7 +64,7 @@
 }
 
 .navItemActive {
-    background: rbga(var(--accent-rgb), 0.08)
+    background: rgba(var(--accent-rgb), 0.1)
 }
 
 .dotActive {

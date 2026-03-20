@@ -6,9 +6,10 @@
 
 .panelTitle {
     font-family: var(--font-display);
-    font-size: 3.5rem;
+    font-size: 6.5rem;
     color: var(--text);
     line-height: 1;
+    letter-spacing: 3px;
     margin-bottom: 8px;
 }
 
@@ -17,8 +18,8 @@
 }
 
 .panelTop {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--accent);
@@ -31,6 +32,15 @@
     color: var(--text-dim);
     font-style: italic;
     margin-top: 8px;
+}
+
+.panelSub2 {
+    
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.72;
+  font-style: italic;
+  color: var(--accent);
 }
 
 .section {
