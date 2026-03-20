@@ -1,0 +1,6 @@
+.mark {
+    background: rgba(255, 214, 10, 0.25);
+    color: rgba(255, 214, 10, 0.95);
+    border-radius: 2px;
+    padding: 1px 0;
+}
