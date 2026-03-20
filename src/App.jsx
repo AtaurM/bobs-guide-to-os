@@ -13,17 +13,20 @@ import { deepSectionId } from './utils/searchUtils'
 const DEEP_NAV_ITEMS = deepDiveData.map(s => ({
   id: deepSectionId(s.title),
   label: s.title,
-}));
+}))
 
-const DEEP_SECTION_IDS = DEEP_NAV_ITEMS.map(s => s.id);
+const DEEP_SECTION_IDS = DEEP_NAV_ITEMS.map(s => s.id)
+
+const SIDEBAR_WIDTH = 230
 
 export default function App() {
-  const mainRef = useRef(null);
-  const progress = useScrollProgress(mainRef);
-  const activeIndex = useActiveSection(DEEP_SECTION_IDS, mainRef, 'deep');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [openSections, setOpenSections] = useState(new Set());
-  const [allOpen, setAllOpen] = useState(false);
+  const mainRef = useRef(null)
+  const progress = useScrollProgress(mainRef)
+  const activeIndex = useActiveSection(DEEP_SECTION_IDS, mainRef, 'deep')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [openSections, setOpenSections] = useState(new Set())
+  const [allOpen, setAllOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
   function toggleSection(id) {
     setOpenSections(prev => {
@@ -36,11 +39,11 @@ export default function App() {
   function handleToggleAll() {
     const allIds = DEEP_NAV_ITEMS.map(s => s.id)
     if (allOpen) {
-      setOpenSections(new Set());
-      setAllOpen(false);
+      setOpenSections(new Set())
+      setAllOpen(false)
     } else {
-      setOpenSections(new Set(allIds));
-      setAllOpen(true);
+      setOpenSections(new Set(allIds))
+      setAllOpen(true)
     }
   }
 
@@ -62,6 +65,21 @@ export default function App() {
     container.scrollTo({ top: target, behavior: 'smooth' })
   }
 
+  const TRANSITION = '0.28s cubic-bezier(0.4, 0, 0.2, 1)'
+
+  const searchStyle = sidebarOpen
+    ? {
+        left: 16,
+        width: SIDEBAR_WIDTH - 28,
+        transition: `top ${TRANSITION}, left ${TRANSITION}, width ${TRANSITION}`,
+      }
+    : {
+        top: 40,
+        left: 'max(16px, calc(50vw - 400px))',
+        width: 'min(800px, calc(100vw - 32px))',
+        transition: `top ${TRANSITION}, left ${TRANSITION}, width ${TRANSITION}`,
+      }
+
   return (
     <SearchContext.Provider value={searchQuery}>
       <div className={styles.root}>
@@ -73,18 +91,51 @@ export default function App() {
           onSectionClick={scrollToId}
           allOpen={allOpen}
           onToggleAll={handleToggleAll}
+          isOpen={sidebarOpen}
         />
 
-        <div className={styles.searchArea} >
-          <SearchBar value={searchQuery} onChange={setSearchQuery}/>
+        <button
+          className={styles.sidebarTab}
+          onClick={() => setSidebarOpen(v => !v)}
+          style={{
+            left: sidebarOpen ? SIDEBAR_WIDTH : 0,
+            transition: `left ${TRANSITION}`,
+          }}
+          aria-label={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+        >
+          {sidebarOpen ? '‹' : '›'}
+        </button>
+
+        { !sidebarOpen && <div
+          className={styles.searchBlur}
+          style={{
+            left: sidebarOpen ? SIDEBAR_WIDTH : 0,
+            transition: `left ${TRANSITION}`,
+          }}
+        /> }
+
+        <div className={styles.searchArea} style={searchStyle}>
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            centered={!sidebarOpen}
+            highlighted={!sidebarOpen}
+          />
         </div>
 
         <main
           ref={mainRef}
           className={styles.main}
-          style={{ marginLeft: 230, paddingTop: 54 }}
+          style={{
+            marginLeft: sidebarOpen ? SIDEBAR_WIDTH : 0,
+            paddingTop: 54,
+          }}
         >
-          <DeepPanel openSections={openSections} onToggleSection={toggleSection} />
+          <DeepPanel
+            openSections={openSections}
+            onToggleSection={toggleSection}
+            sidebarOpen={sidebarOpen}
+          />
         </main>
       </div>
     </SearchContext.Provider>

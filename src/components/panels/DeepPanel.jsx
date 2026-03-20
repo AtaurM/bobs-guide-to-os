@@ -91,7 +91,7 @@ function DeepSection({ section, isOpen, onToggle }) {
     )
 }
 
-export default function DeepPanel({ openSections, onToggleSection }) {
+export default function DeepPanel({ openSections, onToggleSection, sidebarOpen }) {
     const query = useSearch()
     const hasQuery = query.trim().length > 0;
     const [othersOpen, setOthersOpen] = useState(false)
@@ -100,7 +100,13 @@ export default function DeepPanel({ openSections, onToggleSection }) {
     const otherSections = deepDiveData.filter(s => !deepMatchesQuery(s, query));
 
     return (
-        <div className={styles.panel}>
+        <div
+            className={styles.panel}
+            style={{
+                paddingTop: sidebarOpen ? '40px' : '70px',
+                transition: 'padding-top 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+        >
             <div className={styles.panelHeader}>
                 <p className={styles.panelTop}>Deep Dive · Concept Explanations</p>
                 <h2 className={styles.panelTitle}>Bob's Guide to OS</h2>

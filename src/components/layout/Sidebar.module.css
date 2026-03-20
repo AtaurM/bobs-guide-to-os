@@ -3,11 +3,20 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: 230px;
     background: rgba(255, 255, 255, 0.02);
     border-right: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.open {
+    width: 230px;
     padding: 20px 12px;
-    overflow-y: auto;
+}
+
+.closed {
+    width: 0;
+    padding: 0;
 }
 
 .nav {
@@ -31,17 +40,16 @@
 }
 
 .navItem:hover {
- background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .navItem:hover .dot {
- background: rgba(var(--accent-rgb), 0.5);
+    background: rgba(var(--accent-rgb), 0.5);
 }
 
 .navItem:hover .label {
- color: var(--text-muted);
+    color: var(--text-muted);
 }
-
 
 .dot {
     width: 6px;
@@ -64,7 +72,7 @@
 }
 
 .navItemActive {
-    background: rgba(var(--accent-rgb), 0.1)
+    background: rgba(var(--accent-rgb), 0.1);
 }
 
 .dotActive {
@@ -79,10 +87,10 @@
 }
 
 .toggleAll {
-    position: fixed;
-    width: 198px;
+    position: absolute;
     bottom: 20px;
     left: 16px;
+    right: 12px;
     padding: 6px;
     border-radius: 8px;
     border: 2px solid;
@@ -94,6 +102,7 @@
     text-transform: uppercase;
     cursor: pointer;
     transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
 }
 
 .toggleAll:hover {
