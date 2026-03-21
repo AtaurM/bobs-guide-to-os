@@ -9,7 +9,7 @@
 
 .panelEyebrow {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: 0.95rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--accent);
@@ -32,6 +32,96 @@
     font-style: italic;
     margin-top: 8px;
 }
+
+.forkCardHeader {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 0 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: opacity 0.2s;
+}
+
+.forkCardHeader:hover {
+    opacity: 0.85;
+}
+
+.forkCardEyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+.forkCardTitle {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    letter-spacing: var(--display-ls);
+    color: var(--text);
+    font-weight: 400;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(var(--accent-rgb), 0.25);
+}
+
+.forkCardChevron {
+    font-size: 1.4rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+    transition: transform 0.22s ease;
+}
+
+.forkCardChevronOpen {
+    transform: rotate(90deg);
+}
+
+.forkCardBody {
+    padding-bottom: 24px;
+}
+
+.habit {
+    margin-bottom: 28px;
+}
+
+.habitTitle {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.interlude {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.65;
+    margin: 24px 0 12px;
+}
+
+.carouselPlaceholder {
+    border: 1px dashed rgba(var(--accent-rgb), 0.25);
+    border-radius: 8px;
+    padding: 24px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+/* ── Q&A Sections ───────────────────────────────────────── */
 
 .section {
     border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -87,6 +177,8 @@
     gap: 6px;
     padding-bottom: 20px;
 }
+
+/* ── Question Cards ─────────────────────────────────────── */
 
 .card {
     border: 1px solid rgba(255, 255, 255, 0.06);

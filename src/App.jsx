@@ -26,7 +26,6 @@ const QR_NAV_ITEMS = QR_TAGS.map(tag => ({
   id: qrTagId(tag),
   label: tag,
 }))
-
 const DEEP_NAV_ITEMS = deepDiveData.map(s => ({
   id: deepSectionId(s.title),
   label: s.title,
@@ -41,36 +40,29 @@ const STUDY_SECTION_IDS = STUDY_NAV_ITEMS.map(s => s.id)
 
 export default function App() {
   const mainRef = useRef(null)
-  const isMobile = useIsMobile(900)
+  const isMobile = useIsMobile(1400)
   const progress = useScrollProgress(mainRef)
   const [searchQuery, setSearchQuery] = useState('')
-
   const [openSections, setOpenSections] = useState(new Set())
   const [deepAllOpen, setDeepAllOpen] = useState(false)
-
   const [openGroups, setOpenGroups] = useState(() => new Set(QR_TAGS))
   const [qrAllOpen, setQrAllOpen] = useState(true)
-
   const [openStudySections, setOpenStudySections] = useState(new Set())
   const [studyAllOpen, setStudyAllOpen] = useState(false)
-
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
   const [transitioning, setTransitioning] = useState('idle')
   const [vpWidth, setVpWidth] = useState(() => window.innerWidth)
-  const [mode, setMode] = useState('deep')
 
+  const [mode, setMode] = useState('deep')
   const sidebarItems = mode === 'deep' ? DEEP_NAV_ITEMS
     : mode === 'qr' ? QR_NAV_ITEMS
     : mode === 'study' ? STUDY_NAV_ITEMS
     : []
-
   const currentSectionIds = mode === 'deep' ? DEEP_SECTION_IDS
     : mode === 'qr' ? QR_SECTION_IDS
     : mode === 'study' ? STUDY_SECTION_IDS
     : []
-
   const activeIndex = useActiveSection(currentSectionIds, mainRef, mode)
-
   const allOpen = mode === 'deep' ? deepAllOpen
     : mode === 'qr' ? qrAllOpen
     : mode === 'study' ? studyAllOpen
@@ -113,14 +105,6 @@ export default function App() {
     })
   }
 
-  function toggleStudySection(id) {
-    setOpenStudySections(prev => {
-      const next = new Set(prev)
-      next.has(id) ? next.delete(id) : next.add(id)
-      return next
-    })
-  }
-
   function handleDeepToggleAll() {
     const allIds = DEEP_NAV_ITEMS.map(s => s.id)
     if (deepAllOpen) {
@@ -142,8 +126,16 @@ export default function App() {
     }
   }
 
+  function toggleStudySection(id) {
+    setOpenStudySections(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
+
   function handleStudyToggleAll() {
-    const allIds = qaSections.map(s => s.id)
+    const allIds = ['fork-tricks', ...qaSections.map(s => s.id)]
     if (studyAllOpen) {
       setOpenStudySections(new Set())
       setStudyAllOpen(false)
@@ -170,8 +162,9 @@ export default function App() {
         if (!isCurrentlyOpen || Math.abs(distance) < 5) toggleGroup(tag)
       }
     } else if (mode === 'study') {
-      const isCurrentlyOpen = openStudySections.has(id)
-      if (!isCurrentlyOpen || Math.abs(distance) < 5) toggleStudySection(id)
+      const sectionId = id.replace('study-', '')
+      const isCurrentlyOpen = openStudySections.has(sectionId)
+      if (!isCurrentlyOpen || Math.abs(distance) < 5) toggleStudySection(sectionId)
     }
 
     if (!el || !container) return
@@ -180,6 +173,7 @@ export default function App() {
   }
 
   const sidebarWidth = sidebarOpen ? SIDEBAR_WIDTH : 0
+
   const TRANSITION = '0.28s cubic-bezier(0.4, 0, 0.2, 1)'
   const TAB_WIDTH = 36
   const MOBILE_MARGIN = 16
@@ -217,11 +211,6 @@ export default function App() {
     transitioning === 'in-right'  ? styles.slideInRight  : '',
   ].filter(Boolean).join(' ') || undefined
 
-  const toggleAllFn = mode === 'deep' ? handleDeepToggleAll
-    : mode === 'qr' ? handleQrToggleAll
-    : mode === 'study' ? handleStudyToggleAll
-    : null
-
   return (
     <SearchContext.Provider value={searchQuery}>
       <div className={styles.root}>
@@ -239,7 +228,12 @@ export default function App() {
           activeIndex={activeIndex}
           onSectionClick={scrollToId}
           allOpen={allOpen}
-          onToggleAll={toggleAllFn}
+          onToggleAll={
+            mode === 'deep' ? handleDeepToggleAll
+            : mode === 'qr' ? handleQrToggleAll
+            : mode === 'study' ? handleStudyToggleAll
+            : null
+          }
           isOpen={sidebarOpen}
         />
 
@@ -278,8 +272,8 @@ export default function App() {
             marginLeft: isMobile ? 0 : sidebarWidth,
             paddingTop: 54,
             paddingBottom: isMobile ? 80 : 0,
-            paddingLeft: isMobile ? 16 : 0,
-            paddingRight: isMobile ? 16 : 0,
+            paddingLeft: isMobile ? 24 : 0,
+            paddingRight: isMobile ? 24 : 0,
             transition: `margin-left ${TRANSITION}`,
           }}
         >

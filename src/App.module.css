@@ -80,7 +80,7 @@
     position: fixed;
     top: 0;
     right: 8px;
-    height: 120px;
+    height: 90px;
     z-index: 699;
     background: linear-gradient(to bottom, var(--bg) 25%, transparent 100%);
     backdrop-filter: blur(6px);

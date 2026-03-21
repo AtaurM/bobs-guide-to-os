@@ -1,7 +1,7 @@
 import { forkExamples } from './forkExamples'
 
 export const forkTricks = {
-  title: 'Forking Tricks + Walkthrough',
+  title: 'How to fork',
   habits: [
     {
       title: 'First',
@@ -11,7 +11,7 @@ export const forkTricks = {
           [
             { text: 'Creates a ' },
             { text: 'COPY', bold: true },
-            { text: ' (we will call it child) of the current process (we will call it parent) IF it is not the child created by that fork from the parent process.' },
+            { text: ' (we will call it the child process) of the current process (we will call it the parent process), unless that current process is the child made by the current fork.' },
           ],
           [
             { text: 'Returns the child\'s PID (which is a positive integer) to the ' },
@@ -43,11 +43,16 @@ export const forkTricks = {
         { list: [
           'Conditional expressions are always evaluated as boolean values.',
           'If-statements and for-loops contain conditional expressions.',
-          [
-            { text: 'Label', bold: true },
-            { text: ' each fork FIRST, start your tree with P, and only then should you start processing the code.' },
-          ],
         ]},
+      ],
+    },
+    {
+      title: 'Wait i forgot one thing:',
+      body: [
+        [
+          { text: 'Label', bold: true },
+          { text: ' each fork FIRST, start your tree with P, and only then should you start processing the code.' },
+        ]
       ],
     },
     {
