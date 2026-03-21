@@ -10,7 +10,7 @@ function ForkTricksCard({ isOpen, onToggle }) {
     <div id="study-fork-tricks">
       <button className={styles.forkCardHeader} onClick={onToggle} aria-expanded={isOpen}>
         <div>
-          <p className={styles.forkCardEyebrow}>Useful Tricks · Full Examples w/ detailed steps!</p>
+          <p className={styles.forkCardEyebrow}>Useful Tricks · Interactive Examples w/ detailed steps!</p>
           <h3 className={styles.forkCardTitle}>{forkTricks.title}</h3>
         </div>
         <span className={`${styles.forkCardChevron} ${isOpen ? styles.forkCardChevronOpen : ''}`}>›</span>
