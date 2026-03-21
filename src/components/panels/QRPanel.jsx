@@ -33,7 +33,7 @@ function CardGroup({ tag, cards, isOpen, onToggle }) {
                 {card.points.map((point, i) => (
                   <li key={i} className={styles.point}>
                     <span className={styles.bullet}>▸</span>
-                    <Highlight text={point} />
+                    <span><Highlight text={point} /></span>
                   </li>
                 ))}
               </ul>
