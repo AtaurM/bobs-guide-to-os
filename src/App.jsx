@@ -143,7 +143,7 @@ export default function App() {
   }
 
   function handleStudyToggleAll() {
-    const allIds = STUDY_NAV_ITEMS.map(s => s.id)
+    const allIds = qaSections.map(s => s.id)
     if (studyAllOpen) {
       setOpenStudySections(new Set())
       setStudyAllOpen(false)
@@ -163,6 +163,12 @@ export default function App() {
     if (mode === 'deep') {
       const isCurrentlyOpen = openSections.has(id)
       if (!isCurrentlyOpen || Math.abs(distance) < 5) toggleSection(id)
+    } else if (mode === 'qr') {
+      const tag = QR_TAGS.find(t => qrTagId(t) === id)
+      if (tag) {
+        const isCurrentlyOpen = openGroups.has(tag)
+        if (!isCurrentlyOpen || Math.abs(distance) < 5) toggleGroup(tag)
+      }
     } else if (mode === 'study') {
       const isCurrentlyOpen = openStudySections.has(id)
       if (!isCurrentlyOpen || Math.abs(distance) < 5) toggleStudySection(id)
