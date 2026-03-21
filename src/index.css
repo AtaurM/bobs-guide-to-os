@@ -28,6 +28,10 @@
   --accent-muted: rgba(255, 61, 155, 0.80);
   --accent2-muted: rgba(0, 224, 255, 0.80);
 
+  --display-ls: 0.02em;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+
 }
 
 body {

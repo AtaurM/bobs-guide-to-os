@@ -1,0 +1,246 @@
+.panel {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.panelHeader {
+    margin-bottom: 40px;
+}
+
+.panelEyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.panelTitle {
+    font-family: var(--font-display);
+    font-size: 6.5rem;
+    letter-spacing: var(--display-ls);
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.panelSub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-top: 8px;
+}
+
+.forkCardHeader {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 0 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: opacity 0.2s;
+}
+
+.forkCardHeader:hover {
+    opacity: 0.85;
+}
+
+.forkCardEyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+.forkCardTitle {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    letter-spacing: var(--display-ls);
+    color: var(--text);
+    font-weight: 400;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(var(--accent-rgb), 0.25);
+}
+
+.forkCardChevron {
+    font-size: 1.4rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+    transition: transform 0.22s ease;
+}
+
+.forkCardChevronOpen {
+    transform: rotate(90deg);
+}
+
+.forkCardBody {
+    padding-bottom: 24px;
+}
+
+.habit {
+    margin-bottom: 28px;
+}
+
+.habitTitle {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.carouselPlaceholder {
+    border: 1px dashed rgba(var(--accent-rgb), 0.25);
+    border-radius: 8px;
+    padding: 24px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+/* ── Q&A Sections ───────────────────────────────────────── */
+
+.section {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 4px;
+}
+
+.sectionHeader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: opacity 0.2s;
+}
+
+.sectionHeader:hover {
+    opacity: 0.75;
+}
+
+.sectionName {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    letter-spacing: var(--display-ls);
+    color: var(--text);
+    font-weight: 400;
+}
+
+.sectionCount {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+}
+
+.sectionChevron {
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-left: auto;
+    transition: transform 0.22s ease;
+}
+
+.sectionChevronOpen {
+    transform: rotate(90deg);
+}
+
+.cardList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 20px;
+}
+
+/* ── Question Cards ─────────────────────────────────────── */
+
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.cardHeader {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.cardHeader:hover {
+    background: var(--surface);
+}
+
+.cardQ {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.5;
+    flex: 1;
+}
+
+.cardChevron {
+    font-size: 1.1rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: transform 0.22s ease;
+}
+
+.cardChevronOpen {
+    transform: rotate(90deg);
+}
+
+.cardBody {
+    padding: 0 16px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.answer {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-top: 14px;
+}
+
+.explanation {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--accent2);
+    line-height: 1.65;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.comingSoon {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 14px;
+}

@@ -3,6 +3,7 @@ import { SearchContext } from './context/SearchContext'
 import styles from './App.module.css'
 import DeepPanel from './components/panels/DeepPanel'
 import QRPanel from './components/panels/QRPanel'
+import StudyPanel from './components/panels/StudyPanel'
 import ProgressBar from './components/layout/ProgressBar'
 import Sidebar from './components/layout/Sidebar'
 import ModeBar from './components/layout/ModeBar'
@@ -12,6 +13,7 @@ import useActiveSection from './hooks/useActiveSection'
 import useIsMobile from './hooks/useIsMobile'
 import deepDiveData from './data/deepDiveData'
 import qrData from './data/qrData'
+import { qaSections } from './data/studyData'
 import { deepSectionId } from './utils/searchUtils'
 import { qrTagId } from './utils/searchUtils'
 
@@ -30,24 +32,41 @@ const DEEP_NAV_ITEMS = deepDiveData.map(s => ({
 }))
 const DEEP_SECTION_IDS = DEEP_NAV_ITEMS.map(s => s.id)
 
+const STUDY_NAV_ITEMS = [
+  { id: 'study-fork-tricks', label: 'Forking Tricks' },
+  ...qaSections.map(s => ({ id: `study-${s.id}`, label: s.title })),
+]
+const STUDY_SECTION_IDS = STUDY_NAV_ITEMS.map(s => s.id)
+
 export default function App() {
   const mainRef = useRef(null)
-  const isMobile = useIsMobile(900)
+  const isMobile = useIsMobile(1400)
   const progress = useScrollProgress(mainRef)
   const [searchQuery, setSearchQuery] = useState('')
   const [openSections, setOpenSections] = useState(new Set())
   const [deepAllOpen, setDeepAllOpen] = useState(false)
   const [openGroups, setOpenGroups] = useState(() => new Set(QR_TAGS))
   const [qrAllOpen, setQrAllOpen] = useState(true)
+  const [openStudySections, setOpenStudySections] = useState(new Set())
+  const [studyAllOpen, setStudyAllOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
   const [transitioning, setTransitioning] = useState('idle')
   const [vpWidth, setVpWidth] = useState(() => window.innerWidth)
 
   const [mode, setMode] = useState('deep')
-  const sidebarItems = mode === 'deep' ? DEEP_NAV_ITEMS : QR_NAV_ITEMS
-  const currentSectionIds = mode === 'deep' ? DEEP_SECTION_IDS : QR_SECTION_IDS
+  const sidebarItems = mode === 'deep' ? DEEP_NAV_ITEMS
+    : mode === 'qr' ? QR_NAV_ITEMS
+    : mode === 'study' ? STUDY_NAV_ITEMS
+    : []
+  const currentSectionIds = mode === 'deep' ? DEEP_SECTION_IDS
+    : mode === 'qr' ? QR_SECTION_IDS
+    : mode === 'study' ? STUDY_SECTION_IDS
+    : []
   const activeIndex = useActiveSection(currentSectionIds, mainRef, mode)
-  const allOpen = mode === 'deep' ? deepAllOpen : qrAllOpen
+  const allOpen = mode === 'deep' ? deepAllOpen
+    : mode === 'qr' ? qrAllOpen
+    : mode === 'study' ? studyAllOpen
+    : false
 
   useEffect(() => {
     function onResize() { setVpWidth(window.innerWidth) }
@@ -107,16 +126,47 @@ export default function App() {
     }
   }
 
+  function toggleStudySection(id) {
+    setOpenStudySections(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
+
+  function handleStudyToggleAll() {
+    const allIds = ['fork-tricks', ...qaSections.map(s => s.id)]
+    if (studyAllOpen) {
+      setOpenStudySections(new Set())
+      setStudyAllOpen(false)
+    } else {
+      setOpenStudySections(new Set(allIds))
+      setStudyAllOpen(true)
+    }
+  }
+
   function scrollToId(index, id) {
     const el = document.getElementById(id)
     const container = mainRef.current
     const elTop = el?.getBoundingClientRect().top
     const containerTop = container?.getBoundingClientRect().top
     const distance = elTop - containerTop - 70
-    const isCurrentlyOpen = openSections.has(id)
-    if (!isCurrentlyOpen || Math.abs(distance) < 5) {
-      toggleSection(id)
+
+    if (mode === 'deep') {
+      const isCurrentlyOpen = openSections.has(id)
+      if (!isCurrentlyOpen || Math.abs(distance) < 5) toggleSection(id)
+    } else if (mode === 'qr') {
+      const tag = QR_TAGS.find(t => qrTagId(t) === id)
+      if (tag) {
+        const isCurrentlyOpen = openGroups.has(tag)
+        if (!isCurrentlyOpen || Math.abs(distance) < 5) toggleGroup(tag)
+      }
+    } else if (mode === 'study') {
+      const sectionId = id.replace('study-', '')
+      const isCurrentlyOpen = openStudySections.has(sectionId)
+      if (!isCurrentlyOpen || Math.abs(distance) < 5) toggleStudySection(sectionId)
     }
+
     if (!el || !container) return
     const target = container.scrollTop + distance
     container.scrollTo({ top: target, behavior: 'smooth' })
@@ -178,7 +228,12 @@ export default function App() {
           activeIndex={activeIndex}
           onSectionClick={scrollToId}
           allOpen={allOpen}
-          onToggleAll={mode === 'deep' ? handleDeepToggleAll : handleQrToggleAll}
+          onToggleAll={
+            mode === 'deep' ? handleDeepToggleAll
+            : mode === 'qr' ? handleQrToggleAll
+            : mode === 'study' ? handleStudyToggleAll
+            : null
+          }
           isOpen={sidebarOpen}
         />
 
@@ -217,8 +272,8 @@ export default function App() {
             marginLeft: isMobile ? 0 : sidebarWidth,
             paddingTop: 54,
             paddingBottom: isMobile ? 80 : 0,
-            paddingLeft: isMobile ? 16 : 0,
-            paddingRight: isMobile ? 16 : 0,
+            paddingLeft: isMobile ? 24 : 0,
+            paddingRight: isMobile ? 24 : 0,
             transition: `margin-left ${TRANSITION}`,
           }}
         >
@@ -243,7 +298,12 @@ export default function App() {
               />
             )}
             {mode === 'study' && (
-              <div className={styles.comingSoon}>Coming tonight!</div>
+              <StudyPanel
+                sidebarOpen={sidebarOpen && !isMobile}
+                isMobile={isMobile}
+                openSections={openStudySections}
+                onToggleSection={toggleStudySection}
+              />
             )}
           </div>
         </main>

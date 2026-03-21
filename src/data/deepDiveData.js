@@ -524,7 +524,7 @@ const deepDiveData = [
         { text: "Process Control Block (PCB)", bold: true },
         { text: ". The PCB typically contains the process's " },
         { text: "PID", bold: true },
-        { text: " (unique numeric ID), the PID of its parent, CPU scheduling information, memory management info (the address of its RAM chunk), a list of open files (the list only — " },
+        { text: " (unique numeric ID), the PID of its parent, CPU scheduling information, memory management info (the address of its RAM chunk), a list of open files (the list only—" },
         { text: "NOT", bold: true },
         { text: " the file contents), a list of requested I/O devices, a saved copy of the CPU register values, the program counter (so the CPU knows where execution should resume after a context switch), and more. All PCBs together form the " },
         { text: "process table", bold: true },
