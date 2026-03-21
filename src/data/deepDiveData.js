@@ -416,7 +416,7 @@ const deepDiveData = [
     ],
     terms: [
         { t: "File", d: "A collection of related data stored under one name. An OS-level abstraction. The disk itself has no concept of files." },
-        { t: "File System", d: "A data structure maintained by the OS that describes all files on a disk, including their physical coordinates, names, and attributes." },
+        { t: "File System", d: "A data structure maintained by the OS that describes all files on a disk, including their physical coordinates, names, and other attributes." },
         { t: "Logical Disk (Partition)", d: "A portion of a physical disk described by its own separate file system. Multiple partitions can exist on one physical disk." },
     ],
     exam: [
@@ -467,7 +467,7 @@ const deepDiveData = [
     ],
     terms: [
         { t: "Networking Adapter", d: "A hardware device that physically sends and receives data on the network. Requires OS as a translator to use." },
-        { t: "Protocol", d: "A set of rules describing how to send, receive, and understand data. Each layer of a network transmission has its own protocol." },
+        { t: "Networking Protocol", d: "A set of rules describing how to send, receive, and understand data. Each layer of a network transmission has its own protocol." },
         { t: "IP Address", d: "A unique numeric identifier for a device on a network (e.g., 56.32.123.99 in IPv4). Each number is one unsigned byte (0–255)." },
         { t: "DNS Server", d: "A server that translates URLs into IP addresses. DNS stands for \"Domain Name System.\"" },
         { t: "Networking Port", d: "A unique numeric identifier assigned to every process in the system that wants to use the network. Identifies WHICH PROCESS on a machine a message is meant for." },
