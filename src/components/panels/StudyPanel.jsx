@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styles from './StudyPanel.module.css'
 import Collapse from '../common/Collapse'
-import { BodyParagraph, InlineContent } from '../common/BodyContent'
+import { BodyParagraph } from '../common/BodyContent'
 import { forkTricks, qaSections } from '../../data/studyData'
 import ForkCarousel from './ForkCarousel'
 
@@ -10,23 +10,19 @@ function ForkTricksCard({ isOpen, onToggle }) {
     <div id="study-fork-tricks">
       <button className={styles.forkCardHeader} onClick={onToggle} aria-expanded={isOpen}>
         <div>
-          <p className={styles.forkCardEyebrow}>Useful Tricks · Interactive Examples w/ detailed steps!</p>
+          <p className={styles.forkCardEyebrow}>Useful Tricks · Full Examples w/ detailed steps!</p>
           <h3 className={styles.forkCardTitle}>{forkTricks.title}</h3>
         </div>
         <span className={`${styles.forkCardChevron} ${isOpen ? styles.forkCardChevronOpen : ''}`}>›</span>
       </button>
-
       <Collapse isOpen={isOpen}>
         <div className={styles.forkCardBody}>
           {forkTricks.habits.map((habit, i) => (
             <div key={i} className={styles.habit}>
               <p className={styles.habitTitle}>{habit.title}</p>
-              {habit.body.map((para, j) => (
-                <BodyParagraph key={j} paragraph={para} />
-              ))}
+              {habit.body.map((para, j) => <BodyParagraph key={j} paragraph={para} />)}
             </div>
           ))}
-
           {forkTricks.examples.map((example, i) => (
             <div key={example.id}>
               <BodyParagraph paragraph={forkTricks.interludes[i]} />
@@ -41,25 +37,34 @@ function ForkTricksCard({ isOpen, onToggle }) {
 
 function QuestionCard({ question }) {
   const [isOpen, setIsOpen] = useState(false)
-  const hasAnswer = question.a && question.a.trim().length > 0
 
   return (
     <div className={styles.card}>
-      <button
-        className={styles.cardHeader}
-        onClick={() => setIsOpen(v => !v)}
-        aria-expanded={isOpen}
-      >
+      <button className={styles.cardHeader} onClick={() => setIsOpen(v => !v)} aria-expanded={isOpen}>
         <span className={styles.cardQ}>{question.q}</span>
         <span className={`${styles.cardChevron} ${isOpen ? styles.cardChevronOpen : ''}`}>›</span>
       </button>
       <Collapse isOpen={isOpen}>
         <div className={styles.cardBody}>
-          {hasAnswer ? (
+          {question.a.length > 0 ? (
             <>
-              <p className={styles.answer}>{question.a}</p>
-              {question.e && question.e.trim().length > 0 && (
-                <p className={styles.explanation}>{question.e}</p>
+              <ul className={styles.answerList}>
+                {question.a.map((item, i) => (
+                  <li key={i} className={styles.answerItem}>
+                    <span className={styles.answerBullet}>▸</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              {question.e.length > 0 && (
+                <ul className={styles.explanationList}>
+                  {question.e.map((item, i) => (
+                    <li key={i} className={styles.explanationItem}>
+                      <span className={styles.explanationArrow}>➥</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               )}
             </>
           ) : (
@@ -74,11 +79,7 @@ function QuestionCard({ question }) {
 function QASection({ section, isOpen, onToggle }) {
   return (
     <div className={styles.section} id={`study-${section.id}`}>
-      <button
-        className={styles.sectionHeader}
-        onClick={onToggle}
-        aria-expanded={isOpen}
-      >
+      <button className={styles.sectionHeader} onClick={onToggle} aria-expanded={isOpen}>
         <span className={styles.sectionName}>{section.title}</span>
         <span className={styles.sectionCount}>({section.questions.length})</span>
         <span className={`${styles.sectionChevron} ${isOpen ? styles.sectionChevronOpen : ''}`}>›</span>
