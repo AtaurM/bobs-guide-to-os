@@ -61,6 +61,7 @@ export default function QRPanel({ sidebarOpen, openGroups, onToggleGroup, isMobi
     <div
       className={styles.panel}
       style={{
+        paddingBottom: isMobile ? '' : '40px',
         paddingTop: isMobile? '28px' : sidebarOpen ? '40px' : '70px',
         transition: 'padding-top 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
       }}

@@ -5,41 +5,7 @@ import Collapse from '../common/Collapse'
 import Highlight from '../common/Highlight'
 import { useSearch } from '../../context/SearchContext'
 import { deepSectionId, deepMatchesQuery } from '../../utils/searchUtils'
-
-function InlineContent({ content }) {
-  if (typeof content === 'string') return <Highlight text={content} />
-  return content.map((seg, i) =>
-    seg.bold
-      ? <strong key={i} className={styles.bold}><Highlight text={seg.text} /></strong>
-      : <Highlight key={i} text={seg.text} />
-  )
-}
-
-// parse type of paragraph
-function BodyParagraph({ paragraph }) {
-  if (paragraph.list) {
-    return (
-      <ol className={styles.numberedList}>
-        {paragraph.list.map((item, i) => (
-          <li key={i} className={styles.listItem}>
-            <span className={styles.listNum}>{i + 1})</span>
-            <span className={styles.listText}><InlineContent content={item} /></span>
-          </li>
-        ))}
-      </ol>
-    )
-  }
-
-  if (typeof paragraph === 'string') {
-    return <p className={styles.bodyPara}><Highlight text={paragraph} /></p>
-  }
-
-  return (
-    <p className={styles.bodyPara}>
-      <InlineContent content={paragraph} />
-    </p>
-  )
-}
+import { InlineContent, BodyParagraph } from '../common/BodyContent'
 
 function DeepSection({ section, isOpen, onToggle }) {
     return (
@@ -103,6 +69,7 @@ export default function DeepPanel({ openSections, onToggleSection, sidebarOpen, 
         <div
             className={styles.panel}
             style={{
+                paddingBottom: isMobile ? '' : '40px',
                 paddingTop: isMobile ? '28px' : sidebarOpen ? '40px' : '70px',
                 transition: 'padding-top 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
             }}

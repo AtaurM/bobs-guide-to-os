@@ -1,0 +1,41 @@
+.bodyPara {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.78;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+}
+
+.bold {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.numberedList {
+    list-style: none;
+    padding-left: 16px;
+    margin: 6px 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.listItem {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: start;
+}
+
+.listNum {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.72;
+    color: var(--accent);
+}
+
+.listText {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.72;
+    color: var(--text-muted);
+}
