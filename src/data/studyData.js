@@ -93,7 +93,7 @@ export const forkTricks = {
       { text: 'exec("filename")', bold: true },
       { text: ' will replace the ' },
       { text: 'entire', bold: true },
-      { text: ' current process — not just the exec line; the whole process — with the contents of the file \'filename\'. For this example, let\'s say that prog.exe just contains: ' },
+      { text: ' current process—not just the exec line; the whole process—with the contents of the file \'filename\'. For this example, let\'s say that prog.exe just contains: ' },
       { text: 'std::cout << "6" << std::endl;', bold: true },
     ],
   ],
