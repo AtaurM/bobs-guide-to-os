@@ -19,7 +19,7 @@ export const forkExamples = [
             },
             {
             process: 'P',
-            action: "Now, let's get started. Line 1 has a fork, so first we'll draw a new process A branching out from P. Then, we'll think about the return value. Let's see: this fork() didn't create the current process, so it returns a positive value. Okay. Let's mentally replace that fork() with a positive value. In this case, we're not doing anything with the result, but it's a good habit to think about the return behavior.",
+            action: "Line 1 has a fork. Let's draw a new process A branching out from P. Now: think about the return value. Let's see: this fork() didn't create the current process, so it returns a positive value. Okay. Let's mentally replace that fork() with a positive value.",
             code: [
                 { line: 'fork(); // A', muted: false, current: true },
                 { line: 'std::cout << "1";', muted: false, current: false },
@@ -36,7 +36,7 @@ export const forkExamples = [
             },
             {
             process: 'P',
-            action: 'Now P just prints out 1.',
+            action: " In this case, we're not doing anything with the fork result, but it's a good habit to think about the return behavior. Now, P just prints out 1.",
             code: [
                 { line: 'fork(); // A', muted: false, current: false },
                 { line: 'std::cout << "1";', muted: false, current: true },
@@ -198,7 +198,7 @@ export const forkExamples = [
                 ],
                 edges: [{ from: 'P', to: 'A' }, { from: 'P', to: 'B1' }, { from: 'A', to: 'B2' }],
             },
-            finalOutput: '1 2   1 2   2   2',
+            finalOutput: '1 2\u00a0\u00a01 2\u00a0\u00a02\u00a0\u00a02',
             },
         ],
     },

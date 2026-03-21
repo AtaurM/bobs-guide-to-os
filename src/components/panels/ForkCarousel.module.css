@@ -1,0 +1,203 @@
+.carousel {
+    border: 1px solid rgba(255, 61, 154, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 12px;
+    background: rgba(255, 61, 154, 0.03);
+}
+
+.carouselHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.processLabel {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.stepCounter {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+}
+
+.progressTrack {
+    height: 2px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 2px;
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.2s ease;
+}
+
+.actionBox {
+    height: 120px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+}
+
+.actionBox::-webkit-scrollbar {
+    width: 3px;
+}
+
+.actionBox::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.action {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+}
+
+.contentRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.codeCol {
+    flex: 1 1 220px;
+    min-width: 0;
+}
+
+.treeCol {
+    flex: 1 1 220px;
+    min-width: 0;
+}
+
+.colLabel {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+}
+
+.codeBlock {
+    background: #030309;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.codeLine {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 12px;
+}
+
+.codeLineCurrent {
+    background: rgba(255, 61, 154, 0.14);
+}
+
+.codeLineMuted {
+    opacity: 0.25;
+}
+
+.lineNum {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    min-width: 14px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.lineText {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text);
+    white-space: pre;
+}
+
+.codeLineCurrent .lineText {
+    color: var(--accent);
+}
+
+.treeWrap {
+    background: #030309;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.finalOutput {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 10px 14px;
+    background: rgba(0, 224, 255, 0.05);
+    border: 1px solid rgba(0, 224, 255, 0.15);
+    border-radius: 6px;
+}
+
+.finalLabel {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    flex-shrink: 0;
+}
+
+.finalCode {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text);
+    letter-spacing: 0.08em;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 18px;
+}
+
+.navBtn {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.navBtn:hover:not(:disabled) {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.navBtn:disabled {
+    opacity: 0.25;
+    cursor: default;
+}

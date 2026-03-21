@@ -3,6 +3,7 @@ import styles from './StudyPanel.module.css'
 import Collapse from '../common/Collapse'
 import { BodyParagraph, InlineContent } from '../common/BodyContent'
 import { forkTricks, qaSections } from '../../data/studyData'
+import ForkCarousel from './ForkCarousel'
 
 function ForkTricksCard({ isOpen, onToggle }) {
   return (
@@ -34,9 +35,7 @@ function ForkTricksCard({ isOpen, onToggle }) {
                   : forkTricks.interludes[i]
                 }
               </p>
-              <div className={styles.carouselPlaceholder}>
-                Carousel coming soon — {example.title}
-              </div>
+              <ForkCarousel example={example} />
             </div>
           ))}
         </div>
