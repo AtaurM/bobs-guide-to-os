@@ -71,9 +71,9 @@
 }
 
 .cardDef {
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
     line-height: 1.55;
     margin: 0;
 }
@@ -91,8 +91,8 @@
     display: flex;
     gap: 6px;
     font-family: var(--font-mono);
-    font-size: 0.63rem;
-    color: var(--accent2);
+    font-size: 0.72rem;
+    color: var(--text);
     line-height: 1.45;
 }
 

@@ -29,6 +29,14 @@ const qrData = [
       "Specific tasks depend on OS",
     ],
   },
+  {
+    tag: "Operating System",
+    term: "OS API",
+    def: "An operating system's API is a set of tools (functions, classes) the OS provides to programmers for building applications.",
+    points: [
+      "Uses system calls under the hood, making them easier to utilize and work with.",
+    ],
+  },
 
   // 2: Types of OS
   {
@@ -375,7 +383,7 @@ const qrData = [
   {
     tag: "Storage & File Systems",
     term: "File System",
-    def: "A file system is a data structure maintained by the OS describing all files on a disk, including physical coordinates, names, and attributes.",
+    def: "A file system is a data structure maintained by the OS describing all files on a disk, including physical coordinates, names, and other attributes.",
     points: [
       "Stores descriptions of files, NOT the file contents",
       "Stored at a known/predefined location on disk",
@@ -395,8 +403,17 @@ const qrData = [
   // 10: Networking
   {
     tag: "Networking",
-    term: "Protocol",
-    def: "A protocol is a set of rules describing how to send, receive, and understand data.",
+    term: "Network",
+    def: "A network is a group of two or more connected devices, such as computers, servers, phones, etc. that communicate to share resources, data, and services.",
+    points: [
+      'While the internet is technically a network, it is really more so a network of networks (it literally is a contraction of "interconnected networks"). It uses physical infrastructure, like fiber-optic cables, satelites, and wireless towers.',
+      'While the internet is the physical and logical infrastructure (cables, routers, etc. but also protocols), the world wide web (WWW) is a service built on top of the internet. It is the collection of websites and HTML documents you access using a web browser.'
+    ]
+  },
+  {
+    tag: "Networking",
+    term: "Networking Protocol",
+    def: "A networking protocol is a set of rules describing how to send, receive, and understand data.",
     points: [
       "Every layer of a network transmission has its own protocol",
       "Networking adapter, OS, and application each use their own",
