@@ -29,12 +29,7 @@ function ForkTricksCard({ isOpen, onToggle }) {
 
           {forkTricks.examples.map((example, i) => (
             <div key={example.id}>
-              <p className={styles.interlude}>
-                {Array.isArray(forkTricks.interludes[i])
-                  ? <InlineContent content={forkTricks.interludes[i]} />
-                  : forkTricks.interludes[i]
-                }
-              </p>
+              <BodyParagraph paragraph={forkTricks.interludes[i]} />
               <ForkCarousel example={example} />
             </div>
           ))}

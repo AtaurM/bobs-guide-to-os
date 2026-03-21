@@ -99,7 +99,7 @@ export const forkTricks = {
       { text: ' will replace the ' },
       { text: 'entire', bold: true },
       { text: ' current process—not just the exec line; the whole process—with the contents of the file \'filename\'. For this example, let\'s say that prog.exe just contains: ' },
-      { text: 'std::cout << "6" << std::endl;', bold: true },
+      { text: 'std::cout << "6";', bold: true },
     ],
   ],
   examples: forkExamples,
@@ -112,7 +112,7 @@ export const qaSections = [
     questions: [
       {
         q: 'What is an operating system?',
-        a: 'An operating system is system software that manages computer hardware and software resources, and provides common services for computer programs. It acts as an intermediary between users and the hardware.',
+        a: 'An operating system is a program that manages hardware and provides other programs with an environment to run in.',
         e: '',
       },
       { q: 'Examples of different operating systems.', a: '', e: '' },
@@ -136,8 +136,8 @@ export const qaSections = [
     questions: [
       {
         q: 'What is a process?',
-        a: 'A process is a program in execution. It includes the program code (text section), current activity (program counter, registers), stack, data section, and heap.',
-        e: '',
+        a: 'A process is a program in execution.',
+        e: 'It includes the program code (text section), stack, data section, and heap.',
       },
       { q: 'What is the difference between a process and a program?', a: '', e: '' },
       { q: 'List five process states (use the naming from our textbook and class).', a: '', e: '' },
@@ -166,8 +166,8 @@ export const qaSections = [
     questions: [
       {
         q: 'What is IPC?',
-        a: 'IPC (Inter-Process Communication) refers to the mechanisms that allow processes to communicate and synchronize with each other. Since processes have separate memory spaces, they need special mechanisms to share data.',
-        e: '',
+        a: 'IPC (Inter-Process Communication) is a set of mechanisms that allow different processes to communicate with each other.',
+        e: 'Since processes have separate memory spaces, they need special mechanisms to share data.',
       },
       { q: 'What are the two general classes of IPC (shared memory and message passing)?', a: '', e: '' },
       { q: 'What is the idea of shared memory? What are the advantages and disadvantages of shared memory?', a: '', e: '' },
@@ -192,8 +192,8 @@ export const qaSections = [
     questions: [
       {
         q: 'What is a thread of execution (a.k.a. just thread)?',
-        a: 'A thread is the smallest unit of execution within a process. A process can have multiple threads, all sharing the same memory space but each with its own program counter, registers, and stack.',
-        e: '',
+        a: 'A thread of execution is an independent unit of execution within a process with its own program counter, registers (the values) and stack.',
+        e: 'A process can (and often will) have multiple threads, all sharing the same memory space',
       },
       { q: 'Why might we want to create new threads of execution instead of new processes?', a: '', e: '' },
       { q: 'Why might we want to create new processes instead of new threads?', a: '', e: '' },

@@ -99,15 +99,6 @@
     margin-bottom: 10px;
 }
 
-.interlude {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--text-dim);
-    font-style: italic;
-    line-height: 1.65;
-    margin: 24px 0 12px;
-}
-
 .carouselPlaceholder {
     border: 1px dashed rgba(var(--accent-rgb), 0.25);
     border-radius: 8px;

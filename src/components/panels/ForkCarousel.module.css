@@ -43,45 +43,40 @@
     transition: width 0.2s ease;
 }
 
-.actionBox {
-    height: 120px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent) transparent;
-}
-
-.actionBox::-webkit-scrollbar {
-    width: 3px;
-}
-
-.actionBox::-webkit-scrollbar-thumb {
-    background: var(--accent);
-    border-radius: 2px;
-}
-
 .action {
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--text-muted);
     line-height: 1.65;
+    margin-top: 16px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
 }
 
 .contentRow {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    align-items: flex-start;
+    align-items: stretch;
+    overflow-x: auto;
+    margin-top: 14px;
 }
 
 .codeCol {
-    flex: 1 1 220px;
-    min-width: 0;
+    flex: 1 1 0;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
 }
 
 .treeCol {
-    flex: 1 1 220px;
-    min-width: 0;
+    flex: 1 1 0;
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
 }
 
 .colLabel {
@@ -98,6 +93,7 @@
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 6px;
     overflow: hidden;
+    flex: 1;
 }
 
 .codeLine {
@@ -140,9 +136,28 @@
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 6px;
     padding: 8px;
+    line-height: 0;
+    flex: 1;
+}
+
+.treeWrapEmpty {
+    background: #030309;
+    border: 1px dashed rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    padding: 8px;
+    min-height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 1;
+}
+
+.treeEmptyLabel {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
 }
 
 .finalOutput {

@@ -202,34 +202,6 @@ export default function ForkCarousel({ example }) {
         />
       </div>
 
-      <div className={styles.actionBox}>
-        <p className={styles.action}>{step.action}</p>
-      </div>
-
-      <div className={styles.contentRow}>
-        <div className={styles.codeCol}>
-          <p className={styles.colLabel}>Code</p>
-          <CodeBlock lines={step.code} />
-        </div>
-        <div className={styles.treeCol}>
-          <p className={styles.colLabel}>Process Tree</p>
-          <div className={styles.treeWrap}>
-            <TreeRenderer
-              tree={step.tree}
-              finalTree={finalStep.tree}
-              prevTree={prevStep?.tree || null}
-            />
-          </div>
-        </div>
-      </div>
-
-      {step.finalOutput && (
-        <div className={styles.finalOutput}>
-          <span className={styles.finalLabel}>Final output:</span>
-          <code className={styles.finalCode}>{step.finalOutput}</code>
-        </div>
-      )}
-
       <div className={styles.nav}>
         <button
           className={styles.navBtn}
@@ -246,6 +218,41 @@ export default function ForkCarousel({ example }) {
           Next ›
         </button>
       </div>
+
+      <div className={styles.contentRow}>
+        <div className={styles.codeCol}>
+          <p className={styles.colLabel}>Code</p>
+          <CodeBlock lines={step.code} />
+        </div>
+        {stepIndex > 0 ? (
+          <div className={styles.treeCol}>
+            <p className={styles.colLabel}>Process Tree</p>
+            <div className={styles.treeWrap}>
+              <TreeRenderer
+                tree={step.tree}
+                finalTree={finalStep.tree}
+                prevTree={prevStep?.tree || null}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className={styles.treeCol}>
+            <p className={styles.colLabel}>Process Tree</p>
+            <div className={styles.treeWrapEmpty}>
+              <span className={styles.treeEmptyLabel}>Try it first!</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <p className={styles.action}>{step.action}</p>
+
+      {step.finalOutput && (
+        <div className={styles.finalOutput}>
+          <span className={styles.finalLabel}>Final output:</span>
+          <code className={styles.finalCode}>{step.finalOutput}</code>
+        </div>
+      )}
     </div>
   )
 }
