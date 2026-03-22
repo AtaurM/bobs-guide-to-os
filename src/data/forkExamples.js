@@ -674,7 +674,7 @@ export const forkExamples = [
     steps: [
       {
         process: null,
-        action: "Give it a try first! Work out the process tree and final output on your own. When you're ready, hit Next to see the walkthrough.",
+        action: "Give it a try first! \"prog.exe\" is a file that just contains: std::cout << \"6\";. Work out the process tree and final output on your own. When you're ready, hit Next to see the walkthrough.",
         code: [
           { line: 'std::cout << "1";', muted: false, current: false },
           { line: 'int val = fork();', muted: false, current: false },

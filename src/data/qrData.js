@@ -24,9 +24,9 @@ const qrData = [
     term: "OS Kernel",
     def: "The operating system kernel is the central component of an OS that performs the most important OS tasks.",
     points: [
+      "Specific tasks depend on OS",
       "Runs in kernel mode",
       "Issues privileged instructions",
-      "Specific tasks depend on OS",
     ],
   },
   {
@@ -41,8 +41,8 @@ const qrData = [
   // 2: Types of OS
   {
     tag: "Types of OS",
-    term: "Personal OS",
-    def: "OS for personal machines. Prioritizes user experience.",
+    term: "OS for Personal Machines",
+    def: "OS for personal machines prioritize user experience.",
     points: [
       "Windows, Linux, macOS, ChromeOS",
       "Don't list different Linux distros on exam!",
@@ -50,8 +50,8 @@ const qrData = [
   },
   {
     tag: "Types of OS",
-    term: "Mobile OS",
-    def: "Os for mobile devices. Prioritizes user experience + limited resource management.",
+    term: "OS for Mobile Devices",
+    def: "Os for mobile devices prioritize user experience + limited resource management.",
     points: [
       "Android, iOS",
       "Battery, RAM, CPU constraints",
@@ -60,8 +60,8 @@ const qrData = [
   },
   {
     tag: "Types of OS",
-    term: "Server OS",
-    def: "OS for servers. Prioritizes stability and efficiency.",
+    term: "OS for Servers",
+    def: "OS for servers prioritize stability and efficiency.",
     points: [
       "Windows Server, FreeBSD, Solaris, Linux (DONT'T list this if you already have PC Linux)",
       "No expectation of convenient UI",
@@ -70,7 +70,7 @@ const qrData = [
   },
   {
     tag: "Types of OS",
-    term: "Embedded OS",
+    term: "OS for Embedded Devices",
     def: "OS for embedded devices. MOST WIDESPREAD. For resource-constrained (and typically small) devices.",
     points: [
       "VxWorks, FreeRTOS, minimal Linux (again, don't write if you already have Linux OR Linux server)",

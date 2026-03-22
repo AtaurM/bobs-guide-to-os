@@ -24,7 +24,7 @@ export const forkTricks = {
         [
           { text: 'If you forget which receives which, think: ' },
           { text: 'PARENT receives POSITIVE.', bold: true },
-          { text: ' Write it down at the beginning of the exam. Child receives 0.' },
+          { text: ' Write it down at the beginning of an exam. Child receives 0.' },
         ],
         [
           { text: 'Also, remember: ' },
@@ -333,14 +333,14 @@ export const qaSections = [
       {
         q: 'Process Control Block (PCB). What typical components can you see there?',
         a: [
-          'A Process Control Block is a record maintained by the OS for each process containing all information needed to manage it.',
+          'A Process Control Block is a record maintained by the OS for a single process containing all information needed to manage it.',
           [{ text: 'PID:', bold: true }, { text: ' process identification number, a unique numeric name for each process.' }],
           [{ text: 'Parent PID:', bold: true }, { text: ' to know who the parent of this process is.' }],
-          [{ text: 'PC (program counter):', bold: true }, { text: ' stores where in the program code the process stopped.' }],
+          [{ text: 'Latest value in program counter:', bold: true }, { text: ' stores where in the program code the process stopped.' }],
           [{ text: 'Register file:', bold: true }, { text: ' copies of all general purpose CPU register values.' }],
-          [{ text: 'CPU scheduling info:', bold: true }, { text: " tracks how much CPU time the process has used recently, maybe also the process' priority level." }],
+          [{ text: 'CPU scheduling info:', bold: true }, { text: " tracks how much CPU time the process has used recently, as well as the process' priority level." }],
           [{ text: 'RAM management info:', bold: true }, { text: ' size of the process, stack pointer, memory location.' }],
-          [{ text: 'List of opened files:', bold: true }, { text: ' whatever the process has open. The content is NOT stored here, only the list.' }],
+          [{ text: 'List of opened files:', bold: true }, { text: ' whatever the process has open. The content is NOT stored here, only the list (references to file system entries).' }],
           [{ text: 'List of requested I/O devices.', bold: false }],
         ],
         e: [],
@@ -349,7 +349,6 @@ export const qaSections = [
         q: 'Context switch. Why does context switching have a small performance overhead? How does that overhead affect system calls?',
         a: [
           'Context switching requires saving and loading CPU registers and the program counter to/from RAM, and reading/writing RAM takes time.',
-          'No matter how well supported by hardware, context switching is not free.',
           'Every system call requires two context switches: CPU switches from process to OS, then back from OS to process. This is why system calls have a performance overhead.',
         ],
         e: [],
@@ -357,15 +356,15 @@ export const qaSections = [
       {
         q: 'What is POSIX?',
         a: [
-          'POSIX (Portable Operating System Interface) is a set of standards that define how Unix-like operating systems should behave to maintain compatibility across systems.',
-          'POSIX API functions like fork(), exec(), and wait() allow programs written for one POSIX-compliant OS to be compiled and run on another.',
+          [{ text: 'POSIX', bold: true }, { text: ' (Portable Operating System Interface) is a set of standards that define how Unix-like operating systems should behave to maintain compatibility across systems.' }],
+          'POSIX API functions like fork(), exec(), and wait() allow programs written for one POSIX-compliant OS to be compiled and run on another (with none or minimal changes).',
         ],
         e: [],
       },
       {
         q: 'fork()',
         a: [
-          'fork() is a POSIX instruction that creates an almost-exact copy (new PID) of the calling process, and returns the child\'s PID (a positive integer) to the parent and 0 to the child.',
+          [{ text: 'int fork()', bold: true}, { text: ' is a POSIX instruction that creates an almost-exact copy (new PID) of the calling process, and returns the child\'s PID (a positive integer) to the parent and 0 to the child.' }],
           [{ text: '1)', bold: true }, { text: ' Creates a copy of the calling process with a new PID.' }],
           [{ text: '2)', bold: true }, { text: ' The parent continues execution after the fork().' }],
           [{ text: '3)', bold: true }, { text: ' The child starts executing at the instruction after the fork() that created it, not from the top.' }],
@@ -376,7 +375,10 @@ export const qaSections = [
       {
         q: 'exec()',
         a: [
-          'exec() is a POSIX instruction that entirely replaces the current process\'s content with a new program from a given executable file.',
+          [
+            { text: 'int exec(string filename)', bold: true },
+            { text: ' is a POSIX instruction that entirely replaces the current process\'s content with a new program from a given executable file.' },
+          ],
           'The PID stays the same but the program is completely different. exec() never returns on success, only on failure.',
         ],
         e: ['The OS can skip copying memory on fork() if it detects exec() will be called immediately after (copy-on-write optimization).'],
@@ -384,7 +386,10 @@ export const qaSections = [
       {
         q: 'exit()',
         a: [
-          'exit() is a POSIX instruction that stops the process and releases its resources.',
+          [
+            { text: 'void exit(int status)', bold: true},
+            { text: ' is a POSIX instruction that stops the current process and releases its resources.' },
+          ],
           'The parameter is the exit status: 0 means success, non-zero is an error code.',
           'The PCB is kept until the parent calls wait(). Until then, the process is a zombie.',
         ],
@@ -393,7 +398,10 @@ export const qaSections = [
       {
         q: 'wait()',
         a: [
-          'wait() is a POSIX instruction called by a parent process to pause execution until one of its children terminates.',
+          [
+            { text: 'wait()', bold: true },
+            { text: ' is a POSIX instruction called by a (parent) process to pause execution until any one of its children terminates.' }
+          ],
           'It collects the child\'s exit status and fully cleans up the child\'s PCB, eliminating the zombie.',
           'Calling wait() with no children returns an error.',
         ],
@@ -402,10 +410,10 @@ export const qaSections = [
       {
         q: 'Layout of a process in memory: text section, data section, heap, and stack.',
         a: [
-          [{ text: 'Stack:', bold: true }, { text: ' stores local variables, saved registers, return addresses, and function parameters. Grows downward. Contiguous. Has a size limit.' }],
-          [{ text: 'Heap:', bold: true }, { text: ' where dynamic memory allocation happens (malloc, new). Grows upward. Fragmented.' }],
+          [{ text: 'Stack', bold: true }, { text: " (at top of diagram): stores local variables, saved registers, return addresses, and function parameters. Grows downward (in the diagram). It's contiguous and has a size limit." }],
+          [{ text: 'Heap:', bold: true }, { text: ' where dynamic memory allocation happens (malloc, new). Grows upward (in the diagram). Fragmented.' }],
           [{ text: 'Data section:', bold: true }, { text: ' stores global and static variables.' }],
-          [{ text: 'Text section:', bold: true }, { text: ' stores the program code (CPU instructions).' }],
+          [{ text: 'Text section', bold: true }, { text: ' (at bottom of diagram): stores the program code (CPU instructions).' }],
         ],
         e: [],
       },
@@ -413,14 +421,14 @@ export const qaSections = [
         q: 'What are the properties of heap (it is fragmented, full of holes)? How does it affect the typical dynamic memory allocation like using the operator new?',
         a: [
           'The heap is fragmented and full of holes from prior allocations and deallocations.',
-          'This means operator new must search for a free chunk of the right size in fragmented space, making heap allocation slower than stack allocation.',
+          "This means the operator 'new' must search for a free chunk of the right size in fragmented space, making heap allocation slower than stack allocation.",
         ],
-        e: ['The stack is contiguous, so allocation is just shifting the stack pointer. Very fast.'],
+        e: [],
       },
       {
         q: 'What are the properties of stack?',
         a: [
-          'The stack is contiguous with no holes, making allocation fast. It is just shifting the stack pointer.',
+          'The stack is contiguous with no holes, making allocation fast (just involves shifting the stack pointer).',
           'It stores local variables, function parameters, return addresses, and saved registers.',
           'It has a size limit set by the OS. Exceeding it causes a stack overflow, which crashes the program.',
         ],
@@ -433,7 +441,7 @@ export const qaSections = [
           'The child has no parent to collect its exit status, so when it eventually terminates it becomes an uncollectable zombie.',
           'Orphan accumulation causes PCBs to pile up in the system, wasting RAM.',
         ],
-        e: ['The OS resolves orphans via cascading termination (killing all descendants) or by having a designated reaper process adopt and wait for them.'],
+        e: ['The OS resolves orphans via cascading termination (terminating all descendants when a process exits) or by having a designated reaper process wait around and adopt them.'],
       },
       {
         q: 'Zombie process. For how long does it exist?',
@@ -453,21 +461,21 @@ export const qaSections = [
       {
         q: 'What is IPC?',
         a: ['IPC (Inter-Process Communication) is a set of mechanisms that allow different processes to communicate with each other.'],
-        e: ['Since processes have separate memory spaces, they need special OS-provided mechanisms to share data.'],
+        e: ['Processes need these special OS-provided mechanisms to share data because they have separate memory spaces.'],
       },
       {
         q: 'What are the two general classes of IPC (shared memory and message passing)?',
         a: [
-          [{ text: '1. Shared memory:', bold: true }, { text: ' the OS creates a region of RAM accessible to multiple processes (ONLY upon request by the process).' }],
-          [{ text: '2. Message passing:', bold: true }, { text: ' all data exchanges go through the OS.' }],
+          [{ text: '1. Shared memory:', bold: true }, { text: ' the OS creates a region of RAM accessible to multiple processes (only created upon request by the process; not there by default except for all threads of a single process).' }],
+          [{ text: '2. Message passing:', bold: true }, { text: ' all data exchanges go through the OS. Requires a system call per exchange, which requires two context switches.' }],
         ],
         e: [],
       },
       {
         q: 'What is the idea of shared memory? What are the advantages and disadvantages of shared memory?',
         a: [
-          'Shared memory is an IPC technique where the OS allocates a RAM region accessible to multiple processes. The process must request the OS to create this region.',
-          [{ text: 'Advantage:', bold: true }, { text: ' faster. Only needs OS help once to create the region. After that, no per-access overhead.' }],
+          'Shared memory is an IPC technique where the OS allocates a region of memory accessible to multiple processes. The process must request the OS to create this region.',
+          [{ text: 'Advantage:', bold: true }, { text: ' faster. Only needs OS help once to create the region (and once to deallocate when process no longer needs it). This removes the overhead for every access/message.' }],
           [{ text: 'Disadvantage:', bold: true }, { text: ' error-prone. Requires careful synchronization and is harder to program correctly. Can only be used by processes on the same machine.' }],
         ],
         e: [
@@ -483,9 +491,9 @@ export const qaSections = [
       {
         q: 'What is the idea of message passing? What are the advantages and disadvantages of message passing?',
         a: [
-          'Message passing is an IPC technique where every data exchange goes through the OS. Process A passes data to the OS, which delivers it to process B.',
+          'Message passing is an IPC technique where every data exchange between processes goes through the OS. Process A passes data to the OS, which delivers it to process B.',
           [{ text: 'Advantage:', bold: true }, { text: ' easier to program correctly, less to think about. Works across different machines on a network.' }],
-          [{ text: 'Disadvantage:', bold: true }, { text: ' slower. Every exchange requires a system call and two context switches.' }],
+          [{ text: 'Disadvantage:', bold: true }, { text: ' slower. Every exchange requires a system call, which requires two context switches.' }],
         ],
         e: [],
       },
@@ -493,14 +501,13 @@ export const qaSections = [
         q: 'Can shared memory IPC be used for two processes running on two different computers? Why do you think so?',
         a: [
           'No. Shared memory requires both processes to have access to the same physical RAM.',
-          'Processes on different computers are on separate machines and cannot share physical memory directly.',
         ],
         e: [],
       },
       {
         q: 'What is a network (a bunch of computers connected together to exchange data)?',
         a: ['A network is a group of two or more connected devices that communicate to share resources, data, and services.'],
-        e: [],
+        e: ['While the internet is technically a network, it is really more so a network of networks (it literally is a contraction of "interconnected networks"). It uses physical infrastructure, like fiber-optic cables, satelites, and wireless towers.'],
       },
       {
         q: 'What is an IP address? How does a classic IP address (IPv4) look?',
@@ -524,6 +531,7 @@ export const qaSections = [
           'A networking port is a unique numeric identifier assigned to every process that wants to use the network.',
           'Think of the IP address as the house address and the port as the name of a specific person at that address.',
           'Ports range from 0 to 65535.',
+          'The first 1024 ports are intended to be used for specific predefined purposes.'
         ],
         e: [],
       },
@@ -534,7 +542,7 @@ export const qaSections = [
           'Example: port 80 is reserved for HTTP web servers.',
           'Nobody should use these ports for arbitrary purposes.',
         ],
-        e: ['Just saying "0 to 1023" on the exam is worth 0 points. You must say they have predefined purposes.'],
+        e: ['Just saying "0 to 1023" on an exam is worth 0 points. You must say they have predefined purposes.'],
       },
       {
         q: 'What is a (networking) socket?',
@@ -542,20 +550,24 @@ export const qaSections = [
           'A networking socket is the combination of an IP address and a networking port (e.g., 55.220.0.51:81).',
           'It uniquely identifies a specific process on a specific machine and serves as the endpoint for network communication.',
         ],
-        e: [],
+        e: [
+          'You need BOTH the IP AND the port for communication!'
+        ],
       },
       {
         q: 'What is a server (like in "web server" or "email server")?',
         a: [
-          'A server is a computer on the network that receives requests and provides services to other computers.',
+          'A server is a computer on a network that receives requests and provides services to other computers.',
           'It runs server software that listens on a well-known port and is designed for stability, high performance, and continuous availability.',
         ],
-        e: [],
+        e: [
+          "The same computer can simultaneously also be a client. It could possibly even serve and receive from itself. Think about running an application's frontend and backend both on the same machine at the same time."
+        ],
       },
       {
         q: 'What is a client?',
         a: [
-          'A client is a computer that requests and obtains services or information from a server.',
+          'A client is a computer on a network that requests and obtains services or information from a server.',
           'It initiates the connection and includes its own IP and port so the server knows where to reply.',
         ],
         e: [],
@@ -602,8 +614,8 @@ export const qaSections = [
         q: 'Why might we want to create new threads of execution instead of new processes?',
         a: [
           [{ text: 'Memory efficient:', bold: true }, { text: ' threads share the same memory space. No memory duplication unlike forking.' }],
-          [{ text: 'Faster to create and delete:', bold: true }, { text: ' no need to allocate new memory or set up a full new process.' }],
-          [{ text: 'Faster context switching:', bold: true }, { text: ' switching between threads of the same process is cheaper than switching between processes.' }],
+          [{ text: 'Faster to create and delete:', bold: true }, { text: ' no need to allocate new memory (apart from the new stack) or set up a full new process.' }],
+          [{ text: 'Faster context switching:', bold: true }, { text: ' threads of a single process operate within the same logical address space' }],
           [{ text: 'Better CPU utilization:', bold: true }, { text: ' threads can run on multiple CPU cores simultaneously.' }],
           [{ text: 'Shared memory by default:', bold: true }, { text: ' threads share the data section and heap without any OS setup.' }],
         ],
@@ -612,10 +624,10 @@ export const qaSections = [
       {
         q: 'Why might we want to create new processes instead of new threads?',
         a: [
+          [{ text: 'Fault independence:', bold: true }, { text: ' if one thread crashes, it brings down the whole process. Separate processes are isolated, meaning a crash in one does not affect others.' }],
           [{ text: 'exec() compatibility:', bold: true }, { text: ' if a thread calls exec(), it replaces the entire process including all other threads. A separate process avoids this.' }],
-          [{ text: 'Fault independence:', bold: true }, { text: ' if one thread crashes, it brings down the whole process. Separate processes are isolated: a crash in one does not affect others.' }],
         ],
-        e: ['This is why browsers use separate processes for each tab: if one tab crashes, it does not bring down the others.'],
+        e: ['This is why browsers use separate processes for each tab. If one tab crashes, it does not bring down the others.'],
       },
       {
         q: 'What do threads belonging to the same process share? What do they not share?',
@@ -627,7 +639,11 @@ export const qaSections = [
           [{ text: 'Threads do NOT share:', bold: true }],
           [{ text: 'Stack:', bold: true }, { text: ' each thread has its own stack with its own local variables and function call state.' }],
         ],
-        e: ['Each thread also has its own register values and program counter.'],
+        e: [
+          'Each thread also has its own register values and program counter.',
+          '...t3 stack → gap → t2 stack → gap → t1 stack → gap → heap → data → text.',
+          'Stack grows into heap or another stack → stack overflow exception in modern OS, but memory corruption (overwriting, unpredictable behavior) in computers with no MMU (some embedded devices)'
+        ],
       },
       {
         q: 'What is TLS (thread local storage)?',
@@ -635,7 +651,10 @@ export const qaSections = [
           'Thread Local Storage is a tool that allows threads to have their own private copies of variables that appear global.',
           'Each thread has its own independent copy. Changes made in one thread are not visible to others.',
         ],
-        e: ['Useful when you want global-looking state that is still thread-safe without synchronization.'],
+        e: [
+          'Useful when you want global-looking state that is still thread-safe without synchronization.',
+          'Why would you want it to be global-looking? So you can use it in different parts of your code (in the same thread) and not just inside one function.'
+        ],
       },
       {
         q: 'What is thread pool?',
@@ -651,18 +670,25 @@ export const qaSections = [
         a: [
           [{ text: 'Include:', bold: true }, { text: ' #include <thread>' }],
           [{ text: 'Syntax:', bold: true }, { text: ' std::thread t1{FunctionName, arg1, arg2, ...};' }],
-          'The thread starts executing immediately upon construction. The function runs concurrently with the calling thread.',
+          'The thread is eligible to start executing immediately upon construction. The function is able to run concurrently with the calling thread.',
         ],
-        e: [],
+        e: [
+          'When it actually runs is up to the OS scheduler.'
+        ],
       },
       {
         q: 'What does std::thread::join() do? Why do we need it?',
         a: [
-          'join() blocks the calling thread until the thread it is called on finishes execution.',
+          [
+            { text: 'join()', bold: true },
+            { text: ' blocks the calling thread (makes it wait) until the thread it is called on finishes execution.'},
+          ],
           'We need it to ensure the thread has completed its work before we try to use its results or before the program exits.',
           'If the main thread exits before a child thread finishes, the behavior is undefined and the program may crash.',
         ],
-        e: [],
+        e: [
+          't1.join() would make the calling thread wait until t1 finishes execution.'
+        ],
       },
     ],
   },

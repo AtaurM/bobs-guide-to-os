@@ -67,7 +67,7 @@ export default function QRPanel({ sidebarOpen, openGroups, onToggleGroup, isMobi
       }}
     >
       <div className={styles.panelHeader}>
-        <p className={styles.panelEyebrow}>Quick Reference · All term definitions</p>
+        <p className={styles.panelEyebrow}>Quick Reference · All formal term definitions</p>
         <h2 className={styles.panelTitle}>Quick Reference</h2>
         <p className={styles.panelSub}>{qrData.length} terms · grouped by topic</p>
       </div>

@@ -112,9 +112,9 @@ export default function StudyPanel({ sidebarOpen, isMobile, openSections, onTogg
       }}
     >
       <div className={styles.panelHeader}>
-        <p className={styles.panelEyebrow}>Quiz yourself · Explanations</p>
+        <p className={styles.panelEyebrow}>Quiz yourself! · Tips & Explanations</p>
         <h2 className={styles.panelTitle}>Study Guide</h2>
-        <p className={styles.panelSub}>Attempt the questions first! · read explanations so you don't have to rely on memorization</p>
+        <p className={styles.panelSub}>Attempt the questions first! · read relevant concept pages so you don't have to rely only on memorization!</p>
       </div>
 
       <ForkTricksCard
