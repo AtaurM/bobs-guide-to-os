@@ -231,110 +231,6 @@ const deepDiveData = [
     },
 
     {
-    title: "Contiguous Allocation & Fragmentation",
-    sub: "How OS allocates memory + downsides",
-    body: [
-        [
-        { text: "Contiguous allocation", bold: true },
-        { text: " is a memory allocation technique where processes receive all of their memory in a single, unbroken chunk (we're talking about the physical address space here, btw). If a process needs 4MB, the OS finds a 4MB hole and gives it entirely to that process. The MMU tracks this using a " },
-        { text: "base value", bold: true },
-        { text: " (start address) and a " },
-        { text: "limit value", bold: true },
-        { text: " (size). Any access outside that range is blocked by hardware (MMU)." },
-        ],
-        [
-        { text: "When a process exits, it releases its chunk, creating a " },
-        { text: "memory hole", bold: true },
-        { text: ". If we now allocate a slightly-smaller process in that hole, we have a tiny, realistically-unusable gap. This is known as " },
-        { text: "fragmentation", bold: true },
-        { text: ": a situation where RAM is wasted due to inefficient usage." },
-        ],
-        "There are two kinds of fragmentation:",
-        { list: [
-        [
-            { text: "External fragmentation", bold: true },
-            { text: " is wasted memory that belongs to no process. Holes exist but may be too small or scattered to be useful. Defragmentation (shifting processes to consolidate holes) is theoretically possible but extremely expensive. " },
-        ],
-        [
-            { text: "Internal fragmentation", bold: true },
-            { text: " is wasted memory that is allocated to a process but not actually used because the OS gave it more than it asked for. This does not happen in contiguous allocation (the OS gives exactly what is requested), but it does appear in other allocation schemes (like paging)." },
-        ]
-        ]},
-        "When choosing which hole to place a process in, the OS has two main strategies:",
-        { list: [
-        [
-            { text: "Best fit", bold: true },
-            { text: " uses the smallest hole that is large enough. This preserves large holes but tends to leave behind many tiny leftover holes, maximizing external fragmentation." },
-        ],
-        [
-            { text: "Worst fit", bold: true },
-            { text: " uses the largest available hole, leaving behind a larger remainder that is more likely to be usable, minimizing external fragmentation." },
-        ],
-        ]},
-        "In both cases, the process is placed at the leftmost position within the selected hole.",
-    ],
-    terms: [
-        { t: "Contiguous Memory Allocation", d: "Memory allocation strategy where each process receives all of its memory in one unbroken chunk. The MMU uses a base and limit value to enforce boundaries." },
-        { t: "Fragmentation", d: "A situation where RAM is wasted due to inefficient memory usage." },
-        { t: "External Fragmentation", d: "Wasted memory not allocated to any process. Holes are too small or scattered to be useful." },
-        { t: "Internal Fragmentation", d: "Wasted memory allocated to a process but not used because more was given than requested." },
-        { t: "Defragmentation", d: "Shifting processes in memory to consolidate holes. Theoretically solves external fragmentation but is very expensive." },
-    ],
-    exam: [
-        "External fragmentation = wasted memory belonging to NO process (OUTSIDE processes). Internal fragmentation = wasted memory belonging to a process (EXTRA memory given TO the process).",
-        "Contiguous allocation does NOT produce internal fragmentation; it gives exactly what is requested.",
-        "Best fit maximizes external fragmentation (tiny leftover holes). Worst fit minimizes it (larger leftovers).",
-    ],
-    },
-
-    {
-    title: "Paging",
-    sub: "Breaking memory into equal chunks",
-    body: [
-        [
-        { text: "Paging", bold: true },
-        { text: " is a memory management technique that avoids the external fragmentation from contiguous allocation. The key idea is to split both logical and physical memory into fixed-size chunks, then map them freely." },
-        ],
-        [
-        { text: "Pages", bold: true },
-        { text: " are FIXED-SIZE chunks of a process' logical address space. " },
-        { text: "Frames", bold: true },
-        { text: " are fixed-size chunks of physical RAM. Pages and frames must always be the same size!" },
-        ],
-        "With paging, a process's data might appear perfectly contiguous in logical memory, but in physical RAM, its pages can be scattered across completely different frames. The process never sees this. It only ever works with logical addresses.",
-        [
-        { text: "The " },
-        { text: "page table", bold: true },
-        { text: " is a data structure maintained by the OS (stored in RAM) that records which physical frame each logical page maps to. The MMU uses it to convert addresses at runtime." },
-        ],
-        "Address translation works as follows given a logical address:",
-        { list: [
-        "Page number = logical address ÷ page size (integer division)",
-        "Offset = logical address % page size",
-        "Look up the page number in the page table to get the frame number",
-        "Physical address = (frame number × page size) + offset",
-        ]},
-        [
-        { text: "Paging introduces " },
-        { text: "internal fragmentation", bold: true },
-        { text: ". The OS can only allocate memory in whole-frame chunks. If a process's last page does not fill an entire frame, the remainder of that frame is wasted, as it is allocated to the process but unused. The OS cannot give half/a portion of a frame." },
-        ],
-    ],
-    terms: [
-        { t: "Page", d: "A fixed-size chunk of a process's logical address space." },
-        { t: "Frame", d: "A fixed-size chunk of physical RAM. MUST be the same size as a page." },
-        { t: "Page Table", d: "A data structure stored in RAM by the OS that maps page numbers to frame numbers. Used by the MMU for address translation." },
-        { t: "Internal Fragmentation (in the context of Paging)", d: "The wasted space at the end of the last frame allocated to a process, because the OS must give whole frames." },
-    ],
-    exam: [
-        "Pages are logical; frames are physical. They MUST be the SAME SIZE.",
-        "Paging eliminates external fragmentation but introduces internal fragmentation.",
-        "Processes are blind to physical memory. They ONLY work with LOGICAL addresses.",
-        "Know how to do address translation: page# = logical ÷ page_size; offset = logical % page_size; physical = frame# × page_size + offset.",
-    ],
-    },
-
-    {
     title: "I/O, Interrupts & Drivers",
     sub: "Event-driven hardware management",
     body: [
@@ -595,11 +491,11 @@ const deepDiveData = [
     },
 
     {
-    title: "fork, exec, exit, wait, zombies, and orphans!",
+    title: "fork, exec, exit, wait, zombies, and orphans",
     sub: "POSIX process operations",
     body: [
         [
-        { text: "Note: SEE EXAM TIPS BELOW! Forking practice & solution explanations coming soon!", bold: true },
+        { text: "Note: SEE EXAM TIPS BELOW! Interactive forking walkthroughs & solution explanations available in study tab!", bold: true },
         ],
         [
         { text: "POSIX", bold: true },
@@ -753,6 +649,110 @@ const deepDiveData = [
         "User threads cannot use multiple cores. If one waits on I/O, all have to wait.",
         "Kernel threads can use multiple cores but require system calls to manage.",
         "If one thread calls exec(), it replaces the entire process. All threads will be gone.",
+    ],
+    },
+    
+    {
+    title: "Contiguous Memory Allocation & Fragmentation",
+    sub: "How OS allocates memory + downsides",
+    body: [
+        [
+        { text: "Contiguous allocation", bold: true },
+        { text: " is a memory allocation technique where processes receive all of their memory in a single, unbroken chunk (we're talking about the physical address space here, btw). If a process needs 4MB, the OS finds a 4MB hole and gives it entirely to that process. The MMU tracks this using a " },
+        { text: "base value", bold: true },
+        { text: " (start address) and a " },
+        { text: "limit value", bold: true },
+        { text: " (size). Any access outside that range is blocked by hardware (MMU)." },
+        ],
+        [
+        { text: "When a process exits, it releases its chunk, creating a " },
+        { text: "memory hole", bold: true },
+        { text: ". If we now allocate a slightly-smaller process in that hole, we have a tiny, realistically-unusable gap. This is known as " },
+        { text: "fragmentation", bold: true },
+        { text: ": a situation where RAM is wasted due to inefficient usage." },
+        ],
+        "There are two kinds of fragmentation:",
+        { list: [
+        [
+            { text: "External fragmentation", bold: true },
+            { text: " is wasted memory that belongs to no process. Holes exist but may be too small or scattered to be useful. Defragmentation (shifting processes to consolidate holes) is theoretically possible but extremely expensive. " },
+        ],
+        [
+            { text: "Internal fragmentation", bold: true },
+            { text: " is wasted memory that is allocated to a process but not actually used because the OS gave it more than it asked for. This does not happen in contiguous allocation (the OS gives exactly what is requested), but it does appear in other allocation schemes (like paging)." },
+        ]
+        ]},
+        "When choosing which hole to place a process in, the OS has two main strategies:",
+        { list: [
+        [
+            { text: "Best fit", bold: true },
+            { text: " uses the smallest hole that is large enough. This preserves large holes but tends to leave behind many tiny leftover holes, maximizing external fragmentation." },
+        ],
+        [
+            { text: "Worst fit", bold: true },
+            { text: " uses the largest available hole, leaving behind a larger remainder that is more likely to be usable, minimizing external fragmentation." },
+        ],
+        ]},
+        "In both cases, the process is placed at the leftmost position within the selected hole.",
+    ],
+    terms: [
+        { t: "Contiguous Memory Allocation", d: "Memory allocation strategy where each process receives all of its memory in one unbroken chunk. The MMU uses a base and limit value to enforce boundaries." },
+        { t: "Fragmentation", d: "A situation where RAM is wasted due to inefficient memory usage." },
+        { t: "External Fragmentation", d: "Wasted memory not allocated to any process. Holes are too small or scattered to be useful." },
+        { t: "Internal Fragmentation", d: "Wasted memory allocated to a process but not used because more was given than requested." },
+        { t: "Defragmentation", d: "Shifting processes in memory to consolidate holes. Theoretically solves external fragmentation but is very expensive." },
+    ],
+    exam: [
+        "External fragmentation = wasted memory belonging to NO process (OUTSIDE processes). Internal fragmentation = wasted memory belonging to a process (EXTRA memory given TO the process).",
+        "Contiguous allocation does NOT produce internal fragmentation; it gives exactly what is requested.",
+        "Best fit maximizes external fragmentation (tiny leftover holes). Worst fit minimizes it (larger leftovers).",
+    ],
+    },
+
+    {
+    title: "Paging",
+    sub: "Breaking memory into equal chunks",
+    body: [
+        [
+        { text: "Paging", bold: true },
+        { text: " is a memory management technique that avoids the external fragmentation from contiguous allocation. The key idea is to split both logical and physical memory into fixed-size chunks, then map them freely." },
+        ],
+        [
+        { text: "Pages", bold: true },
+        { text: " are FIXED-SIZE chunks of a process' logical address space. " },
+        { text: "Frames", bold: true },
+        { text: " are fixed-size chunks of physical RAM. Pages and frames must always be the same size!" },
+        ],
+        "With paging, a process's data might appear perfectly contiguous in logical memory, but in physical RAM, its pages can be scattered across completely different frames. The process never sees this. It only ever works with logical addresses.",
+        [
+        { text: "The " },
+        { text: "page table", bold: true },
+        { text: " is a data structure maintained by the OS (stored in RAM) that records which physical frame each logical page maps to. The MMU uses it to convert addresses at runtime." },
+        ],
+        "Address translation works as follows given a logical address:",
+        { list: [
+        "Page number = logical address ÷ page size (integer division)",
+        "Offset = logical address % page size",
+        "Look up the page number in the page table to get the frame number",
+        "Physical address = (frame number × page size) + offset",
+        ]},
+        [
+        { text: "Paging introduces " },
+        { text: "internal fragmentation", bold: true },
+        { text: ". The OS can only allocate memory in whole-frame chunks. If a process's last page does not fill an entire frame, the remainder of that frame is wasted, as it is allocated to the process but unused. The OS cannot give half/a portion of a frame." },
+        ],
+    ],
+    terms: [
+        { t: "Page", d: "A fixed-size chunk of a process's logical address space." },
+        { t: "Frame", d: "A fixed-size chunk of physical RAM. MUST be the same size as a page." },
+        { t: "Page Table", d: "A data structure stored in RAM by the OS that maps page numbers to frame numbers. Used by the MMU for address translation." },
+        { t: "Internal Fragmentation (in the context of Paging)", d: "The wasted space at the end of the last frame allocated to a process, because the OS must give whole frames." },
+    ],
+    exam: [
+        "Pages are logical; frames are physical. They MUST be the SAME SIZE.",
+        "Paging eliminates external fragmentation but introduces internal fragmentation.",
+        "Processes are blind to physical memory. They ONLY work with LOGICAL addresses.",
+        "Know how to do address translation: page# = logical ÷ page_size; offset = logical % page_size; physical = frame# × page_size + offset.",
     ],
     },
 

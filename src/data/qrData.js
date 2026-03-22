@@ -187,139 +187,7 @@ const qrData = [
     ],
   },
 
-  // 6: Contiguous Allocation & Fragmentation
-  {
-    tag: "Contiguous Allocation & Fragmentation",
-    term: "Contiguous Memory Allocation",
-    def: "Contiguous memory allocation is a strategy where each process receives all of its memory in one unbroken chunk.",
-    points: [
-      "MMU uses base value (start) + limit value (size) to enforce boundaries",
-      "Simple to implement, but creates holes over time",
-      "Produces EXTERNAL, not internal fragmentation, because it gives exactly what is requested, no extra",
-    ],
-  },
-  {
-    tag: "Contiguous Allocation & Fragmentation",
-    term: "Fragmentation",
-    def: "Fragmentation is a situation where RAM is wasted due to inefficient memory usage.",
-    points: [
-      "Two types: external (holes between processes) and internal (waste within a process; OS allocated more than needed)",
-      "Worsens over time as processes are created and destroyed",
-      "Paging eliminates external fragmentation but introduces internal",
-    ],
-  },
-  {
-    tag: "Contiguous Allocation & Fragmentation",
-    term: "External Fragmentation",
-    def: "External fragmentation is wasted memory that belongs to no process. Holes that are too small or scattered to be useful.",
-    points: [
-      "Caused by processes of different sizes being loaded and unloaded",
-      "Defragmentation can fix it but is very expensive",
-      "Best fit (use smallest possible hole) maximizes this; worst fit (use largest hole) minimizes it",
-    ],
-  },
-  {
-    tag: "Contiguous Allocation & Fragmentation",
-    term: "Internal Fragmentation",
-    def: "Internal fragmentation is wasted memory allocated to a process but not actually used by it.",
-    points: [
-      "Happens when OS gives more than was requested",
-      "Does NOT occur in contiguous allocation",
-      "DOES occur in paging (last frame may not be fully used)",
-    ],
-  },
-  {
-    tag: "Contiguous Allocation & Fragmentation",
-    term: "Best Fit",
-    def: "Best fit is an allocation strategy that places a process in the smallest hole that is large enough.",
-    points: [
-      "Preserves large holes for future large processes",
-      "Leaves behind many tiny, unusable leftover holes (maximizes external fragmentation)",
-    ],
-  },
-  {
-    tag: "Contiguous Allocation & Fragmentation",
-    term: "Worst Fit",
-    def: "Worst fit is an allocation strategy that places a process in the largest available hole.",
-    points: [
-      "Leaves behind larger remainders, more likely to be usable",
-      "But it sacrifices the largest holes, which may be needed for larger processes later",
-      "Minimizes external fragmentation",
-    ],
-  },
-
-  // 7: Paging
-  {
-    tag: "Paging",
-    term: "Page",
-    def: "A page is a fixed-size chunk of a process's logical address space.",
-    points: [
-      "Theyre logical, not physical. Exists in the process's view of memory",
-      "MUST be the SAME size as a FRAME",
-      "Pages can be scattered across any available frames in physical RAM",
-    ],
-  },
-  {
-    tag: "Paging",
-    term: "Frame",
-    def: "A frame is a fixed-size chunk of physical RAM.",
-    points: [
-      "Physical, not logical. Exists in real RAM hardware",
-      "MUST be the SAME size as a PAGE",
-      "Any page can be mapped to any frame. Contiguity is not necessarily required",
-    ],
-  },
-  {
-    tag: "Paging",
-    term: "Page Table",
-    def: "A page table is a data structure stored in RAM by the OS that maps page numbers to frame numbers.",
-    points: [
-      "One page table per process",
-      "MMU uses it to translate logical → physical addresses at runtime",
-      "PCB stores a pointer to where that process' page table lives in RAM",
-    ],
-  },
-  {
-    tag: "Paging",
-    term: "Page Offset",
-    def: "The page offset is the distance from the start of a page to a specific address within it.",
-    points: [
-      "Calculated as: logical address % page size",
-      "Preserved exactly in the physical address. Only the page number changes in the conversion.",
-      "The reason page size must be a power of 2: offset bits and page number bits split cleanly in binary",
-    ],
-  },
-  {
-    tag: "Paging",
-    term: "Page Size: Power of 2",
-    def: "Page size must always be a power of 2 (e.g., 4kB). This is a hardware requirement.",
-    points: [
-      "Allows CPU to split a logical address into page# and offset using bit operations instead of division",
-      "Offset = rightmost log2(page_size) bits; page# = remaining bits",
-      "A non-power-of-2 page size (e.g., 7kB) would never be used",
-    ],
-  },
-  {
-    tag: "Paging",
-    term: "Address Translation",
-    def: "Address translation is the process of converting a logical address to a physical address using the page table.",
-    points: [
-      "Page# = logical ÷ page_size (integer division)",
-      "Offset = logical % page_size",
-      "Physical = (frame# × page_size) + offset",
-    ],
-  },
-  {
-    tag: "Paging",
-    term: "Internal Fragmentation (Paging)",
-    def: "In paging, internal fragmentation comes from the wasted space at the end of the last frame allocated to a process.",
-    points: [
-      "OS MUST give whole frames. Cannot give half a frame!",
-      "Tradeoff for eliminating external fragmentation",
-    ],
-  },
-
-  // 8: I/O, Interrupts & Drivers
+  // 6: I/O, Interrupts & Drivers
   {
     tag: "I/O, Interrupts & Drivers",
     term: "Interrupt",
@@ -370,7 +238,7 @@ const qrData = [
     ],
   },
 
-  // 9: Storage & File Systems
+  // 7: Storage & File Systems
   {
     tag: "Storage & File Systems",
     term: "File",
@@ -400,7 +268,7 @@ const qrData = [
     ],
   },
 
-  // 10: Networking
+  // 8: Networking
   {
     tag: "Networking",
     term: "Network",
@@ -500,7 +368,7 @@ const qrData = [
     ],
   },
 
-  // 11: Inter-Process Communication (IPC)
+  // 9: Inter-Process Communication (IPC)
   {
     tag: "Inter-Process Communication (IPC)",
     term: "Message Passing",
@@ -523,7 +391,7 @@ const qrData = [
     ],
   },
 
-  // 12: PCB, States & Context Switch
+  // 10: PCB, States & Context Switch
   {
     tag: "PCB, States & Context Switch",
     term: "PCB",
@@ -623,9 +491,9 @@ const qrData = [
     ],
   },
 
-  // 13: fork, exec, exit, wait, zombies, and orphans!
+  // 11: fork, exec, exit, wait, zombies, and orphans
   {
-    tag: "fork, exec, exit, wait, zombies, and orphans!",
+    tag: "fork, exec, exit, wait, zombies, and orphans",
     term: "fork()",
     def: "fork() is a POSIX instruction that creates an almost-exact copy (new PID) of the calling process AND returns child's PID (positive integer) to parent, 0 to child, negative on error.",
     points: [
@@ -635,7 +503,7 @@ const qrData = [
     ],
   },
   {
-    tag: "fork, exec, exit, wait, zombies, and orphans!",
+    tag: "fork, exec, exit, wait, zombies, and orphans",
     term: "exec()",
     def: "exec() is a POSIX instruction that entirely replaces the current process's content with a new program.",
     points: [
@@ -645,7 +513,7 @@ const qrData = [
     ],
   },
   {
-    tag: "fork, exec, exit, wait, zombies, and orphans!",
+    tag: "fork, exec, exit, wait, zombies, and orphans",
     term: "exit(status)",
     def: "exit() stops the process and releases its resources. Status 0 = success; non-zero = error code.",
     points: [
@@ -655,7 +523,7 @@ const qrData = [
     ],
   },
   {
-    tag: "fork, exec, exit, wait, zombies, and orphans!",
+    tag: "fork, exec, exit, wait, zombies, and orphans",
     term: "wait()",
     def: "wait() pauses the parent process until one of its children calls exit(), then collects the exit status and destroys the PCB.",
     points: [
@@ -665,7 +533,7 @@ const qrData = [
     ],
   },
   {
-    tag: "fork, exec, exit, wait, zombies, and orphans!",
+    tag: "fork, exec, exit, wait, zombies, and orphans",
     term: "Zombie Process",
     def: "A zombie process is a process that has called exit() but whose parent hasn't called wait() yet.",
     points: [
@@ -675,7 +543,7 @@ const qrData = [
     ],
   },
   {
-    tag: "fork, exec, exit, wait, zombies, and orphans!",
+    tag: "fork, exec, exit, wait, zombies, and orphans",
     term: "Orphan Process",
     def: "An orphan process is a process whose parent has exited without calling wait().",
     points: [
@@ -685,7 +553,7 @@ const qrData = [
     ],
   },
   {
-    tag: "fork, exec, exit, wait, zombies, and orphans!",
+    tag: "fork, exec, exit, wait, zombies, and orphans",
     term: "Cascading Termination",
     def: "Cascading termination is a mechanism where when a process exits, all of its children and descendants are also terminated.",
     points: [
@@ -695,7 +563,7 @@ const qrData = [
     ],
   },
 
-  // 14: Threads
+  // 12: Threads
   {
     tag: "Threads",
     term: "Thread of Execution",
@@ -772,6 +640,138 @@ const qrData = [
       "Outcome depends on the unpredictable order of execution",
       "Reading only: no race condition. At least one modifying: race condition possible",
       "Classic example: two threads both do x++. They both read the same starting value instead of waiting for first one to save its increment. One increment gets lost",
+    ],
+  },
+
+  // 13: Contiguous Allocation & Fragmentation
+  {
+    tag: "Contiguous Allocation & Fragmentation",
+    term: "Contiguous Memory Allocation",
+    def: "Contiguous memory allocation is a strategy where each process receives all of its memory in one unbroken chunk.",
+    points: [
+      "MMU uses base value (start) + limit value (size) to enforce boundaries",
+      "Simple to implement, but creates holes over time",
+      "Produces EXTERNAL, not internal fragmentation, because it gives exactly what is requested, no extra",
+    ],
+  },
+  {
+    tag: "Contiguous Allocation & Fragmentation",
+    term: "Fragmentation",
+    def: "Fragmentation is a situation where RAM is wasted due to inefficient memory usage.",
+    points: [
+      "Two types: external (holes between processes) and internal (waste within a process; OS allocated more than needed)",
+      "Worsens over time as processes are created and destroyed",
+      "Paging eliminates external fragmentation but introduces internal",
+    ],
+  },
+  {
+    tag: "Contiguous Allocation & Fragmentation",
+    term: "External Fragmentation",
+    def: "External fragmentation is wasted memory that belongs to no process. Holes that are too small or scattered to be useful.",
+    points: [
+      "Caused by processes of different sizes being loaded and unloaded",
+      "Defragmentation can fix it but is very expensive",
+      "Best fit (use smallest possible hole) maximizes this; worst fit (use largest hole) minimizes it",
+    ],
+  },
+  {
+    tag: "Contiguous Allocation & Fragmentation",
+    term: "Internal Fragmentation",
+    def: "Internal fragmentation is wasted memory allocated to a process but not actually used by it.",
+    points: [
+      "Happens when OS gives more than was requested",
+      "Does NOT occur in contiguous allocation",
+      "DOES occur in paging (last frame may not be fully used)",
+    ],
+  },
+  {
+    tag: "Contiguous Allocation & Fragmentation",
+    term: "Best Fit",
+    def: "Best fit is an allocation strategy that places a process in the smallest hole that is large enough.",
+    points: [
+      "Preserves large holes for future large processes",
+      "Leaves behind many tiny, unusable leftover holes (maximizes external fragmentation)",
+    ],
+  },
+  {
+    tag: "Contiguous Allocation & Fragmentation",
+    term: "Worst Fit",
+    def: "Worst fit is an allocation strategy that places a process in the largest available hole.",
+    points: [
+      "Leaves behind larger remainders, more likely to be usable",
+      "But it sacrifices the largest holes, which may be needed for larger processes later",
+      "Minimizes external fragmentation",
+    ],
+  },
+
+  // 14: Paging
+  {
+    tag: "Paging",
+    term: "Page",
+    def: "A page is a fixed-size chunk of a process's logical address space.",
+    points: [
+      "Theyre logical, not physical. Exists in the process's view of memory",
+      "MUST be the SAME size as a FRAME",
+      "Pages can be scattered across any available frames in physical RAM",
+    ],
+  },
+  {
+    tag: "Paging",
+    term: "Frame",
+    def: "A frame is a fixed-size chunk of physical RAM.",
+    points: [
+      "Physical, not logical. Exists in real RAM hardware",
+      "MUST be the SAME size as a PAGE",
+      "Any page can be mapped to any frame. Contiguity is not necessarily required",
+    ],
+  },
+  {
+    tag: "Paging",
+    term: "Page Table",
+    def: "A page table is a data structure stored in RAM by the OS that maps page numbers to frame numbers.",
+    points: [
+      "One page table per process",
+      "MMU uses it to translate logical → physical addresses at runtime",
+      "PCB stores a pointer to where that process' page table lives in RAM",
+    ],
+  },
+  {
+    tag: "Paging",
+    term: "Page Offset",
+    def: "The page offset is the distance from the start of a page to a specific address within it.",
+    points: [
+      "Calculated as: logical address % page size",
+      "Preserved exactly in the physical address. Only the page number changes in the conversion.",
+      "The reason page size must be a power of 2: offset bits and page number bits split cleanly in binary",
+    ],
+  },
+  {
+    tag: "Paging",
+    term: "Page Size: Power of 2",
+    def: "Page size must always be a power of 2 (e.g., 4kB). This is a hardware requirement.",
+    points: [
+      "Allows CPU to split a logical address into page# and offset using bit operations instead of division",
+      "Offset = rightmost log2(page_size) bits; page# = remaining bits",
+      "A non-power-of-2 page size (e.g., 7kB) would never be used",
+    ],
+  },
+  {
+    tag: "Paging",
+    term: "Address Translation",
+    def: "Address translation is the process of converting a logical address to a physical address using the page table.",
+    points: [
+      "Page# = logical ÷ page_size (integer division)",
+      "Offset = logical % page_size",
+      "Physical = (frame# × page_size) + offset",
+    ],
+  },
+  {
+    tag: "Paging",
+    term: "Internal Fragmentation (Paging)",
+    def: "In paging, internal fragmentation comes from the wasted space at the end of the last frame allocated to a process.",
+    points: [
+      "OS MUST give whole frames. Cannot give half a frame!",
+      "Tradeoff for eliminating external fragmentation",
     ],
   },
 
