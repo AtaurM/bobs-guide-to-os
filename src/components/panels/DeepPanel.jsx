@@ -77,7 +77,7 @@ export default function DeepPanel({ openSections, onToggleSection, sidebarOpen, 
             <div className={styles.panelHeader}>
                 <p className={styles.panelTop}>Deep Dive · Concept Explanations</p>
                 <h2 className={styles.panelTitle}>Bob's Guide to OS</h2>
-                <p className={styles.panelSub2}>INTERACTIVE FORK GUIDE IN STUDY TAB!<br />QUESTION EXPLANATIONS COMING OUT LATER TODAY</p>
+                <p className={styles.panelSub2}>INTERACTIVE FORK GUIDE IN STUDY TAB!<br />STUDY TAB ANSWERS COMPLETE (remaining tips and explanations coming today)!</p>
                 <p className={styles.panelSub}>Click any section to expand it. These are JUST for understanding!! Use terms tab for formal definitions.</p>
             </div>
 

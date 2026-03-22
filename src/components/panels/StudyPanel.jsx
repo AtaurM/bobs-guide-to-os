@@ -5,6 +5,13 @@ import { BodyParagraph } from '../common/BodyContent'
 import { forkTricks, qaSections } from '../../data/studyData'
 import ForkCarousel from './ForkCarousel'
 
+function renderItem(item) {
+  if (typeof item === 'string') return item
+  return item.map((seg, i) =>
+    seg.bold ? <strong key={i}>{seg.text}</strong> : <span key={i}>{seg.text}</span>
+  )
+}
+
 function ForkTricksCard({ isOpen, onToggle }) {
   return (
     <div id="study-fork-tricks">
@@ -52,7 +59,7 @@ function QuestionCard({ question }) {
                 {question.a.map((item, i) => (
                   <li key={i} className={styles.answerItem}>
                     <span className={styles.answerBullet}>▸</span>
-                    <span>{item}</span>
+                    <span>{renderItem(item)}</span>
                   </li>
                 ))}
               </ul>
@@ -61,7 +68,7 @@ function QuestionCard({ question }) {
                   {question.e.map((item, i) => (
                     <li key={i} className={styles.explanationItem}>
                       <span className={styles.explanationArrow}>➥</span>
-                      <span>{item}</span>
+                      <span>{renderItem(item)}</span>
                     </li>
                   ))}
                 </ul>

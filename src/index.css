@@ -31,7 +31,8 @@
   --display-ls: 0.02em;
   --border: rgba(255, 255, 255, 0.08);
   --border-subtle: rgba(255, 255, 255, 0.04);
-  --surface-raised: #141430;
+  --answer: #c4c0e0;
+  --expl: rgba(244, 205, 78, 0.9);
 
 }
 
