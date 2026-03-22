@@ -598,6 +598,7 @@ export const qaSections = [
       },
     ],
   },
+
   {
     id: 'threads',
     title: 'Threads',
@@ -692,4 +693,305 @@ export const qaSections = [
       },
     ],
   },
+
+  {
+    id: 'review-old-items',
+    title: 'Review Old Items',
+    questions: [
+      {
+        q: 'What is a program?',
+        a: [
+          [{ text: 'A program is ' }, { text: 'collection', bold: true }, { text: ' of a ' }, { text: 'set of instructions', bold: true }, { text: ' that tell a computer how to perform a specific task and any ' }, { text: 'additional data', bold: true }, { text: ' required to do so.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'What is data?',
+        a: [
+          [{ text: 'Data is ' }, { text: 'information', bold: true }, { text: ' processed or stored by a computer. This can include numbers, text, images, etc.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'What does it mean to run a program?',
+        a: [
+          'To run a program means to load it into RAM and execute its program code instruction after instruction.',
+        ],
+        e: [],
+      },
+      {
+        q: 'What computer component executes programs?',
+        a: [
+          'Programs are executed by the CPU (central processing unit).',
+        ],
+        e: [],
+      },
+      {
+        q: 'Where are running programs stored? What else (other than the program code) is stored there?',
+        a: [
+          'Running programs (processes) are stored in RAM.',
+        ],
+        e: [
+          [{ text: 'Processes can be moved to hard disk through the virtual memory swapping technique, but they ' }, { text: 'must', bold: true }, { text: ' be swapped back to RAM to continue running. If it\'s ' }, { text: 'actively', bold: true }, { text: ' running, it\'s in RAM.' }],
+        ],
+      },
+      {
+        q: 'What do we know about RAM memory?',
+        a: [
+          [{ text: 'Random-access property:', bold: true }, { text: ' It takes roughly the same time to access data from RAM regardless of its physical location in RAM.' }],
+          [{ text: 'Slow:', bold: true }, { text: ' It is slower to ' }, { text: 'access', bold: true }, { text: ' or ' }, { text: 'transfer', bold: true }, { text: ' information between the CPU and RAM than it is to do so between CPU and the CPU\'s cache. This has nothing to do with the speed of the devices themselves.' }],
+          [{ text: 'Volatile:', bold: true }, { text: ' Data is lost when RAM stops receiving power.' }],
+        ],
+        e: [
+          'Just for understanding: RAM stores bits in capacitors. Charged = 1, discharged = 0. With no power, they all become 0s. This is intentional. Imagine if your PC crashed and couldn\'t reboot because the memory had the same exact processes/data that crashed it.',
+        ],
+      },
+      {
+        q: 'What is a memory stall?',
+        a: [
+          [{ text: 'A memory stall is a ' }, { text: 'bad scenario', bold: true }, { text: ' where the CPU has to freeze its work and wait for RAM to deliver necessary data.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'What long-term storage do we have?',
+        a: [
+          'Long-term storage includes HDDs (hard disk drives), SSDs (solid state drives), flash/usb drives, SD/microSD cards, magnetic tape, CDs, DVDs, and so on...',
+        ],
+        e: [],
+      },
+      {
+        q: 'What is an executable file?',
+        a: [
+          [{ text: 'An executable file is a ' }, { text: 'file', bold: true }, { text: ' that ' }, { text: 'contains', bold: true }, { text: ' machine code instructions for the CPU to execute directly.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'How do speed of CPU, RAM and hard disk compare to each other?',
+        a: [
+          [{ text: 'Speed refers to the ' }, { text: 'time/number of cycles', bold: true }, { text: ' it takes to read/write, ' }, { text: 'not', bold: true }, { text: ' the speed of the devices themselves.' }],
+          'CPU is "fastest," then CPU cache, then RAM, and then hard disk is the "slowest".',
+        ],
+        e: [],
+      },
+      {
+        q: 'What is cache memory? What is its purpose?',
+        a: [
+          [{ text: 'Cache is a ' }, { text: 'small, high-speed memory device', bold: true }, { text: ' that lives closer to the CPU than RAM and ' }, { text: 'stores', bold: true }, { text: ' frequently used data from RAM to serve future requests faster.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'What is ROM memory? What does it store?',
+        a: [
+          [{ text: 'ROM (read-only memory) is a ' }, { text: 'non-volatile memory device', bold: true }, { text: ' that stores permanent data, often including boot-up instructions. It cannot be written to.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'What is a machine cycle?',
+        a: [
+          [{ text: 'The machine cycle is a ' }, { text: 'sequence of steps', bold: true }, { text: ' the CPU goes through to execute a ' }, { text: 'single instruction', bold: true }, { text: '.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'What are the steps of the machine cycle?',
+        a: [
+          'The steps are: fetch, decode, execute, and (not always required) write-back.',
+        ],
+        e: [],
+      },
+      {
+        q: 'What does frequency measure? What is the measurement unit of frequency?',
+        a: [
+          [{ text: 'Frequency measures the ' }, { text: 'number of occurrences', bold: true }, { text: ' of a repeating event ' }, { text: 'per unit of time', bold: true }, { text: '.' }],
+          'It\'s measured in Hertz (Hz), which equals times per second.',
+        ],
+        e: [
+          'For specifically CPU speed, 1 Hz = 1 cycle per second. 1 kHz, MHz, and GHz refer to one thousand, one million, and one billion cycles per second, respectively.',
+        ],
+      },
+      {
+        q: 'What is a CPU clock? What is CPU frequency?',
+        a: [
+          [{ text: 'The CPU clock is a ' }, { text: 'small device', bold: true }, { text: ' that ' }, { text: 'synchronizes', bold: true }, { text: ' all CPU operations by issuing synchronization signals at a specific frequency.' }],
+          'CPU frequency measures how many synchronization signals a CPU can issue per second (which is how many cycle the CPU will go through per second).',
+        ],
+        e: [],
+      },
+      {
+        q: 'What is a CPU core? What do "quad-core CPU" and "octa-core CPU" mean?',
+        a: [
+          'A CPU core is one separate, individual processing unit.',
+          'Quad- and octa- core CPU refer to CPUs with 4 and 8 cores, respectively.',
+        ],
+        e: [],
+      },
+      {
+        q: 'How does memory look like?',
+        a: [
+          'Memory looks like a linear array of bytes.',
+        ],
+        e: [],
+      },
+      {
+        q: 'What is a byte? What is a bit? How many bits are in a byte?',
+        a: [
+          [{ text: 'A byte is a fundamental ' }, { text: 'unit', bold: true }, { text: ' of digital information (data) that is typically composed of 8 bits.' }],
+          'A bit is the smallest unit of data. It can represent either a 0 or a 1.',
+        ],
+        e: [],
+      },
+      {
+        q: 'What is a memory address?',
+        a: [
+          [{ text: 'A memory address is a ' }, { text: 'unique', bold: true }, { text: ' identifier for a specific location in memory.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'What is the memory address of a larger chunk of memory?',
+        a: [
+          [{ text: 'The memory address of a larger ' }, { text: 'chunk', bold: true }, { text: ' of memory is the address of its first byte.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'What is the length of a memory address? What does "32-bit address" mean?',
+        a: [
+          'The length of a memory address is equivalent to the CPU\'s word size, which depends on its architecture.',
+          '32-bit system → 32 bit word size. 64-bit system → 64 bit word size.',
+          '32-bit address means the address is 32 bits long.',
+        ],
+        e: [],
+      },
+      {
+        q: 'How much memory can we address/use with a given length of memory address?',
+        a: [
+          'Because memory addresses are unique, the amount of memory we can address is equivalent to the number of unique values we can represent with a given length for the address.',
+          'This is equivalent to 2^n bytes of memory, where n is the word size.',
+          'In a 32-bit system, we can represent 2^32 bytes of memory → 2^22 kB → 2^12 MB → 2^2 GB: 4 GB of memory.',
+        ],
+        e: [],
+      },
+      {
+        q: 'How long should be memory addresses be to address a given amount of memory?',
+        a: [
+          'To address a given amount of memory, you need enough bits to uniquely represent up to that number of values.',
+          'For 4GB of memory, you need to represent 4 * 2^30 values, which is 2^32, which requires 32 bits.',
+        ],
+        e: [
+          'To convert between bytes/kB/MB/GB, divide by 2^10 to go up in size and multiply to go down.',
+        ],
+      },
+      {
+        q: 'Can memory contain nothing at all?',
+        a: [
+          [{ text: 'Nope. Memory ' }, { text: 'always', bold: true }, { text: ' contains some value, even if its just random noise.' }],
+        ],
+        e: [
+          [{ text: 'The closest thing you ' }, { text: 'might', bold: true }, { text: ' imagine to "nothing at all"\u2014all 0s\u2014represents exactly that, not nothing.' }],
+        ],
+      },
+      {
+        q: 'What is the relationship between C++ variable, RAM and memory address?',
+        a: [
+          'A C++ variable is a placeholder for an address in RAM.',
+        ],
+        e: [],
+      },
+      {
+        q: 'What is a C++ pointer?',
+        a: [
+          'A C++ pointer is a variable that stores a memory address.',
+        ],
+        e: [
+          'Example: int* ptr = &var;. var is a placeholder for the address at which its value is stored at, and ptr is a placeholder the address in memory that stores var\'s address.',
+        ],
+      },
+      {
+        q: 'What is the most common size of the following C++ data types: char, short, int, long, long long, float, double? Does signed/unsigned affect those sizes (for example, is the size of int, signed int, and unsigned int equal)?',
+        a: [
+          [{ text: 'char:', bold: true }, { text: ' 1 byte' }],
+          [{ text: 'short:', bold: true }, { text: ' 2 bytes' }],
+          [{ text: 'int, unsigned int, signed int:', bold: true }, { text: ' 4 bytes' }],
+          [{ text: 'long:', bold: true }, { text: ' at least 4 bytes (4 in 32-bit system, 8 in 64-bit)' }],
+          [{ text: 'long long:', bold: true }, { text: ' 8 bytes' }],
+          [{ text: 'float:', bold: true }, { text: ' 4 bytes' }],
+          [{ text: 'double:', bold: true }, { text: ' 8 bytes' }],
+          [{ text: 'bool:', bold: true }, { text: ' 1 byte' }],
+          'Signed/unsigned doesn\'t affect the sizes, just how the values are interpreted.',
+        ],
+        e: [
+          [{ text: 'boolean ' }, { text: 'values', bold: true }, { text: ' only need one byte, but bools are 1 byte because the CPU cannot address less than one byte (it can\'t request portions of a byte).' }],
+        ],
+      },
+      {
+        q: 'Hexadecimal numbers. Why do we use them? How do we convert from hexadecimal to binary and back quickly?',
+        a: [
+          'We use hexadecimal numbers because they\'re compact and use to convert to binary. Each hex digit represents 4 binary digits.',
+          'To convert to binary, replace each digit with its equivalent 4-bit binary sequence (or convert it to decimal, then binary).',
+          'To convert to hex, starting from the right, convert each contiguous 4-bit chunk of bits into decimal, then replace it with the hex value they represent.',
+        ],
+        e: [],
+      },
+      {
+        q: 'What is a "word"?',
+        a: [
+          [{ text: 'A "word" is the natural, fixed-size ' }, { text: 'unit', bold: true }, { text: ' of data handled by a processor for a given computer architecture. The size of a word is often 32 or 64 bits.' }],
+          [{ text: 'It\'s the smallest ' }, { text: 'addressable', bold: true }, { text: ' unit of memory.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'What is the PC?',
+        a: [
+          'The program counter (PC) is a register inside the CPU that stores the address of the NEXT instruction to execute, not the current one.',
+        ],
+        e: [],
+      },
+      {
+        q: 'What is the language that the CPU understands?',
+        a: [
+          'The CPU only understands machine code/language, which consists of binary code (long sequences of 0s and 1s representing electrical signals of OFF and ON).',
+        ],
+        e: [],
+      },
+      {
+        q: 'How can we execute programs written in higher-level languages?',
+        a: [
+          'Programs written in higher-level languages can be executed through compilation or interpretation.',
+          'Compilation involves first converting the entire program into machine code, and then having the CPU execute each instruction line-by-line.',
+          'Interpretation involves converting and executing code line-by-line at runtime.',
+        ],
+        e: [],
+      },
+      {
+        q: 'What is a compiler? What are its advantages?',
+        a: [
+          [{ text: 'A compiler is a ' }, { text: 'program', bold: true }, { text: ' that translates code written in a programming language into machine language, converting source code into an executable file or library file.' }],
+          [{ text: 'Advantages:', bold: true }],
+          [{ text: '1)', bold: true }, { text: ' Faster execution' }],
+          [{ text: '2)', bold: true }, { text: ' Built-in compiler optimizations' }],
+          [{ text: '3)', bold: true }, { text: ' The result can run without the source code and compiler' }],
+          [{ text: '4)', bold: true }, { text: ' The source-code is not exposed to the user, as only the executable is provided to them.' }],
+        ],
+        e: [],
+      },
+      {
+        q: 'What is an interpreter? What are its advantages?',
+        a: [
+          [{ text: 'An interpreter is a ' }, { text: 'program', bold: true }, { text: ' that translates and runs code line-by-line, never creating a separate executable file.' }],
+          [{ text: 'Advantages:', bold: true }],
+          [{ text: '1)', bold: true }, { text: ' Easier and quicker debugging: know exactly where the first error occurred; don\'t have to wait to compile entire project.' }],
+          [{ text: '2)', bold: true }, { text: ' Portability: interpreted programs can run on different OS without changes, provided the interpreter is available.' }],
+          [{ text: '3)', bold: true }, { text: ' The interpreter program itself is general smaller and does not produce a large, standalone executable file or intermediate machine code files (object files).' }],
+        ],
+        e: [],
+      },
+    ],
+  },
+
 ]
