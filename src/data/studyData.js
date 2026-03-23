@@ -744,6 +744,8 @@ export const qaSections = [
         ],
         e: [
           'Just for understanding: RAM stores bits in capacitors. Charged = 1, discharged = 0. With no power, they all become 0s. This is intentional. Imagine if your PC crashed and couldn\'t reboot because the memory had the same exact processes/data that crashed it.',
+          'In modern computers, RAM is "slower" than cache and CPU registers becauase of the distance to the registers, NOT the speed of the RAM.',
+          'However, HARD DISK is slower than RAM because of the actual slow speed of the disk (distance is much, MUCH less of a factor here).'
         ],
       },
       {
@@ -770,7 +772,8 @@ export const qaSections = [
       {
         q: 'How do speed of CPU, RAM and hard disk compare to each other?',
         a: [
-          [{ text: 'Speed refers to the ' }, { text: 'time/number of cycles', bold: true }, { text: ' it takes to read/write, ' }, { text: 'not', bold: true }, { text: ' the speed of the devices themselves.' }],
+          [{ text: 'Speed refers to the ' }, { text: 'time/number of cycles', bold: true }, { text: ' it takes to read/write. ' }],
+          'RAM is "slow" because of its distance to the CPU, while hard disk is slow because of both the distance and (primarily) the slow speed of the hard disk itself.',
           'CPU is "fastest," then CPU cache, then RAM, and then hard disk is the "slowest".',
         ],
         e: [],

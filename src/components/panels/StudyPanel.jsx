@@ -4,11 +4,16 @@ import Collapse from '../common/Collapse'
 import { BodyParagraph } from '../common/BodyContent'
 import { forkTricks, qaSections } from '../../data/studyData'
 import ForkCarousel from './ForkCarousel'
+import { useSearch } from '../../context/SearchContext'
+import { studyMatchesQuery } from '../../utils/searchUtils'
+import Highlight from '../common/Highlight'
 
 function renderItem(item) {
-  if (typeof item === 'string') return item
+  if (typeof item === 'string') return <Highlight text={item} />
   return item.map((seg, i) =>
-    seg.bold ? <strong key={i}>{seg.text}</strong> : <span key={i}>{seg.text}</span>
+    seg.bold
+      ? <strong key={i}><Highlight text={seg.text} /></strong>
+      : <Highlight key={i} text={seg.text} />
   )
 }
 
@@ -48,7 +53,7 @@ function QuestionCard({ question }) {
   return (
     <div className={styles.card}>
       <button className={styles.cardHeader} onClick={() => setIsOpen(v => !v)} aria-expanded={isOpen}>
-        <span className={styles.cardQ}>{question.q}</span>
+        <span className={styles.cardQ}><Highlight text={question.q} /></span>
         <span className={`${styles.cardChevron} ${isOpen ? styles.cardChevronOpen : ''}`}>›</span>
       </button>
       <Collapse isOpen={isOpen}>
@@ -87,7 +92,7 @@ function QASection({ section, isOpen, onToggle }) {
   return (
     <div className={styles.section} id={`study-${section.id}`}>
       <button className={styles.sectionHeader} onClick={onToggle} aria-expanded={isOpen}>
-        <span className={styles.sectionName}>{section.title}</span>
+        <span className={styles.sectionName}><Highlight text={section.title} /></span>
         <span className={styles.sectionCount}>({section.questions.length})</span>
         <span className={`${styles.sectionChevron} ${isOpen ? styles.sectionChevronOpen : ''}`}>›</span>
       </button>
@@ -103,6 +108,15 @@ function QASection({ section, isOpen, onToggle }) {
 }
 
 export default function StudyPanel({ sidebarOpen, isMobile, openSections, onToggleSection }) {
+  const query = useSearch()
+
+  const filteredSections = qaSections
+    .map(section => ({
+      ...section,
+      questions: section.questions.filter(q => studyMatchesQuery(q, query)),
+    }))
+    .filter(section => section.questions.length > 0)
+
   return (
     <div
       className={styles.panel}
@@ -122,7 +136,7 @@ export default function StudyPanel({ sidebarOpen, isMobile, openSections, onTogg
         onToggle={() => onToggleSection('fork-tricks')}
       />
 
-      {qaSections.map(section => (
+      {filteredSections.map(section => (
         <QASection
           key={section.id}
           section={section}
