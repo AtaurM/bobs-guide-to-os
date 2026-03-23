@@ -1,0 +1,16 @@
+.btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+    line-height: 1;
+}
+
+.btn:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+}

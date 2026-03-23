@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { SearchContext } from './context/SearchContext'
+import { ThemeContext } from './context/ThemeContext'
+import ThemeToggle from './components/common/ThemeToggle'
 import styles from './App.module.css'
 import DeepPanel from './components/panels/DeepPanel'
 import QRPanel from './components/panels/QRPanel'
@@ -50,7 +52,17 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
   const [transitioning, setTransitioning] = useState('idle')
   const [vpWidth, setVpWidth] = useState(() => window.innerWidth)
+  const [theme, setTheme] = useState('light')
+  const [themeFading, setThemeFading] = useState(false)
   const [mode, setMode] = useState('deep')
+
+  function toggleTheme() {
+    setThemeFading(true)
+    setTimeout(() => {
+      setTheme(t => t === 'dark' ? 'light' : 'dark')
+      setThemeFading(false)
+    }, 120)
+  }
 
   const sidebarExpanded = sidebarOpen && !isMobile
   const sidebarItems = mode === 'deep' ? DEEP_NAV_ITEMS
@@ -74,7 +86,10 @@ export default function App() {
   }, [])
 
   function handleModeChange(newMode) {
-    if (newMode === mode) return
+    if (newMode === mode) {
+      if (mainRef.current) mainRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
     const oldIndex = MODE_ORDER.indexOf(mode)
     const newIndex = MODE_ORDER.indexOf(newMode)
     const goingRight = newIndex > oldIndex
@@ -174,10 +189,15 @@ export default function App() {
     ? MOBILE_MARGIN + TAB_WIDTH + 8
     : Math.max(16, vpWidth / 2 - PANEL_MAX_WIDTH / 2)
   const closedWidth = isMobile
-    ? vpWidth - MOBILE_MARGIN - TAB_WIDTH - 8 - MOBILE_MARGIN
+    ? vpWidth - 2 * (MOBILE_MARGIN + TAB_WIDTH + 8)
     : Math.min(PANEL_MAX_WIDTH, vpWidth - 32)
+
+  const searchRight = sidebarOpen
+    ? 16 + SIDEBAR_WIDTH - 28
+    : closedLeft + closedWidth
+  const compactModeBar = !isMobile && (vpWidth - 22 - searchRight - 20) < 350
   const searchStyle = sidebarOpen
-    ? { top: 20, left: 16, width: SIDEBAR_WIDTH - 28, transition: `top ${TRANSITION}, left ${TRANSITION}, width ${TRANSITION}` }
+    ? { top: 20, left: 12, width: SIDEBAR_WIDTH - 24, transition: `top ${TRANSITION}, left ${TRANSITION}, width ${TRANSITION}` }
     : { top: isMobile ? 20 : 40, left: closedLeft, width: closedWidth, transition: `top ${TRANSITION}, left ${TRANSITION}, width ${TRANSITION}` }
 
   const mainClass = [
@@ -193,8 +213,9 @@ export default function App() {
     : null
 
   return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
     <SearchContext.Provider value={searchQuery}>
-      <div className={styles.root}>
+      <div className={styles.root} data-theme={theme}>
         <ProgressBar progress={progress} />
 
         {isMobile && sidebarOpen && (
@@ -228,6 +249,7 @@ export default function App() {
             value={searchQuery}
             onChange={setSearchQuery}
             centered={!sidebarOpen || isMobile}
+            onSidebar={sidebarOpen}
           />
         </div>
 
@@ -240,7 +262,8 @@ export default function App() {
             paddingBottom: isMobile ? 80 : 0,
             paddingLeft: isMobile ? 24 : 0,
             paddingRight: isMobile ? 24 : 0,
-            transition: `margin-left ${TRANSITION}`,
+            opacity: themeFading ? 0 : 1,
+            transition: `margin-left ${TRANSITION}, opacity ${themeFading ? '0.12s' : '0.18s'} ease`,
           }}
         >
           <div className={mainClass} style={{ minHeight: '100%' }}>
@@ -272,11 +295,21 @@ export default function App() {
           </div>
         </main>
 
+        {isMobile && (
+          <button
+            className={styles.mobileThemeTab}
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          >
+            {theme === 'dark' ? '☀' : '☾'}
+          </button>
+        )}
         {isMobile
           ? <ModeBar mode={mode} onModeChange={handleModeChange} isMobile />
-          : <div className={styles.topRight}><ModeBar mode={mode} onModeChange={handleModeChange} /></div>
+          : <div className={styles.topRight}><ThemeToggle /><ModeBar mode={mode} onModeChange={handleModeChange} compact={compactModeBar} /></div>
         }
       </div>
     </SearchContext.Provider>
+    </ThemeContext.Provider>
   )
 }

@@ -76,6 +76,31 @@
     border-radius: 6px;
 }
 
+.mobileThemeTab {
+    position: fixed;
+    top: 20px;
+    right: 16px;
+    z-index: 800;
+    width: 36px;
+    height: 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+}
+
+.mobileThemeTab:hover {
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.08);
+}
+
 .searchBlur {
     position: fixed;
     top: 0;

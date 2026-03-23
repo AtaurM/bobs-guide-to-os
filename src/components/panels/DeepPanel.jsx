@@ -26,7 +26,6 @@ function DeepSection({ section, isOpen, onToggle }) {
                         <BodyParagraph key={i} paragraph={para} />
                     ))}
 
-                    {/* terms and tips are optional */}
                     {section.terms && (
                         <div className={styles.terms}>
                             <p className={styles.termsLabel}>Key Terms</p>

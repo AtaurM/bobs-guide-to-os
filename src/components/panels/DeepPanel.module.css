@@ -42,7 +42,7 @@
 }
 
 .section {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--border-subtle);
 }
 
 .sectionSub {
@@ -159,8 +159,8 @@
     margin-top: 20px;
     padding: 14px 18px;
     border-radius: 6px;
-    background: rgba(255, 214, 10, 0.06);
-    border: 1px solid rgba(255, 214, 10, 0.14);
+    background: var(--exam-bg);
+    border: 1px solid var(--exam-border);
 }
 
 .examLabel {
@@ -168,7 +168,7 @@
     font-size: 0.6rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255, 215, 10, 0.8);
+    color: var(--exam-label);
     margin-bottom: 10px;
 }
 
@@ -188,7 +188,7 @@
 
 .others {
     padding: 20px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--border-subtle);
 }
 
 .othersToggle {

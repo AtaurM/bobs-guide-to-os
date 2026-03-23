@@ -1,8 +1,8 @@
 import styles from './SearchBar.module.css'
 
-export default function SearchBar({ value, onChange, centered }) {
+export default function SearchBar({ value, onChange, centered, onSidebar }) {
     return (
-        <div className={styles.wrapper}>
+        <div className={`${styles.wrapper} ${onSidebar ? styles.onSidebar : ''}`}>
             <input
                 type="text"
                 className={styles.input}

@@ -1,7 +1,7 @@
 .mark {
     display: inline;
     vertical-align: baseline;
-    background: rgba(255, 214, 10, 0.25);
-    color: rgba(255, 214, 10, 0.95);
+    background: var(--highlight-bg);
+    color: var(--highlight-color);
     border-radius: 2px;
 }
