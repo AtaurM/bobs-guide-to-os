@@ -224,9 +224,9 @@ export default function ForkCarousel({ example }) {
           <p className={styles.colLabel}>Code</p>
           <CodeBlock lines={step.code} />
         </div>
-        {stepIndex > 0 ? (
-          <div className={styles.treeCol}>
-            <p className={styles.colLabel}>Process Tree</p>
+        <div className={styles.treeCol}>
+          <p className={styles.colLabel}>Process Tree</p>
+          {stepIndex > 0 ? (
             <div className={styles.treeWrap}>
               <TreeRenderer
                 tree={step.tree}
@@ -234,15 +234,12 @@ export default function ForkCarousel({ example }) {
                 prevTree={prevStep?.tree || null}
               />
             </div>
-          </div>
-        ) : (
-          <div className={styles.treeCol}>
-            <p className={styles.colLabel}>Process Tree</p>
+          ) : (
             <div className={styles.treeWrapEmpty}>
               <span className={styles.treeEmptyLabel}>Try it first!</span>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       <p className={styles.action}>{step.action}</p>
