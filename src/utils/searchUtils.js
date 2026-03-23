@@ -1,7 +1,14 @@
-export function deepSectionId(title) {
-    return `deep-${title.replace(/\s+/g, '-').toLowerCase()}`
+function slugId(prefix, str) {
+    return `${prefix}-${str.replace(/\s+/g, '-').toLowerCase()}`
 }
 
+export function deepSectionId(title) { return slugId('deep', title) }
+
+function extractText(item) {
+    if (typeof item === 'string') return item.toLowerCase()
+    if (Array.isArray(item)) return item.map(seg => seg.text || '').join('').toLowerCase()
+    return ''
+}
 
 export function deepMatchesQuery(section, query) {
     if (!query || !query.trim()) return true;
@@ -10,14 +17,7 @@ export function deepMatchesQuery(section, query) {
 
     if (section.title?.toLowerCase().includes(q)) return true;
     if (section.sub?.toLowerCase().includes(q)) return true;
-    
-    // body can be strings or arrays of { text, bold }
-    if (section.body?.some(para => {
-        if (typeof para === 'string') return para.toLowerCase().includes(q);
-        if (Array.isArray(para)) return para.some(seg =>
-            seg.text?.toLowerCase().includes(q))
-                return false;
-    })) return true;
+    if (section.body?.some(para => extractText(para).includes(q))) return true;
 
     if (section.terms?.some(term =>
         term.t?.toLowerCase().includes(q) ||
@@ -27,16 +27,22 @@ export function deepMatchesQuery(section, query) {
     if (section.exam?.some(tip => tip.toLowerCase().includes(q))) return true;
 
     return false
-    
 }
 
-export function qrTagId(tag) {
-    return `qr-${tag.replace(/\s+/g, '-').toLowerCase()}`
+export function studyMatchesQuery(question, query) {
+    if (!query || !query.trim()) return true
+    const q = query.toLowerCase()
+    if (question.q?.toLowerCase().includes(q)) return true
+    if (question.a?.some(item => extractText(item).includes(q))) return true
+    if (question.e?.some(item => extractText(item).includes(q))) return true
+    return false
 }
+
+export function qrTagId(tag) { return slugId('qr', tag) }
 
 export function qrMatchesQuery(card, query) {
     if (!query || !query.trim()) return true
-    
+
     const q = query.toLowerCase();
     return (
         card.tag?.toLowerCase().includes(q) ||

@@ -1,10 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Outfit:wght@400;600&family=DM+Mono:wght@400;500&display=swap");
 
 /* override to avoid fighting invisible browser default styles!*/
 *, *::before, *::after {
-  box-sizing: border-box; /* padding included within width */
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: background-color 0.25s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* dark theme variables (default) */
@@ -12,11 +14,17 @@
   --bg: #06060f;
   --surface: #11112a;
   --surface-hover: #181835;
-  
+  --surface-sidebar: #0b0b14;
+  --surface-code: #030309;
+  --surface-input: rgba(255, 255, 255, 0.06);
+  --surface-bar: rgba(255, 255, 255, 0.04);
+
   --text: #eaeaf4;
   --text-muted: rgba(234, 234, 244, 0.80);
   --text-dim: #6666a0;
-  
+  --code-text: #d4d0e8;
+  --code-text-dim: #6060a0;
+
   --font-display: "Bebas Neue", sans-serif;
   --font-body: "Crimson Pro", Georgia, serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -30,10 +38,111 @@
 
   --display-ls: 0.02em;
   --border: rgba(255, 255, 255, 0.08);
+  --border-input: rgba(255, 255, 255, 0.10);
   --border-subtle: rgba(255, 255, 255, 0.04);
   --answer: #c4c0e0;
   --expl: rgba(244, 205, 78, 0.9);
 
+  --sidebar-hover: var(--surface-hover);
+  --sidebar-active-bg: rgba(var(--accent-rgb), 0.10);
+  --sidebar-border: var(--border);
+  --sidebar-text-dim: var(--text-dim);
+  --sidebar-text-hover: var(--text-muted);
+  --sidebar-text-active: var(--accent);
+  --sidebar-dot-active: var(--accent);
+  --study-q-color: var(--accent);
+  --study-q-text-color: var(--accent);
+  --study-expl-color: var(--expl);
+
+  --dot-inactive: rgba(255, 255, 255, 0.20);
+  --highlight-bg: rgba(255, 214, 10, 0.25);
+  --highlight-color: rgba(255, 214, 10, 0.95);
+  --exam-bg: rgba(255, 214, 10, 0.06);
+  --exam-border: rgba(255, 214, 10, 0.14);
+  --exam-label: rgba(255, 215, 10, 0.8);
+  --node-fill: var(--surface);
+  --node-text-new: rgba(255, 255, 255, 0.95);
+  --progress-from: var(--accent);
+  --progress-to: var(--accent2);
+  --progress-glow: rgba(var(--accent-rgb), 0.5);
+
+  --output-color: var(--accent2);
+  --output-color-rgb: var(--accent2-rgb);
+
+  --tree-edge-new: rgba(255, 255, 255, 0.9);
+  --tree-edge-present: rgba(255, 255, 255, 0.2);
+  --tree-edge-absent: rgba(255, 255, 255, 0.05);
+  --tree-stroke-new: rgba(255, 255, 255, 0.9);
+  --tree-stroke-present: rgba(255, 61, 154, 0.5);
+  --tree-stroke-absent: rgba(255, 255, 255, 0.15);
+}
+
+/* light theme variables */
+[data-theme="light"] {
+  --bg: #f4f2ee;
+  --surface: #ffffff;
+  --surface-hover: #ebe8e2;
+  --surface-sidebar: #b07850;
+  --surface-input: rgba(0, 0, 0, 0.04);
+  --surface-bar: rgba(0, 0, 0, 0.05);
+
+  --text: #1a1a2e;
+  --text-muted: rgba(26, 26, 46, 0.80);
+  --text-dim: #8a8278;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Outfit", system-ui, sans-serif;
+  --font-mono: "DM Mono", monospace;
+
+  --accent: #e8885a;
+  --accent-rgb: 232, 136, 90;
+  --accent2: #0099bb;
+  --accent2-rgb: 0, 153, 187;
+  --accent-muted: rgba(232, 136, 90, 0.80);
+  --accent2-muted: rgba(0, 153, 187, 0.80);
+
+  --border: rgba(0, 0, 0, 0.10);
+  --border-input: rgba(0, 0, 0, 0.14);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --answer: #3a3a6a;
+  --expl: rgba(185, 142, 0, 0.95);
+
+  --sidebar-hover: rgba(0, 0, 0, 0.10);
+  --sidebar-active-bg: rgba(0, 0, 0, 0.14);
+  --sidebar-border: rgba(255, 210, 175, 0.32);
+  --sidebar-text-dim: rgba(255, 220, 195, 0.62);
+  --study-q-color: #2e5cc8;
+  --study-q-text-color: var(--expl);
+  --study-expl-color: #2e5cc8;
+  --sidebar-text-hover: rgba(255, 235, 215, 0.90);
+  --sidebar-text-active: rgba(255, 235, 215, 0.98);
+  --sidebar-dot-active: rgba(255, 230, 210, 0.95);
+
+  --dot-inactive: rgba(255, 210, 175, 0.35);
+  --highlight-bg: rgba(190, 130, 0, 0.18);
+  --highlight-color: rgb(110, 65, 0);
+  --exam-bg: rgba(180, 120, 0, 0.08);
+  --exam-border: rgba(180, 120, 0, 0.22);
+  --exam-label: rgba(130, 85, 0, 0.9);
+  --node-fill: #f5f0ea;
+  --node-text-new: rgba(80, 35, 10, 0.88);
+  --progress-from: #f0aa78;
+  --progress-to: #e8885a;
+  --progress-glow: rgba(232, 136, 90, 0.35);
+
+  --surface-code: #ede8df;
+  --code-text: #2c1a08;
+  --code-text-dim: #8a7060;
+
+  --output-color: #4aaee0;
+  --output-color-rgb: 74, 174, 224;
+
+  --tree-edge-new: rgba(60, 30, 10, 0.85);
+  --tree-edge-present: rgba(60, 30, 10, 0.25);
+  --tree-edge-absent: rgba(60, 30, 10, 0.08);
+  --tree-stroke-new: rgba(60, 30, 10, 0.85);
+  --tree-stroke-present: rgba(212, 85, 16, 0.6);
+  --tree-stroke-absent: rgba(60, 30, 10, 0.2);
 }
 
 body {
@@ -41,4 +150,5 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   overflow: hidden;
+  transition: background 0.3s, color 0.3s;
 }

@@ -25,12 +25,15 @@
 .labelShort { display: none; }
 .labelFull  { display: inline; }
 
+.compact .labelFull  { display: none; }
+.compact .labelShort { display: inline; }
+
 .desktop {
     display: flex;
     gap: 4px;
     align-items: center;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--surface-bar);
+    border: 1px solid var(--border);
     border-radius: 40px;
     padding: 4px 6px;
 }
@@ -47,7 +50,7 @@
     justify-content: center;
     gap: 4px;
     background: var(--bg);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--border);
     padding: 8px 12px 12px;
     padding-bottom: max(12px, env(safe-area-inset-bottom));
     will-change: transform;
@@ -61,7 +64,6 @@
     text-align: center;
 }
 
-/* switch to short labels when screen is narrow */
 @media (max-width: 240px) {
     .mobile .labelFull  { display: none; }
     .mobile .labelShort { display: inline; }

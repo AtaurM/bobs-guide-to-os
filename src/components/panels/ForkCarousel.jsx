@@ -91,17 +91,17 @@ function TreeRenderer({ tree, finalTree, prevTree }) {
         const key = `${e.from}-${e.to}`
         const isPresent = currentEdgeKeys.has(key)
         const isNew = isPresent && !prevEdgeKeys.has(key)
-        const stroke = isNew
-          ? 'rgba(255,255,255,0.9)'
+        const strokeVar = isNew
+          ? 'var(--tree-edge-new)'
           : isPresent
-          ? 'rgba(255,255,255,0.2)'
-          : 'rgba(255,255,255,0.05)'
+          ? 'var(--tree-edge-present)'
+          : 'var(--tree-edge-absent)'
         return (
           <line
             key={i}
             x1={from.x} y1={from.y + NODE_R}
             x2={to.x} y2={to.y - NODE_R}
-            stroke={stroke}
+            style={{ stroke: strokeVar }}
             strokeWidth={isNew ? 2 : 1.5}
           />
         )
@@ -119,14 +119,16 @@ function TreeRenderer({ tree, finalTree, prevTree }) {
           <g key={node.id} opacity={isPresent ? 1 : 0.1}>
             <circle
               cx={pos.x} cy={pos.y} r={NODE_R}
-              fill="var(--surface)"
-              stroke={isNew ? 'rgba(255,255,255,0.9)' : isPresent ? 'rgba(255,61,154,0.5)' : 'rgba(255,255,255,0.15)'}
+              style={{
+                fill: 'var(--node-fill)',
+                stroke: isNew ? 'var(--tree-stroke-new)' : isPresent ? 'var(--tree-stroke-present)' : 'var(--tree-stroke-absent)',
+              }}
               strokeWidth={isNew ? 2 : 1.5}
             />
             <text
               x={pos.x} y={pos.y + 5}
               textAnchor="middle"
-              fill={isNew ? 'rgba(255,255,255,0.95)' : 'var(--text)'}
+              style={{ fill: isNew ? 'var(--node-text-new)' : 'var(--code-text)' }}
               fontSize="13"
               fontFamily="var(--font-display)"
               letterSpacing="0.05em"
@@ -141,7 +143,7 @@ function TreeRenderer({ tree, finalTree, prevTree }) {
                   x={pos.x + NODE_R + 6 + oi * 14}
                   y={pos.y + 5}
                   textAnchor="start"
-                  fill={isNewOut ? 'var(--accent)' : 'var(--accent2)'}
+                  fill={isNewOut ? 'var(--accent)' : 'var(--output-color)'}
                   fontSize="10"
                   fontFamily="var(--font-mono)"
                   fontWeight={isNewOut ? 'bold' : 'normal'}
@@ -224,9 +226,9 @@ export default function ForkCarousel({ example }) {
           <p className={styles.colLabel}>Code</p>
           <CodeBlock lines={step.code} />
         </div>
-        {stepIndex > 0 ? (
-          <div className={styles.treeCol}>
-            <p className={styles.colLabel}>Process Tree</p>
+        <div className={styles.treeCol}>
+          <p className={styles.colLabel}>Process Tree</p>
+          {stepIndex > 0 ? (
             <div className={styles.treeWrap}>
               <TreeRenderer
                 tree={step.tree}
@@ -234,15 +236,12 @@ export default function ForkCarousel({ example }) {
                 prevTree={prevStep?.tree || null}
               />
             </div>
-          </div>
-        ) : (
-          <div className={styles.treeCol}>
-            <p className={styles.colLabel}>Process Tree</p>
+          ) : (
             <div className={styles.treeWrapEmpty}>
               <span className={styles.treeEmptyLabel}>Try it first!</span>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       <p className={styles.action}>{step.action}</p>

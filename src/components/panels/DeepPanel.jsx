@@ -26,7 +26,6 @@ function DeepSection({ section, isOpen, onToggle }) {
                         <BodyParagraph key={i} paragraph={para} />
                     ))}
 
-                    {/* terms and tips are optional */}
                     {section.terms && (
                         <div className={styles.terms}>
                             <p className={styles.termsLabel}>Key Terms</p>
@@ -105,11 +104,18 @@ export default function DeepPanel({ openSections, onToggleSection, sidebarOpen, 
 
                     <Collapse isOpen={othersOpen}>
                         <div>
-                            {otherSections.map((section) => (
-                                <div key={section.title} className={styles.othersItem}>
-                                    <DeepSection section={section} />
-                                </div>
-                            ))}
+                            {otherSections.map((section) => {
+                                const id = deepSectionId(section.title);
+                                return (
+                                    <div key={section.title} className={styles.othersItem}>
+                                        <DeepSection
+                                            section={section}
+                                            isOpen={openSections.has(id)}
+                                            onToggle={() => onToggleSection(id)}
+                                        />
+                                    </div>
+                                );
+                            })}
                         </div>
                     </Collapse>
                 </div>

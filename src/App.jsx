@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { SearchContext } from './context/SearchContext'
+import { ThemeContext } from './context/ThemeContext'
+import ThemeToggle from './components/common/ThemeToggle'
 import styles from './App.module.css'
 import DeepPanel from './components/panels/DeepPanel'
 import QRPanel from './components/panels/QRPanel'
@@ -14,22 +16,20 @@ import useIsMobile from './hooks/useIsMobile'
 import deepDiveData from './data/deepDiveData'
 import qrData from './data/qrData'
 import { qaSections } from './data/studyData'
-import { deepSectionId } from './utils/searchUtils'
-import { qrTagId } from './utils/searchUtils'
+import { deepSectionId, qrTagId } from './utils/searchUtils'
 
 const SIDEBAR_WIDTH = 230
+const TRANSITION = '0.28s cubic-bezier(0.4, 0, 0.2, 1)'
+const TAB_WIDTH = 36
+const MOBILE_MARGIN = 16
+const PANEL_MAX_WIDTH = 800
 const MODE_ORDER = ['guide', 'deep', 'qr', 'study']
 
 const QR_TAGS = [...new Set(qrData.map(c => c.tag))]
 const QR_SECTION_IDS = QR_TAGS.map(tag => qrTagId(tag))
-const QR_NAV_ITEMS = QR_TAGS.map(tag => ({
-  id: qrTagId(tag),
-  label: tag,
-}))
-const DEEP_NAV_ITEMS = deepDiveData.map(s => ({
-  id: deepSectionId(s.title),
-  label: s.title,
-}))
+const QR_NAV_ITEMS = QR_TAGS.map(tag => ({ id: qrTagId(tag), label: tag }))
+
+const DEEP_NAV_ITEMS = deepDiveData.map(s => ({ id: deepSectionId(s.title), label: s.title }))
 const DEEP_SECTION_IDS = DEEP_NAV_ITEMS.map(s => s.id)
 
 const STUDY_NAV_ITEMS = [
@@ -52,8 +52,19 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
   const [transitioning, setTransitioning] = useState('idle')
   const [vpWidth, setVpWidth] = useState(() => window.innerWidth)
-
+  const [theme, setTheme] = useState('light')
+  const [themeFading, setThemeFading] = useState(false)
   const [mode, setMode] = useState('deep')
+
+  function toggleTheme() {
+    setThemeFading(true)
+    setTimeout(() => {
+      setTheme(t => t === 'dark' ? 'light' : 'dark')
+      setThemeFading(false)
+    }, 120)
+  }
+
+  const sidebarExpanded = sidebarOpen && !isMobile
   const sidebarItems = mode === 'deep' ? DEEP_NAV_ITEMS
     : mode === 'qr' ? QR_NAV_ITEMS
     : mode === 'study' ? STUDY_NAV_ITEMS
@@ -75,7 +86,10 @@ export default function App() {
   }, [])
 
   function handleModeChange(newMode) {
-    if (newMode === mode) return
+    if (newMode === mode) {
+      if (mainRef.current) mainRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
     const oldIndex = MODE_ORDER.indexOf(mode)
     const newIndex = MODE_ORDER.indexOf(newMode)
     const goingRight = newIndex > oldIndex
@@ -106,12 +120,11 @@ export default function App() {
   }
 
   function handleDeepToggleAll() {
-    const allIds = DEEP_NAV_ITEMS.map(s => s.id)
     if (deepAllOpen) {
       setOpenSections(new Set())
       setDeepAllOpen(false)
     } else {
-      setOpenSections(new Set(allIds))
+      setOpenSections(new Set(DEEP_SECTION_IDS))
       setDeepAllOpen(true)
     }
   }
@@ -145,7 +158,7 @@ export default function App() {
     }
   }
 
-  function scrollToId(index, id) {
+  function scrollToId(_index, id) {
     const el = document.getElementById(id)
     const container = mainRef.current
     const elTop = el?.getBoundingClientRect().top
@@ -168,41 +181,24 @@ export default function App() {
     }
 
     if (!el || !container) return
-    const target = container.scrollTop + distance
-    container.scrollTo({ top: target, behavior: 'smooth' })
+    container.scrollTo({ top: container.scrollTop + distance, behavior: 'smooth' })
   }
 
   const sidebarWidth = sidebarOpen ? SIDEBAR_WIDTH : 0
-
-  const TRANSITION = '0.28s cubic-bezier(0.4, 0, 0.2, 1)'
-  const TAB_WIDTH = 36
-  const MOBILE_MARGIN = 16
-  const PANEL_MAX_WIDTH = 800
-
-  const openLeft = 16
-  const openWidth = SIDEBAR_WIDTH - 28
-
   const closedLeft = isMobile
     ? MOBILE_MARGIN + TAB_WIDTH + 8
     : Math.max(16, vpWidth / 2 - PANEL_MAX_WIDTH / 2)
   const closedWidth = isMobile
-    ? vpWidth - MOBILE_MARGIN - TAB_WIDTH - 8 - MOBILE_MARGIN
+    ? vpWidth - 2 * (MOBILE_MARGIN + TAB_WIDTH + 8)
     : Math.min(PANEL_MAX_WIDTH, vpWidth - 32)
-  const closedTop = isMobile ? 20 : 40
 
+  const searchRight = sidebarOpen
+    ? 16 + SIDEBAR_WIDTH - 28
+    : closedLeft + closedWidth
+  const compactModeBar = !isMobile && (vpWidth - 22 - searchRight - 20) < 350
   const searchStyle = sidebarOpen
-    ? {
-        top: 20,
-        left: openLeft,
-        width: openWidth,
-        transition: `top ${TRANSITION}, left ${TRANSITION}, width ${TRANSITION}`,
-      }
-    : {
-        top: closedTop,
-        left: closedLeft,
-        width: closedWidth,
-        transition: `top ${TRANSITION}, left ${TRANSITION}, width ${TRANSITION}`,
-      }
+    ? { top: 20, left: 12, width: SIDEBAR_WIDTH - 24, transition: `top ${TRANSITION}, left ${TRANSITION}, width ${TRANSITION}` }
+    : { top: isMobile ? 20 : 40, left: closedLeft, width: closedWidth, transition: `top ${TRANSITION}, left ${TRANSITION}, width ${TRANSITION}` }
 
   const mainClass = [
     transitioning === 'out-left'  ? styles.slideOutLeft  : '',
@@ -211,16 +207,19 @@ export default function App() {
     transitioning === 'in-right'  ? styles.slideInRight  : '',
   ].filter(Boolean).join(' ') || undefined
 
+  const onToggleAll = mode === 'deep' ? handleDeepToggleAll
+    : mode === 'qr' ? handleQrToggleAll
+    : mode === 'study' ? handleStudyToggleAll
+    : null
+
   return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
     <SearchContext.Provider value={searchQuery}>
-      <div className={styles.root}>
+      <div className={styles.root} data-theme={theme}>
         <ProgressBar progress={progress} />
 
         {isMobile && sidebarOpen && (
-          <div
-            className={styles.backdrop}
-            onClick={() => setSidebarOpen(false)}
-          />
+          <div className={styles.backdrop} onClick={() => setSidebarOpen(false)} />
         )}
 
         <Sidebar
@@ -228,32 +227,21 @@ export default function App() {
           activeIndex={activeIndex}
           onSectionClick={scrollToId}
           allOpen={allOpen}
-          onToggleAll={
-            mode === 'deep' ? handleDeepToggleAll
-            : mode === 'qr' ? handleQrToggleAll
-            : mode === 'study' ? handleStudyToggleAll
-            : null
-          }
+          onToggleAll={onToggleAll}
           isOpen={sidebarOpen}
         />
 
         <button
           className={`${styles.sidebarTab} ${isMobile ? styles.sidebarTabMobile : ''} ${isMobile && !sidebarOpen ? styles.sidebarTabMobileClosed : ''}`}
           onClick={() => setSidebarOpen(v => !v)}
-          style={{
-            left: sidebarOpen ? SIDEBAR_WIDTH : (isMobile ? 16 : 0),
-            transition: `left ${TRANSITION}`,
-          }}
+          style={{ left: sidebarOpen ? SIDEBAR_WIDTH : (isMobile ? 16 : 0), transition: `left ${TRANSITION}` }}
           aria-label={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
         >
           {sidebarOpen ? '‹' : '›'}
         </button>
 
         {!sidebarOpen && (
-          <div
-            className={styles.searchBlur}
-            style={{ left: 0, transition: `left ${TRANSITION}` }}
-          />
+          <div className={styles.searchBlur} style={{ left: 0, transition: `left ${TRANSITION}` }} />
         )}
 
         <div className={styles.searchArea} style={searchStyle}>
@@ -261,7 +249,7 @@ export default function App() {
             value={searchQuery}
             onChange={setSearchQuery}
             centered={!sidebarOpen || isMobile}
-            highlighted={!sidebarOpen || isMobile}
+            onSidebar={sidebarOpen}
           />
         </div>
 
@@ -274,24 +262,23 @@ export default function App() {
             paddingBottom: isMobile ? 80 : 0,
             paddingLeft: isMobile ? 24 : 0,
             paddingRight: isMobile ? 24 : 0,
-            transition: `margin-left ${TRANSITION}`,
+            opacity: themeFading ? 0 : 1,
+            transition: `margin-left ${TRANSITION}, opacity ${themeFading ? '0.12s' : '0.18s'} ease`,
           }}
         >
           <div className={mainClass} style={{ minHeight: '100%' }}>
-            {mode === 'guide' && (
-              <div className={styles.comingSoon}>Coming later</div>
-            )}
+            {mode === 'guide' && <div className={styles.comingSoon}>Coming later</div>}
             {mode === 'deep' && (
               <DeepPanel
                 openSections={openSections}
                 onToggleSection={toggleSection}
-                sidebarOpen={sidebarOpen && !isMobile}
+                sidebarOpen={sidebarExpanded}
                 isMobile={isMobile}
               />
             )}
             {mode === 'qr' && (
               <QRPanel
-                sidebarOpen={sidebarOpen && !isMobile}
+                sidebarOpen={sidebarExpanded}
                 openGroups={openGroups}
                 onToggleGroup={toggleGroup}
                 isMobile={isMobile}
@@ -299,7 +286,7 @@ export default function App() {
             )}
             {mode === 'study' && (
               <StudyPanel
-                sidebarOpen={sidebarOpen && !isMobile}
+                sidebarOpen={sidebarExpanded}
                 isMobile={isMobile}
                 openSections={openStudySections}
                 onToggleSection={toggleStudySection}
@@ -308,17 +295,21 @@ export default function App() {
           </div>
         </main>
 
-        {!isMobile && (
-          <div className={styles.topRight}>
-            <ModeBar mode={mode} onModeChange={handleModeChange} isMobile={false} />
-          </div>
-        )}
-
         {isMobile && (
-          <ModeBar mode={mode} onModeChange={handleModeChange} isMobile={true} />
+          <button
+            className={styles.mobileThemeTab}
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          >
+            {theme === 'dark' ? '☀' : '☾'}
+          </button>
         )}
-
+        {isMobile
+          ? <ModeBar mode={mode} onModeChange={handleModeChange} isMobile />
+          : <div className={styles.topRight}><ThemeToggle /><ModeBar mode={mode} onModeChange={handleModeChange} compact={compactModeBar} /></div>
+        }
       </div>
     </SearchContext.Provider>
+    </ThemeContext.Provider>
   )
 }

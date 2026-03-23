@@ -7,9 +7,9 @@ const MODES = [
   { id: 'study', label: 'Study',    short: 'S' },
 ]
 
-export default function ModeBar({ mode, onModeChange, isMobile }) {
+export default function ModeBar({ mode, onModeChange, isMobile, compact }) {
     return (
-        <nav className={`${styles.bar} ${isMobile ? styles.mobile : styles.desktop}`}>
+        <nav className={`${styles.bar} ${isMobile ? styles.mobile : styles.desktop} ${compact ? styles.compact : ''}`}>
             {MODES.map(m => (
                 <button
                     key={m.id}

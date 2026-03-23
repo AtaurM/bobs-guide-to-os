@@ -34,16 +34,15 @@
 }
 
 .panelSub2 {
-    
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  line-height: 1.72;
-  font-style: italic;
-  color: var(--accent);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.72;
+    font-style: italic;
+    color: var(--accent);
 }
 
 .section {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--border-subtle);
 }
 
 .sectionSub {
@@ -72,9 +71,10 @@
     text-align: left;
     padding: 20px 0;
     display: block;
-    :hover {
-        opacity: 0.75;
-    }
+}
+
+.header:hover {
+    opacity: 0.75;
 }
 
 .headerInner {
@@ -105,9 +105,10 @@
     line-height: 1.78;
     color: var(--text-muted);
     margin-bottom: 14px;
-    :last-child {
-        margin-bottom: 0;
-    }
+}
+
+.bodyPara:last-child {
+    margin-bottom: 0;
 }
 
 .terms {
@@ -148,18 +149,18 @@
 }
 
 .termDef {
- font-family: var(--font-body);
- font-size: 0.93rem;
- color: var(--text-muted);
- line-height: 1.5;
+    font-family: var(--font-body);
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.5;
 }
 
 .exam {
     margin-top: 20px;
     padding: 14px 18px;
     border-radius: 6px;
-    background: rgba(255, 214, 10, 0.06);
-    border: 1px solid rgba(255, 214, 10, 0.14);
+    background: var(--exam-bg);
+    border: 1px solid var(--exam-border);
 }
 
 .examLabel {
@@ -167,7 +168,7 @@
     font-size: 0.6rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255, 215, 10, 0.8);
+    color: var(--exam-label);
     margin-bottom: 10px;
 }
 
@@ -187,14 +188,7 @@
 
 .others {
     padding: 20px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.othersLabel {
-    font-family: var(--font-body);
-    font-size: 0.8rem;
-    color: var(--tex-dim);
-    font-style: italic;
+    border-top: 1px solid var(--border-subtle);
 }
 
 .othersToggle {
@@ -220,7 +214,8 @@
 }
 
 .bold {
-    color:var(--text); font-weight:600;
+    color: var(--text);
+    font-weight: 600;
 }
 
 .numberedList {
