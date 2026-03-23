@@ -39,6 +39,6 @@
     transition: color 0.15s;
 }
 
-.clean:hover {
+.clear:hover {
     color: var(--accent);
 }

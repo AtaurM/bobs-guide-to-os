@@ -1,6 +1,6 @@
 import styles from './SearchBar.module.css'
 
-export default function SearchBar({ value, onChange, centered, highlighted }) {
+export default function SearchBar({ value, onChange, centered }) {
     return (
         <div className={styles.wrapper}>
             <input

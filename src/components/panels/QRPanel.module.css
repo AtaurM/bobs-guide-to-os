@@ -7,16 +7,16 @@
 }
 
 .panelHeader {
- margin-bottom: 36px;
+    margin-bottom: 36px;
 }
 
 .panelEyebrow {
- font-family: var(--font-mono);
- font-size: 0.95rem;
- letter-spacing: 0.18em;
- text-transform: uppercase;
- color: var(--accent);
- margin-bottom: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
 }
 
 .panelTitle {

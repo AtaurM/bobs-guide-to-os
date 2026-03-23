@@ -34,12 +34,11 @@
 }
 
 .panelSub2 {
-    
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  line-height: 1.72;
-  font-style: italic;
-  color: var(--accent);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.72;
+    font-style: italic;
+    color: var(--accent);
 }
 
 .section {
@@ -72,9 +71,10 @@
     text-align: left;
     padding: 20px 0;
     display: block;
-    :hover {
-        opacity: 0.75;
-    }
+}
+
+.header:hover {
+    opacity: 0.75;
 }
 
 .headerInner {
@@ -105,9 +105,10 @@
     line-height: 1.78;
     color: var(--text-muted);
     margin-bottom: 14px;
-    :last-child {
-        margin-bottom: 0;
-    }
+}
+
+.bodyPara:last-child {
+    margin-bottom: 0;
 }
 
 .terms {
@@ -148,10 +149,10 @@
 }
 
 .termDef {
- font-family: var(--font-body);
- font-size: 0.93rem;
- color: var(--text-muted);
- line-height: 1.5;
+    font-family: var(--font-body);
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.5;
 }
 
 .exam {
@@ -190,13 +191,6 @@
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.othersLabel {
-    font-family: var(--font-body);
-    font-size: 0.8rem;
-    color: var(--tex-dim);
-    font-style: italic;
-}
-
 .othersToggle {
     display: flex;
     align-items: center;
@@ -220,7 +214,8 @@
 }
 
 .bold {
-    color:var(--text); font-weight:600;
+    color: var(--text);
+    font-weight: 600;
 }
 
 .numberedList {
